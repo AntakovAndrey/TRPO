@@ -1,0 +1,41 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"]</title>
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@500&display=swap" rel="stylesheet">
+    
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="header_inner">
+                <div class="header_title">@ViewData["Title"]</div>
+                <nav class = "nav">
+                    <a href="Home" class = "nav_link">Главная</a>
+                    <a href="Filters" class = "nav_link">Поиск</a>
+                    <a href="Tickets" class = "nav_link">Билеты</a>
+                    <a href="Pilots" class = "nav_link">Пилоты</a>
+                    <a href="AddingFlight" class = "nav_link">Добавление рейса</a>
+                    <a href="SignUp" class = "nav_link">Регистрация</a>
+                    <a href="SignIn" class = "nav_link">Вход</a>
+                </nav>
+            </div>
+        </div>
+    </header>
+    <div class="container">
+        <main role="main" class="pb-3">
+            @RenderBody()
+        </main>
+    </div>
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>
