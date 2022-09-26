@@ -15,6 +15,7 @@ namespace TRPO.Controllers
 
         public IActionResult Index()
         {
+            DataBase.InsertUser();
             return View();
         }
 
