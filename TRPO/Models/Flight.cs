@@ -2,13 +2,13 @@
 {
     public class Flight
     {
-        public int Id { get; set; }
+        public int FlightId { get; set; }
         public DateTime Date { get; set; }
-        public TimeOnly Start_time { get; set; }
-        public TimeOnly Finish_time { get; set; }
-        public string Start_point { get; set; }
-        public string Finish_point { get; set; }
-        public int Palane_id { get; set; }
-        public int Crew_id { get; set; }
+        public TimeOnly StartTime { get; set; }
+        public TimeOnly FinishTime { get; set; }
+        public string StartPoint { get; set; }
+        public string FinishPoint { get; set; }
+        public int PalaneId { get; set; }
+        public int CrewId { get; set; }
     }
 }

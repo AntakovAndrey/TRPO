@@ -2,11 +2,11 @@
 {
     public class Pilot
     {
-        public int Id { get; set; }
+        public int PilotId { get; set; }
         public string Name { get; set; }
         public string Surname { get; set; }
         public string Shedul { get; set; }
-        public TimeOnly Work_Hours_start { get; set; }
-        public TimeOnly Work_Hours_finsh { get; set; }
+        public TimeOnly WorkHoursStart { get; set; }
+        public TimeOnly WorkHoursFinsh { get; set; }
     }
 }

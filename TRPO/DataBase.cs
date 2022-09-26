@@ -1,32 +1,38 @@
-﻿using Microsoft.Data.SqlClient;
+﻿
+using Microsoft.Data.SqlClient;
 using System;
+using System.Data;
+using System.Data.SqlClient;
+
+//using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
+//using System.Windows.Forms;
 
 namespace TRPO
 {
-    public static class DataBase
+    class DataBase
     {
-        static string connectionString;
-        static SqlConnection connection;
-        public static async void Connect()
+        SqlConnection sqlConnection = new SqlConnection(@"Data Source = DESKTOP-30507DA;Initial catalog = trpo;Integrated Security = true;TrustServerCertificate = true");
+
+        public void openConnection()
         {
-            connectionString = "Server=localhost;Database=master;Trusted_Connection=True;";
-            connection = new SqlConnection(connectionString);
-            Console.WriteLine("Свойства подключения:");
-            Console.WriteLine($"\tСтрока подключения: {connection.ConnectionString}");
-            Console.WriteLine($"\tБаза данных: {connection.Database}");
-            Console.WriteLine($"\tСервер: {connection.DataSource}");
-            Console.WriteLine($"\tВерсия сервера: {connection.ServerVersion}");
-            Console.WriteLine($"\tСостояние: {connection.State}");
-            Console.WriteLine($"\tWorkstationld: {connection.WorkstationId}");
+            if(sqlConnection.State==System.Data.ConnectionState.Closed)
+            {
+                sqlConnection.Open();
+            }
         }
-        public static async void InsertUser()
+        public void closeConnection()
         {
-            Connect();
-            string sqlExpression = "INSERT INTO Passanger (Name, Surname, Pasport_ser, Pasport_num, Nationality, Date_of_birth, Telephone, Password) VALUES ('Tom', 'Хуём', 'МР', 12345, 'СССР',05.05.2000,'+4554552234','хуец')";
-            await connection.OpenAsync();
-            SqlCommand command = new SqlCommand(sqlExpression, connection);
-            int number = await command.ExecuteNonQueryAsync();
-            //Console.WriteLine($"Добавлено объектов: {number}");
+            if (sqlConnection.State == System.Data.ConnectionState.Open)
+            {
+                sqlConnection.Close();
+            }
         }
+        public SqlConnection GetConnection()
+        {
+            return sqlConnection;
+        }
+
+
+
     }
 }

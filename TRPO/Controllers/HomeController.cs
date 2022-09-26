@@ -1,12 +1,16 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.Data.SqlClient;
+using System.Data;
 using System.Diagnostics;
 using TRPO.Models;
+
 
 namespace TRPO.Controllers
 {
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
+        private DataBase _dataBase = new DataBase();
 
         public HomeController(ILogger<HomeController> logger)
         {
@@ -15,7 +19,25 @@ namespace TRPO.Controllers
 
         public IActionResult Index()
         {
-            DataBase.InsertUser();
+            Console.WriteLine(_dataBase.GetConnection());
+            
+            DataTable table = new DataTable();
+            SqlDataAdapter adapter = new SqlDataAdapter();
+
+            SqlCommand command = new SqlCommand("SELECT * FROM Passanger WHERE Passanger_id = @uI ", _dataBase.GetConnection());
+            command.Parameters.Add("@uI", SqlDbType.Int).Value = 2;
+
+            adapter.SelectCommand = command;
+            adapter.Fill(table);
+
+            if (table.Rows.Count > 0)
+            {
+                DataRow[] foundrow = table.Select();
+                for(int i =0;i<9;i++)
+                {
+                    Console.WriteLine(foundrow[0][i]);
+                }
+            }
             return View();
         }
 

@@ -2,11 +2,11 @@
 {
     public class Passanger
     {
-        public int Passanger_id { set; get; }
+        public int PassangerId { set; get; }
         public string Name { set; get; }
         public string Surname { set; get; }
-        public string Passport_ser { set; get; }
-        public DateTime Date_of_birth { set; get; }
+        public string PassportSeries { set; get; }
+        public DateTime DateOfBirth { set; get; }
         public string Telephone { set; get; }
         public string Password { set; get; }
     }
