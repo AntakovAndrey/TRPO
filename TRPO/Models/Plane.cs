@@ -7,6 +7,13 @@
         public int MaxFlightRange { get; set; }
         public int NumberOfSeats { get; set; }
         public double FuelConsumtion { get; set; }
-
+        Plane(int planeId, string type, int maxFlightRange, int numberOfSeats, double fuelConsumtion)
+        {
+            PlaneId = planeId;
+            Type = type;
+            MaxFlightRange = maxFlightRange;
+            NumberOfSeats = numberOfSeats;
+            FuelConsumtion = fuelConsumtion;
+        }
     }
 }
