@@ -1,26 +1,31 @@
-﻿@{
+﻿@model Passanger
+@{
     ViewData["Title"] = "Регистрация";
 }
-@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@{
-}
 
-<div class = "sign_in_container">
+<form method = "post" asp-controller="SignUp" asp-action="Check" class = "sign_in_container">
     <p>Имя</p>
-    <input class = "short_input"> </input>
+    
+    <input class = "short_input" asp-for="Name"> </input>
+    <span asp-validation-for="Name"></span>
     <p>Фамилия</p>
-    <input class = "short_input"> </input>
+    <input class = "short_input" asp-for="Surname"> </input>
+    <span asp-validation-for="Name"></span>
     <p>Пароль</p>
-    <input class = "short_input"> </input>
+    <input class = "short_input" asp-for="Password"> </input>
+    <span asp-validation-for="Name"></span>
     <p>Телефон</p>
-    <input class = "short_input"> </input>
+    <input class = "short_input"asp-for="Telephone"> </input>
+    <span asp-validation-for="Name"></span>
     <p>Серия паспорта</p>
-    <input class = "short_input"> </input>
+    <input class = "short_input" asp-for="PassportSeries"> </input>
+    <span asp-validation-for="Name"></span>
     <p>Номер паспорта</p>
-    <input class = "short_input"> </input>
+    <input class = "short_input"asp-for="PassportNumber"> </input>
+    <span asp-validation-for="Name"></span>
     <p>Гражданство</p>
-    <input class = "short_input"> </input>
+    <input class = "short_input"asp-for="Nationality"> </input>
+    <span asp-validation-for="Name"></span>
     <button class = "sign_in_button">Зарегистрироваться</button>
-</div>
+    
+</form>

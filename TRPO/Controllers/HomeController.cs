@@ -1,9 +1,9 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Data.SqlClient;
 using System.Data;
 using System.Diagnostics;
 using TRPO.Models;
-
+using TRPO.VievModels;
 
 namespace TRPO.Controllers
 {
@@ -15,6 +15,17 @@ namespace TRPO.Controllers
         public HomeController(ILogger<HomeController> logger)
         {
             _logger = logger;
+        }
+
+        public ViewResult Index()
+        {
+
+            var allFlights = new HomeViewModel
+            {
+                 
+            }
+
+            return View(allFlights);
         }
 
         public IActionResult Index()
