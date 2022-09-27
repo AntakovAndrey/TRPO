@@ -11,6 +11,18 @@
         public string Telephone { set; get; }
         public string Nationality { set; get; }
         public string Password { set; get; }
+        Passanger(int passangerId, string name, string surname, string passportSeries, int passportNumber, DateTime dateOfBirth, string telephone, string nationality, string password)
+        {
+            PassangerId = passangerId;
+            Name = name;
+            Surname = surname;
+            PassportSeries = passportSeries;
+            PassportNumber = passportNumber;
+            DateOfBirth = dateOfBirth;
+            Telephone = telephone;
+            Nationality = nationality;
+            Password = password;
+        }
     }
     
 

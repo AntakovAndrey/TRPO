@@ -8,5 +8,14 @@
         public string Shedul { get; set; }
         public TimeOnly WorkHoursStart { get; set; }
         public TimeOnly WorkHoursFinsh { get; set; }
+        Pilot(int pilotId, string name, string surname, string shedul, TimeOnly workHoursStart, TimeOnly workHoursFinsh)
+        {
+            PilotId = pilotId;
+            Name = name;
+            Surname = surname;
+            Shedul = shedul;
+            WorkHoursStart = workHoursStart;
+            WorkHoursFinsh = workHoursFinsh;
+        }
     }
 }
