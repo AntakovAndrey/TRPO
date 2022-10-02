@@ -2,15 +2,16 @@
 using Microsoft.Data.SqlClient;
 using System.Data;
 using System.Diagnostics;
+using TRPO.mocks;
 using TRPO.Models;
-using TRPO.VievModels;
+//using TRPO.VievModels;
 
 namespace TRPO.Controllers
 {
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
-        private DataBase _dataBase = new DataBase();
+        //private DataBase _dataBase = new DataBase();
 
         public HomeController(ILogger<HomeController> logger)
         {
@@ -19,38 +20,38 @@ namespace TRPO.Controllers
 
         public ViewResult Index()
         {
-
-            var allFlights = new HomeViewModel
+            MockFlights m = new MockFlights();
+            foreach(var flight in m.Flights)
             {
-                 
+                Console.WriteLine(flight.FinishPoint);
             }
 
-            return View(allFlights);
+            return View("Index");
         }
 
-        public IActionResult Index()
-        {
-            Console.WriteLine(_dataBase.GetConnection());
+        //public IActionResult Index()
+        //{
+        //    Console.WriteLine(_dataBase.GetConnection());
             
-            DataTable table = new DataTable();
-            SqlDataAdapter adapter = new SqlDataAdapter();
+        //    DataTable table = new DataTable();
+        //    SqlDataAdapter adapter = new SqlDataAdapter();
 
-            SqlCommand command = new SqlCommand("SELECT * FROM Passanger WHERE Passanger_id = @uI ", _dataBase.GetConnection());
-            command.Parameters.Add("@uI", SqlDbType.Int).Value = 2;
+        //    SqlCommand command = new SqlCommand("SELECT * FROM Passanger WHERE Passanger_id = @uI ", _dataBase.GetConnection());
+        //    command.Parameters.Add("@uI", SqlDbType.Int).Value = 2;
 
-            adapter.SelectCommand = command;
-            adapter.Fill(table);
+        //    adapter.SelectCommand = command;
+        //    adapter.Fill(table);
 
-            if (table.Rows.Count > 0)
-            {
-                DataRow[] foundrow = table.Select();
-                for(int i =0;i<9;i++)
-                {
-                    Console.WriteLine(foundrow[0][i]);
-                }
-            }
-            return View();
-        }
+        //    if (table.Rows.Count > 0)
+        //    {
+        //        DataRow[] foundrow = table.Select();
+        //        for(int i =0;i<9;i++)
+        //        {
+        //            Console.WriteLine(foundrow[0][i]);
+        //        }
+        //    }
+        //    return View();
+        //}
 
         public IActionResult Privacy()
         {

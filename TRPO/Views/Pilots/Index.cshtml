@@ -1,4 +1,5 @@
-﻿@{
+﻿@using TRPO.mocks
+@{
     ViewData["Title"] = "Пилоты";
 }
 @*
@@ -7,15 +8,36 @@
 @{
 }
 
+@{
+    MockPilots Pilots = new MockPilots();
+    var pilots = Pilots.Pilots;
+    foreach (var pilot in pilots)
+    {
+        <div class="pilot">
+            <div class="pilot_photo" >
+                <p>Фото пилота</p>
+            </div>
+                <p>@pilot.Name</p>
+                <p>@pilot.Surname</p>
+                <p>@pilot.Shedule</p>
+                <p>@pilot.WorkHoursStart</p>
+                <p>@pilot.WorkHoursFinish</p>
+            </div>   
+    }
+}
+
+
 <div class="pilot">
-    <div class="pilot_photo">
-        <p>Фото пилота</p>
-    </div>
+    
     <div class="pilot_data">
         <p> Имя пилота</p>
         <p> Фамилия пилота</p>
     </div>
 </div>
+
+
+
+
 <div class="pilot">
     <div class="pilot_photo">
         Фото пилота

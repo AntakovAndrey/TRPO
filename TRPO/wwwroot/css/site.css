@@ -122,7 +122,6 @@ main
     background: #FFFFFF;
     border: 2px solid #35C7BE;
     border-radius: 10px;
-    display: flex;
     text-align: center;
 }
 .pilot_photo p{
@@ -141,6 +140,8 @@ main
 }
 .pilot_data {
     margin-top:50px;
+    display:flex;
+    justify-content:space-between;
     align-items: center;
 }
 .pilot_data p {

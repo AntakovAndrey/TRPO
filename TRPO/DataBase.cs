@@ -11,7 +11,7 @@ namespace TRPO
 {
     class DataBase
     {
-        SqlConnection sqlConnection = new SqlConnection(@"Data Source = DESKTOP-30507DA;Initial catalog = trpo;Integrated Security = true;TrustServerCertificate = true");
+        private static SqlConnection sqlConnection = new SqlConnection(@"Data Source = DESKTOP-30507DA;Initial catalog = trpo;Integrated Security = true;TrustServerCertificate = true");
 
         public void openConnection()
         {

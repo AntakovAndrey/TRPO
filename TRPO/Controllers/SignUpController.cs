@@ -13,6 +13,9 @@ namespace TRPO.Controllers
         [HttpPost]
         public IActionResult Check(Passanger passanger)
         {
+            //string name = Request.mo
+            string name = Request.Form["Name"];
+            Console.WriteLine(name);
             Console.WriteLine(ModelState);
             if (ModelState.IsValid)
             {
@@ -21,8 +24,10 @@ namespace TRPO.Controllers
                 //DataBase dataBase = new DataBase();
                 //dataBase.openConnection();
                 //SqlCommand command = new SqlCommand()
-                
+
                 //Console.WriteLine(passanger.Surname);
+                //string name = Request.Form["Name"];
+                //Console.WriteLine(name);
                 return Redirect("Index");
             }
             return View("Index");
