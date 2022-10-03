@@ -11,7 +11,7 @@ namespace TRPO.Controllers
             return View();
         }
         [HttpPost]
-        public IActionResult Check(Passanger passanger)
+        public IActionResult Check(Passanger passange)
         {
             if (ModelState.IsValid)
             {

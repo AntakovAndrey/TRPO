@@ -9,14 +9,15 @@
     foreach (var pilot in pilots)
     {
         <div class="pilot">
-            <div class="pilot_photo" >
-                <p>Фото пилота</p>
-            </div>
                 <p>@pilot.Name</p>
                 <p>@pilot.Surname</p>
+                <p>Расписание</p>
                 <p>@pilot.Shedule</p>
+                <p>Начало работы</p>
                 <p>@pilot.WorkHoursStart</p>
+                <p>Конец работы</p>
                 <p>@pilot.WorkHoursFinish</p>
-            </div>   
+        </div> 
+        
     }
 }
