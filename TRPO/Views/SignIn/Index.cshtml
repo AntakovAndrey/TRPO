@@ -1,4 +1,5 @@
-﻿@{
+﻿@model Passanger
+@{
     ViewData["Title"] = "Вход";
 }
 @*
@@ -6,11 +7,11 @@
 *@
 @{
 }
-
-<div class = "sign_in_container">
+<form method="post" asp-controller="SignUp" asp-action="Check" class="sign_in_container">
     <p>Имя</p>
-    <input class = "short_input"> </input>
+    <input class="short_input" asp-for="Name"> </input>
     <p>Пароль</p>
-    <input class = "short_input"> </input>
-    <button class = "sign_in_button">Вход</button>
-</div>
+    <input class="short_input" asp-for="Password"> </input>
+    <button class="sign_in_button">Вход</button>
+</form>
+

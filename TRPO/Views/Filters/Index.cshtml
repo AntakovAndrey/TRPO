@@ -8,25 +8,28 @@
 @{
 }
 
-<div class = "filters_line">
-    <p>Цена</p>
-    <p>От:<input class = "short_input"> </input></p>
-    <p>До:<input class = "short_input"> </input></p>
-</div>
 
-<div class = "filters_line">
-    <p>Дата</p>
-    <p>От:<input class = "short_input"> </input></p>
-    <p>До:<input class = "short_input"> </input></p>
-</div>
-<div class = "filters_line">
-    <p>Метсо</p>
-    <p>Куда:<input class = "long_input"> </input></p>
-</div>
-<div class = "filters_line">
-    <p>Класс</p>
-    <p>Тип:<input class = "long_input"> </input></p>
-</div>
-<button class = "search_button">
-    Найти
-</button>
+<form method="post" asp-controller="Filters" asp-action="Check">
+    <div class="filters_line">
+        <p>Цена</p>
+        <p>От:<input class="short_input"> </input></p>
+        <p>До:<input class="short_input"> </input></p>
+    </div>
+
+    <div class="filters_line">
+        <p>Дата</p>
+        <p>От:<input class="short_input"> </input></p>
+        <p>До:<input class="short_input"> </input></p>
+    </div>
+    <div class="filters_line">
+        <p>Метсо</p>
+        <p>Куда:<input class="long_input"> </input></p>
+    </div>
+    <div class="filters_line">
+        <p>Класс</p>
+        <p>Тип:<input class="long_input"> </input></p>
+    </div>
+    <button class="search_button">
+        Найти
+    </button>
+</form>
