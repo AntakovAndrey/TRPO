@@ -15,6 +15,7 @@ namespace TRPO.mocks
                 dataBase.openConnection();
                 SqlCommand command = new SqlCommand("SELECT * FROM Flight", dataBase.GetConnection());
                 SqlDataReader reader = command.ExecuteReader();
+                
                 if (reader.HasRows)
                 {
                     while (reader.Read())
