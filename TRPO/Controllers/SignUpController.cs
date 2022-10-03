@@ -13,22 +13,50 @@ namespace TRPO.Controllers
         [HttpPost]
         public IActionResult Check(Passanger passanger)
         {
-            //string name = Request.mo
-            string name = Request.Form["Name"];
-            Console.WriteLine(name);
-            Console.WriteLine(ModelState);
             if (ModelState.IsValid)
             {
-                //Index().
-                //string commandExpression = $"INSERT INTO Passanger (Name,Surname,Pasport_ser,Pasport_num,Nationality,Date_of_birth,Telephone,Password) VALUES ({})";
-                //DataBase dataBase = new DataBase();
-                //dataBase.openConnection();
-                //SqlCommand command = new SqlCommand()
+                string Name = Request.Form["Name"];
+                string Surname = Request.Form["Surname"];
+                string Pasport_ser = Request.Form["PassportSeries"];
+                string Pasport_num = Request.Form["PassportNumber"];
+                string Telephone = Request.Form["Telephone"];
+                string Nationality = Request.Form["Nationality"];
+                string Password = Request.Form["Password"];
+                DateTime Date_of_birth = DateTime.Now;
 
+                //Index().
+                string commandExpression = $"INSERT INTO Passanger (Name,Surname,Pasport_ser,Pasport_num,Nationality,Date_of_birth,Telephone,Password) VALUES" +
+                    $" (@Name,@Surname,@Pasport_ser,@Pasport_num,@Nationality,@Date_of_birth,@Telephone,@Password)";
+                SqlParameter NameParameter = new SqlParameter("@Name", System.Data.SqlDbType.NChar,20);
+                NameParameter.Value = Name;
+                SqlParameter SurnameameParameter = new SqlParameter("@Surname", Surname);
+                SqlParameter PasportSerParapmeter = new SqlParameter("@Pasport_ser", Pasport_ser);
+                SqlParameter PasportNumParameter = new SqlParameter("@Pasport_num", Pasport_num);
+                SqlParameter TelephoneParameter = new SqlParameter("@Telephone", Telephone);
+                SqlParameter NationalityParameter = new SqlParameter("@Nationality", Nationality);
+                SqlParameter PasswordParameter = new SqlParameter("@Password", Password);
+                SqlParameter DateOfBirthParameter = new SqlParameter("@Date_of_birth", System.Data.SqlDbType.DateTime);
+                DateOfBirthParameter.Value = Date_of_birth;
+                //SqlParameter DateOfBirthParameter = new SqlParameter("@Date_of_birth", Date_of_birth);
+
+
+                DataBase dataBase = new DataBase();
+                dataBase.openConnection();
+                SqlCommand command = new SqlCommand(commandExpression,dataBase.GetConnection());
+                command.Parameters.Add(NameParameter);
+                command.Parameters.Add(SurnameameParameter);
+                command.Parameters.Add(PasportSerParapmeter);
+                command.Parameters.Add(PasportNumParameter);
+                command.Parameters.Add(TelephoneParameter);
+                command.Parameters.Add(NationalityParameter);
+                command.Parameters.Add(PasswordParameter);
+                command.Parameters.Add(DateOfBirthParameter);
+                command.ExecuteNonQuery();
+                dataBase.closeConnection();
                 //Console.WriteLine(passanger.Surname);
                 //string name = Request.Form["Name"];
                 //Console.WriteLine(name);
-                return Redirect("Index");
+                //return Redirect("Index");
             }
             return View("Index");
         }
