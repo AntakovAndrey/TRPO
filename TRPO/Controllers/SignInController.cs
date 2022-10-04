@@ -35,7 +35,8 @@ namespace TRPO.Controllers
                 }
                 else
                 {
-                    Console.WriteLine("хуёва");
+                    Console.WriteLine("хуёва")
+                        ;
                 }
             }
             return View("Index");

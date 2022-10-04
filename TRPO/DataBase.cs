@@ -4,13 +4,21 @@ using System;
 using System.Data;
 using System.Data.SqlClient;
 
-//using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
-//using System.Windows.Forms;
-
 namespace TRPO
 {
     class DataBase
     {
+
+        private static DataBase instance;
+
+        private DataBase() { }
+
+        public static DataBase getInstance()
+        {
+            if (instance == null)
+                instance = new DataBase();
+            return instance;
+        }
         private static SqlConnection sqlConnection = new SqlConnection(@"Data Source = DESKTOP-30507DA;Initial catalog = trpo;Integrated Security = true;TrustServerCertificate = true");
 
         public void openConnection()
