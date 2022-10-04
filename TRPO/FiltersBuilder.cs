@@ -28,33 +28,20 @@ namespace TRPO
             return false;
         }
 
-        //public void SetPriceFrom(string priceFrom)
-        //{
-        //    addCondition();
-        //    command.Parameters.Add("@priceFrom", System.Data.SqlDbType.NChar).Value = priceFrom;
-        //    _filters += $"PRICE >= @priceFrom";    
-        //}
-        //public void SetPriceTo(string priceTo)
-        //{
-        //    addCondition();
-        //    command.Parameters.Add("@priceTo", System.Data.SqlDbType.NChar).Value = priceTo;
-        //    _filters += $"PRICE <= @priceFrom";
+        //PriceFrom
+        //    PriceTo
+        public void SetDateFrom(DateTime date)
+            DateTo
 
 
-        //}
-        //public void SetDateFrom(DateTime DateFrom)
-        //{
-        //    addCondition();
-        //    command.Parameters.Add("@priceTo", System.Data.SqlDbType.DateTime).Value = DateFrom;
-        //    _filters += $"PRICE <= @priceFrom";
-        //}
-        //public void SetDateTo(string DateTo)
-        //{
-        //    addCondition();
-        //    command.Parameters.Add("@priceTo", System.Data.SqlDbType.DateTime).Value = DateFrom;
-        //    _filters += $"PRICE <= @priceFrom";
+        public void SetFinishPoint(string finishPoint)
+        {
+            addCondition();
 
-        //}
+            _filters += $"Finish_point = @finishPoint";
+            command.Parameters.Add("@finishPoint", System.Data.SqlDbType.NChar, 20).Value = finishPoint;
+        }
+
         public void SetFinishPoint(string finishPoint)
         {
             addCondition();
