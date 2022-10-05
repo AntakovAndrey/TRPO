@@ -1,4 +1,5 @@
 ﻿using Microsoft.Data.SqlClient;
+using System.Text.RegularExpressions;
 using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
 
 namespace TRPO
@@ -30,7 +31,7 @@ namespace TRPO
 
         public void SetFinishDate(string finishDate)
         {
-            if (finishDate != null && finishDate != " " && finishDate != "")
+            if (finishDate != null && !Regex.IsMatch(finishDate, @"(\s)+", RegexOptions.IgnoreCase) && finishDate != "")
             {
                 addCondition();
                 _filters += $"Date <= @finishDate ";
@@ -44,7 +45,7 @@ namespace TRPO
 
         public void SetStartDate(string startDate)
         {
-            if(startDate != null && startDate != " " && startDate != "")
+            if(startDate != null && !Regex.IsMatch(startDate, @"(\s)+", RegexOptions.IgnoreCase) && startDate != "")
             {
                 addCondition();
                 _filters += $"Date >= @startDate ";
@@ -52,14 +53,17 @@ namespace TRPO
             }
             
         }
-
         public void SetFinishPoint(string finishPoint)
         {
-            if (finishPoint != null || finishPoint != " "|| finishPoint != "")
+            if (finishPoint != null && !Regex.IsMatch(finishPoint, @"(\s)+", RegexOptions.IgnoreCase) && finishPoint != "")
             {
                 addCondition();
                 _filters += $"Finish_point = @finishPoint ";
                 command.Parameters.Add("@finishPoint", System.Data.SqlDbType.NChar, 20).Value = finishPoint;
+            }
+            else
+            {
+                Console.WriteLine("Нахуй иди");
             }
         }
 

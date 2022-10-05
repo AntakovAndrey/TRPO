@@ -18,8 +18,8 @@ namespace TRPO.Controllers
             FiltersBuilder filtersBuilder = new FiltersBuilder(DataBase.getInstance().GetConnection());
             filtersBuilder.SetFinishPoint(finishPoint);
             
-            //filtersBuilder.SetFinishDate(Request.Form["FinishDate"]);
-            //filtersBuilder.SetStartDate(Convert.ToDateTime(Request.Form["StartDate"]));
+            filtersBuilder.SetFinishDate(Request.Form["FinishDate"]);
+            filtersBuilder.SetStartDate(Request.Form["StartDate"]);
             var command = filtersBuilder.GetResault();
             ViewBag.command = command;
             return View();
