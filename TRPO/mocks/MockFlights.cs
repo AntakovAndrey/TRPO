@@ -6,16 +6,21 @@ namespace TRPO.mocks
 {
     public class MockFlights:IAllFlights
     {
-        DataBase dataBase = new DataBase();
+        SqlCommand command;
+        public MockFlights(SqlCommand command)
+        {
+            this.command = command;
+        }
+        public MockFlights()
+        {
+            command = new SqlCommand("SELECT * FROM Flight", DataBase.getInstance().GetConnection());
+        }
         List<Flight> tmpFlights = new List<Flight>();
-        public MockFlights() {}
         public IEnumerable<Flight> Flights
         {
             get {
-                dataBase.openConnection();
-                SqlCommand command = new SqlCommand("SELECT * FROM Flight", dataBase.GetConnection());
+                DataBase.getInstance().openConnection();
                 SqlDataReader reader = command.ExecuteReader();
-                
                 if (reader.HasRows)
                 {
                     while (reader.Read())
@@ -30,9 +35,8 @@ namespace TRPO.mocks
                         int crewId = reader.GetInt32(7);
                         tmpFlights.Add(new Flight(id, date, startTime, finishTime, startPoint, finishPoint, planeId, crewId));
                     }
-
                 }
-                dataBase.closeConnection();
+                DataBase.getInstance().closeConnection();
                 return Flights = new List<Flight>(tmpFlights); 
             }
             set

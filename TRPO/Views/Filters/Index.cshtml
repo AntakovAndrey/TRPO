@@ -9,26 +9,26 @@
 }
 
 
-<form method="post" asp-controller="Filters" asp-action="Check">
-    <div class="filters_line">
+<form method="post" asp-controller="Filters" asp-action="Resault">
+    @*<div class="filters_line">
         <p>Цена</p>
         <p>От:<input class="short_input" name="PriceFrom"> </input></p>
         <p>До:<input class="short_input" name="PriceTo"> </input></p>
-    </div>
+    </div>*@
 
-    <div class="filters_line">
+    @*<div class="filters_line">
         <p>Дата</p>
-        <p>От:<input class="short_input" name="DateFrom"> </input></p>
-        <p>До:<input class="short_input" name="DateTo"> </input></p>
-    </div>
+        <p>От:<input class="short_input" name="StartDate" type="Date"> </input></p>
+        <p>До:<input class="short_input" name="FinishDate" type="Date"> </input></p>
+    </div>*@
     <div class="filters_line">
         <p>Метсо</p>
         <p>Куда:<input class="long_input" name="FinishPoint"> </input></p>
     </div>
-    <div class="filters_line">
+    @*<div class="filters_line">
         <p>Класс</p>
         <p>Тип:<input class="long_input" name="Class"> </input></p>
-    </div>
+    </div>*@
     <button class="search_button">
         Найти
     </button>

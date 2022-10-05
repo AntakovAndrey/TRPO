@@ -24,7 +24,6 @@ namespace TRPO.Controllers
                 string Password = Request.Form["Password"];
                 DateTime Date_of_birth = DateTime.Now;
 
-                //Index().
                 string commandExpression = $"INSERT INTO Passanger (Name,Surname,Pasport_ser,Pasport_num,Nationality,Date_of_birth,Telephone,Password) VALUES" +
                     $" (@Name,@Surname,@Pasport_ser,@Pasport_num,@Nationality,@Date_of_birth,@Telephone,@Password)";
                 SqlParameter NameParameter = new SqlParameter("@Name", System.Data.SqlDbType.NChar,20);
@@ -37,10 +36,8 @@ namespace TRPO.Controllers
                 SqlParameter PasswordParameter = new SqlParameter("@Password", Password);
                 SqlParameter DateOfBirthParameter = new SqlParameter("@Date_of_birth", System.Data.SqlDbType.DateTime);
                 DateOfBirthParameter.Value = Date_of_birth;
-                //SqlParameter DateOfBirthParameter = new SqlParameter("@Date_of_birth", Date_of_birth);
 
-
-                DataBase dataBase = new DataBase();
+                DataBase dataBase = DataBase.getInstance();
                 dataBase.openConnection();
                 SqlCommand command = new SqlCommand(commandExpression,dataBase.GetConnection());
                 command.Parameters.Add(NameParameter);
@@ -53,10 +50,6 @@ namespace TRPO.Controllers
                 command.Parameters.Add(DateOfBirthParameter);
                 command.ExecuteNonQuery();
                 dataBase.closeConnection();
-                //Console.WriteLine(passanger.Surname);
-                //string name = Request.Form["Name"];
-                //Console.WriteLine(name);
-                //return Redirect("Index");
             }
             return View("Index");
         }

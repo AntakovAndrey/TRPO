@@ -10,7 +10,7 @@ namespace TRPO.Controllers
     public class SignInController : Controller
     {
         DataRow[] userInfo;
-        DataBase dataBase = new DataBase();
+        DataBase dataBase = DataBase.getInstance();
 
         public IActionResult Check()
         {

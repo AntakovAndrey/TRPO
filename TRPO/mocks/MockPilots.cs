@@ -6,14 +6,14 @@ namespace TRPO.mocks
 {
     public class MockPilots : IAllPilots
     {
-        DataBase dataBase = new DataBase();
+        
         List<Pilot> tmpPilots = new List<Pilot>();
         public IEnumerable<Pilot> Pilots
         {
             get
             {
-                dataBase.openConnection();
-                SqlCommand command = new SqlCommand("SELECT * FROM Pilot", dataBase.GetConnection());
+                DataBase.getInstance().openConnection();
+                SqlCommand command = new SqlCommand("SELECT * FROM Pilot", DataBase.getInstance().GetConnection());
                 SqlDataReader reader = command.ExecuteReader();
                 if (reader.HasRows)
                 {
@@ -28,7 +28,7 @@ namespace TRPO.mocks
                         tmpPilots.Add(new Pilot(id, name, surname, shedule, workHoursStart, workHoursFinsh));
                     }
                 }
-                dataBase.closeConnection();
+                DataBase.getInstance().closeConnection();
                 return  tmpPilots;
             }
         }

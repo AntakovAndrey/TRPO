@@ -20,38 +20,8 @@ namespace TRPO.Controllers
 
         public ViewResult Index()
         {
-            MockFlights m = new MockFlights();
-            foreach(var flight in m.Flights)
-            {
-                Console.WriteLine(flight.FinishPoint);
-            }
-
             return View("Index");
         }
-
-        //public IActionResult Index()
-        //{
-        //    Console.WriteLine(_dataBase.GetConnection());
-            
-        //    DataTable table = new DataTable();
-        //    SqlDataAdapter adapter = new SqlDataAdapter();
-
-        //    SqlCommand command = new SqlCommand("SELECT * FROM Passanger WHERE Passanger_id = @uI ", _dataBase.GetConnection());
-        //    command.Parameters.Add("@uI", SqlDbType.Int).Value = 2;
-
-        //    adapter.SelectCommand = command;
-        //    adapter.Fill(table);
-
-        //    if (table.Rows.Count > 0)
-        //    {
-        //        DataRow[] foundrow = table.Select();
-        //        for(int i =0;i<9;i++)
-        //        {
-        //            Console.WriteLine(foundrow[0][i]);
-        //        }
-        //    }
-        //    return View();
-        //}
 
         public IActionResult Privacy()
         {

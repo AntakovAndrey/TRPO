@@ -12,11 +12,11 @@ namespace TRPO
         public FiltersBuilder(SqlConnection connection)
         {
             _connection = connection;
-            _commandExpression = $"SELECT * FROM Flight ";
+            _commandExpression = "SELECT * FROM Flight ";
         }
         private bool addCondition()
         {
-            if (_filters == ""||_filters == " "||_filters==null)
+            if (_filters != ""&&_filters != " "&&_filters==null)
             {
                 _filters += "WHERE ";
                 return true;
@@ -28,30 +28,40 @@ namespace TRPO
             return false;
         }
 
-        //PriceFrom
-        //    PriceTo
-        public void SetDateFrom(DateTime date)
-            DateTo
-
-
-        public void SetFinishPoint(string finishPoint)
+        public void SetFinishDate(string finishDate)
         {
-            addCondition();
-
-            _filters += $"Finish_point = @finishPoint";
-            command.Parameters.Add("@finishPoint", System.Data.SqlDbType.NChar, 20).Value = finishPoint;
+            if (finishDate != null && finishDate != " " && finishDate != "")
+            {
+                addCondition();
+                _filters += $"Date <= @finishDate ";
+                command.Parameters.Add("@finishDate", System.Data.SqlDbType.DateTime).Value = Convert.ToDateTime(finishDate);
+            }
+            else
+            {
+                _filters += "";
+            }
         }
 
-        public void SetFinishPoint(string finishPoint)
+        public void SetStartDate(string startDate)
         {
-            addCondition();
+            if(startDate != null && startDate != " " && startDate != "")
+            {
+                addCondition();
+                _filters += $"Date >= @startDate ";
+                command.Parameters.Add("@startDate", System.Data.SqlDbType.DateTime).Value = Convert.ToDateTime(startDate);
+            }
             
-            _filters += $"Finish_point = @finishPoint";
-            command.Parameters.Add("@finishPoint", System.Data.SqlDbType.NChar, 20).Value = finishPoint;
         }
 
-
-        
+        public void SetFinishPoint(string finishPoint)
+        {
+            if (finishPoint != null || finishPoint != " "|| finishPoint != "")
+            {
+                addCondition();
+                _filters += $"Finish_point = @finishPoint ";
+                command.Parameters.Add("@finishPoint", System.Data.SqlDbType.NChar, 20).Value = finishPoint;
+            }
+        }
 
         public SqlCommand GetResault()
         {
