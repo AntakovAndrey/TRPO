@@ -25,6 +25,7 @@ namespace TRPO.mocks
                 {
                     while (reader.Read())
                     {
+                        
                         int id = reader.GetInt32(0);
                         DateOnly date = DateOnly.FromDateTime(reader.GetDateTime(1));
                         TimeOnly startTime = TimeOnly.FromDateTime(reader.GetDateTime(2));

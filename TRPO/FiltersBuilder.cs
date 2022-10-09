@@ -1,6 +1,5 @@
 ﻿using Microsoft.Data.SqlClient;
 using System.Text.RegularExpressions;
-using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
 
 namespace TRPO
 {
@@ -17,18 +16,18 @@ namespace TRPO
         }
         private bool addCondition()
         {
-            if (_filters != ""&&_filters != " "&&_filters==null)
-            {
-                _filters += "WHERE ";
-                return true;
-            }
-            else
+            if (_filters != ""&&_filters != " "&&_filters!=null)
             {
                 _filters += "AND ";
             }
+            else
+            {
+                _filters += "WHERE ";
+                return true;
+                
+            }
             return false;
         }
-
         public void SetFinishDate(string finishDate)
         {
             if (finishDate != null && !Regex.IsMatch(finishDate, @"(\s)+", RegexOptions.IgnoreCase) && finishDate != "")
@@ -37,12 +36,8 @@ namespace TRPO
                 _filters += $"Date <= @finishDate ";
                 command.Parameters.Add("@finishDate", System.Data.SqlDbType.DateTime).Value = Convert.ToDateTime(finishDate);
             }
-            else
-            {
-                _filters += "";
-            }
-        }
 
+        }
         public void SetStartDate(string startDate)
         {
             if(startDate != null && !Regex.IsMatch(startDate, @"(\s)+", RegexOptions.IgnoreCase) && startDate != "")
@@ -61,12 +56,7 @@ namespace TRPO
                 _filters += $"Finish_point = @finishPoint ";
                 command.Parameters.Add("@finishPoint", System.Data.SqlDbType.NChar, 20).Value = finishPoint;
             }
-            else
-            {
-                Console.WriteLine("Нахуй иди");
-            }
         }
-
         public SqlCommand GetResault()
         {
             _commandExpression += _filters;

@@ -11,19 +11,15 @@ namespace TRPO.Controllers
         {
             return View();
         }
-
         public IActionResult Resault()
         {
-            string finishPoint = Request.Form["FinishPoint"];
             FiltersBuilder filtersBuilder = new FiltersBuilder(DataBase.getInstance().GetConnection());
-            filtersBuilder.SetFinishPoint(finishPoint);
-            
+            filtersBuilder.SetFinishPoint(Request.Form["FinishPoint"]);
             filtersBuilder.SetFinishDate(Request.Form["FinishDate"]);
             filtersBuilder.SetStartDate(Request.Form["StartDate"]);
             var command = filtersBuilder.GetResault();
             ViewBag.command = command;
             return View();
         }
-
     }
 }

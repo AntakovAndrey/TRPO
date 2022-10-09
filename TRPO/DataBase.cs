@@ -1,5 +1,4 @@
-﻿
-using Microsoft.Data.SqlClient;
+﻿using Microsoft.Data.SqlClient;
 using System;
 using System.Data;
 using System.Data.SqlClient;
@@ -8,7 +7,6 @@ namespace TRPO
 {
     class DataBase
     {
-
         private static DataBase instance;
 
         private DataBase() { }
@@ -39,8 +37,5 @@ namespace TRPO
         {
             return sqlConnection;
         }
-
-
-
     }
 }
