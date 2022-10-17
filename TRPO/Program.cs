@@ -35,11 +35,12 @@ app.UseAuthentication();
 app.UseAuthorization();
 
 
+//app.MapRazorPages();
+app.MapDefaultControllerRoute();
+
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
-
-app.Map("/authorize", [Authorize] () => $"Hello World!");
 
 
 app.MapGet("/accessdenied", async (HttpContext context) =>

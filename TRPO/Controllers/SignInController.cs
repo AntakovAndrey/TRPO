@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Authentication.Cookies;
+﻿using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.SignalR;
 using Microsoft.Data.SqlClient;
@@ -9,12 +10,11 @@ using TRPO.Models;
 
 namespace TRPO.Controllers
 {
+
     public class SignInController : Controller
     {
         DataRow[] userInfo;
-        DataBase dataBase = DataBase.getInstance();
-
-        public IActionResult Check()
+        public async Task<IActionResult> Check()
         {
             if(ModelState.IsValid)
             {
@@ -22,8 +22,8 @@ namespace TRPO.Controllers
                 string Surname = Request.Form["Surname"];
                 string Telephone = Request.Form["Telephone"];
                 string Password = Request.Form["Password"];
-                dataBase.openConnection();
-                SqlCommand command = new SqlCommand("SELECT * FROM Passanger WHERE Name = @uN AND Surname = @uSN AND Telephone = @uT AND Password = @uP", dataBase.GetConnection());
+                DataBase.getInstance().openConnection();
+                SqlCommand command = new SqlCommand("SELECT * FROM Passanger WHERE Name = @uN AND Surname = @uSN AND Telephone = @uT AND Password = @uP", DataBase.getInstance().GetConnection());
                 command.Parameters.Add("@uN", System.Data.SqlDbType.NChar).Value = Name;
                 command.Parameters.Add("@uSN", System.Data.SqlDbType.NChar).Value = Surname;
                 command.Parameters.Add("@uT", System.Data.SqlDbType.NChar).Value = Telephone;
@@ -36,29 +36,24 @@ namespace TRPO.Controllers
                 if (userInfo.Length > 0)
                 {
                     Console.WriteLine("Вы вошли");
-                    var claims = new List<Claim> { new Claim(ClaimTypes.MobilePhone, Telephone),new Claim(ClaimTypes.Name, Name), new Claim(ClaimTypes.Surname,Surname) };
-                    // создаем объект ClaimsIdentity
-                    ClaimsIdentity claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
-                    // установка аутентификационных куки
-                    //SignIn(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(claimsIdentity));
-                    SignIn(new ClaimsPrincipal(claimsIdentity),CookieAuthenticationDefaults.AuthenticationScheme);
-                    //await context.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(claimsIdentity));
-                    var uN = User.FindFirst(ClaimsIdentity.DefaultNameClaimType);
-                    Console.WriteLine(uN.Value);
-                    return Redirect("/authorize");
-
+                    var id = Convert.ToString(userInfo[0][0]);
+                    var claims = new List<Claim> { new Claim("id",id),new Claim("Name", Name), new Claim(ClaimTypes.Surname,Surname) };
+                    ClaimsIdentity claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);                   
+                    await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(claimsIdentity));
+                    var l = HttpContext.User.FindFirstValue(ClaimsIdentity.DefaultIssuer);
+                    //var x = HttpContext.User.FindFirstValue(ClaimsIdentity.DefaultNameClaimType);
+                    var login = HttpContext.User.FindFirstValue("Name");
+                    Console.WriteLine(login+ "\n"+ l);
                 }
                 else
                 {
                     Console.WriteLine("Неправильный логин и пароль");
                     return Unauthorized();
-
-
                 }
             }
             return View("Index");
         }
-       
+        
         public IActionResult Index()
         {
             return View();

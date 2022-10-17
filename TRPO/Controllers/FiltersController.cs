@@ -1,9 +1,11 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Authorization;
 
 namespace TRPO.Controllers
 {
     public class FiltersController : Controller
     {
+        [Authorize(Policy ="")]        
         public IActionResult Index()
         {
             return View();
