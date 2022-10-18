@@ -1,4 +1,5 @@
-﻿@{
+﻿@using TRPO.mocks
+@{
     ViewData["Title"] = "Билеты";
 }
 @*
@@ -7,52 +8,25 @@
 @{
 }
 
-
-
-<div class="ticket_item">
-    <button>Покупка</button>
-    <div calss = "upper_row">
-        <div class= "prices">
-            <p>Билет № 1</p>
-            <p>Цена за один: 100</p>
-            <p>Количество: 1</p>
-            <p>Итого: 100</p>
+@{
+    MockTickets tickets = new MockTickets();
+    var Tickets = tickets.Tickets;
+    foreach(var ticket in Tickets)
+    {
+        <div class="ticket_item">
+            <div calss="upper_row">
+                <div class="prices">
+                    <p>Билет № @ticket.TicketId</p>
+                    <p>Цена за один: @ticket.Price</p>
+                </div>
+            </div>
+            <div class="waypoints">
+                <p>Откуда: </p>
+                <p>Куда: Москва</p>
+            </div>
         </div>
-    </div>
-    <div class="waypoints">
-        <p>Откуда: Минск</p>
-        <p>Куда: Москва</p>
-    </div>
-</div>
+    }
 
-<div class="ticket_item">
-    <button>Покупка</button>
-    <div calss = "upper_row">
-        <div class= "prices">
-            <p>Билет № 1</p>
-            <p>Цена за один: 100</p>
-            <p>Количество: 1</p>
-            <p>Итого: 100</p>
-        </div>
-    </div>
-    <div class="waypoints">
-        <p>Откуда: Минск</p>
-        <p>Куда: Москва</p>
-    </div>
-</div>
 
-<div class="ticket_item">
-    <button>Покупка</button>
-    <div calss = "upper_row">
-        <div class= "prices">
-            <p>Билет № 1</p>
-            <p>Цена за один: 100</p>
-            <p>Количество: 1</p>
-            <p>Итого: 100</p>
-        </div>
-    </div>
-    <div class="waypoints">
-        <p>Откуда: Минск</p>
-        <p>Куда: Москва</p>
-    </div>
-</div>
+}
+

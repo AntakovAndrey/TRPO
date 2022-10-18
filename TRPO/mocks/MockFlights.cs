@@ -40,12 +40,11 @@ namespace TRPO.mocks
                 DataBase.getInstance().closeConnection();
                 return Flights = new List<Flight>(tmpFlights); 
             }
+            
             set
             {
                 
             }
-        } 
-       
-
+        }
     }
 }
