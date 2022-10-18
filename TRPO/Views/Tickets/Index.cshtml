@@ -2,31 +2,32 @@
 @{
     ViewData["Title"] = "Билеты";
 }
-@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@{
-}
 
 @{
-    MockTickets tickets = new MockTickets();
+    MockTickets tickets = new MockTickets(ViewBag.UserId);
     var Tickets = tickets.Tickets;
-    foreach(var ticket in Tickets)
+    if(Tickets.Count()>1)
     {
-        <div class="ticket_item">
-            <div calss="upper_row">
-                <div class="prices">
-                    <p>Билет № @ticket.TicketId</p>
-                    <p>Цена за один: @ticket.Price</p>
-                </div>
+        foreach (var ticket in Tickets)
+        {
+            Flight flight = Flight.GetByID(ViewBag.UserId);
+            <div class="ticket_item">
+                        <div calss="upper_row">
+                            <div class="prices">
+                                <p>Билет № @ticket.TicketId</p>
+                                <p>Цена за один: @ticket.Price</p>
+                            </div>
+                        </div>
+                        <div class="waypoints">
+                            <p>Откуда: @flight.StartPoint</p>
+                            <p>Куда: @flight.FinishPoint</p>
+                        </div>
             </div>
-            <div class="waypoints">
-                <p>Откуда: </p>
-                <p>Куда: Москва</p>
-            </div>
-        </div>
+        }
     }
-
-
+    else{
+        <p>У вас нет забронированных билетов</p>
+    }
+    
 }
 

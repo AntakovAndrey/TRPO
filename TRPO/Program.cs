@@ -7,14 +7,10 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 
-//builder.Services.AddAuthentication("Cookies");
-
 builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
     .AddCookie(options => { options.LoginPath = "/SignIn"; options.AccessDeniedPath = "/accessdenied"; });
 
 builder.Services.AddAuthorization();
-
-
 
 var app = builder.Build();
 
@@ -51,7 +47,3 @@ app.MapGet("/accessdenied", async (HttpContext context) =>
 
 
 app.Run();
-
-
-
-

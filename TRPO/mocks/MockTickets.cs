@@ -8,6 +8,13 @@ namespace TRPO.mocks
     {
         SqlCommand _command;
         List<Ticket> ticket=new List<Ticket>();
+        public MockTickets(int userId)
+        {
+            _command = new SqlCommand();
+            _command.CommandText = "SELECT * FROM Ticket WHERE Passanger_id = @PassangerId";
+            _command.Parameters.Add("@PassangerId", System.Data.SqlDbType.Int).Value = userId;
+            _command.Connection = DataBase.getInstance().GetConnection();
+        }
         public IEnumerable<Ticket> Tickets
         {
             get

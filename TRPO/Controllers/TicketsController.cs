@@ -2,6 +2,7 @@
 using Microsoft.Data.SqlClient;
 using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
 using System.Data;
+using System.Security.Claims;
 
 namespace TRPO.Controllers
 {
@@ -9,6 +10,8 @@ namespace TRPO.Controllers
     {
         public IActionResult Index()
         {
+            int userId = Convert.ToInt32(HttpContext.User.FindFirstValue("id"));
+            ViewBag.UserId = userId;
             return View();
         }
     }

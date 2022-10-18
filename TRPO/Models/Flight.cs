@@ -1,4 +1,7 @@
-﻿namespace TRPO.Models
+﻿using Microsoft.Data.SqlClient;
+using System.Data;
+
+namespace TRPO.Models
 {
     public class Flight
     {
@@ -21,6 +24,28 @@
             FinishPoint = finishPoint;
             PlaneId = planeId;
             CrewId = crewId;
+        }
+
+        public static Flight GetByID(int id)
+        {
+            DataRow[] flightInfo;
+            SqlCommand command = new SqlCommand("SELECT * FROM Flight WHERE Flight_id = @id", DataBase.getInstance().GetConnection());
+            command.Parameters.Add("@id", System.Data.SqlDbType.Int).Value = id;
+            DataTable table = new DataTable();
+            SqlDataAdapter adapter = new SqlDataAdapter();
+            adapter.SelectCommand = command;
+            adapter.Fill(table);
+            flightInfo = table.Select();
+            return new Flight(
+                Convert.ToInt32(flightInfo[0][0]),
+                DateOnly.FromDateTime(Convert.ToDateTime(flightInfo[0][1])),
+                TimeOnly.FromDateTime(Convert.ToDateTime(flightInfo[0][2])), 
+                TimeOnly.FromDateTime(Convert.ToDateTime(flightInfo[0][3])), 
+                Convert.ToString(flightInfo[0][4]), 
+                Convert.ToString(flightInfo[0][5]), 
+                Convert.ToInt32(flightInfo[0][6]), 
+                Convert.ToInt32(flightInfo[0][7])
+            );
         }
     }
    

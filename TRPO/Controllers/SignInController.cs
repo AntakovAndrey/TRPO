@@ -35,21 +35,16 @@ namespace TRPO.Controllers
                 userInfo = table.Select();
                 if (userInfo.Length > 0)
                 {
-                    Console.WriteLine("Вы вошли");
                     var id = Convert.ToString(userInfo[0][0]);
-                    var claims = new List<Claim> { new Claim("id",id),new Claim("Name", Name), new Claim(ClaimTypes.Surname,Surname) };
+                    var claims = new List<Claim> { new Claim("id",id),new Claim("Name", Name), new Claim(ClaimTypes.Surname,Surname)};
                     ClaimsIdentity claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);                   
                     await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(claimsIdentity));
-                    var l = HttpContext.User.FindFirstValue(ClaimsIdentity.DefaultIssuer);
-                    //var x = HttpContext.User.FindFirstValue(ClaimsIdentity.DefaultNameClaimType);
-                    var login = HttpContext.User.FindFirstValue("Name");
-                    Console.WriteLine(login+ "\n"+ l);
                 }
                 else
                 {
-                    Console.WriteLine("Неправильный логин и пароль");
                     return Unauthorized();
                 }
+                DataBase.getInstance().closeConnection();
             }
             return View("Index");
         }
