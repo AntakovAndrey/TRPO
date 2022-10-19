@@ -9,7 +9,6 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@500&display=swap" rel="stylesheet">
-    
 </head>
 <body>
     <header>
@@ -18,17 +17,15 @@
                 <div class="header_title">@ViewData["Title"]</div>
                 <nav class = "nav">
                     @{
-                        if (Context.User.FindFirst("id") != null && Context.User.FindFirst("id").Value == "21")
-                        {
+                        //if (Context.User.FindFirst("id") != null && Context.User.FindFirst("id").Value == "21")
+                        //{
                             <a href="../Home" class = "nav_link">Главная</a>
                             <a href="../Filters" class = "nav_link">Поиск</a>
                             <a href="../Tickets" class = "nav_link">Билеты</a>
                             <a href="../Pilots" class = "nav_link">Пилоты</a>
                             <a href="../AddingFlight" class = "nav_link">Добавление рейса</a>
                             <a href="../SignUp" class = "nav_link">Регистрация</a>
-                            
-                        }
-                        
+                        //}
                     }
                     <a href="../SignIn" class = "nav_link">Вход</a>
                 </nav>

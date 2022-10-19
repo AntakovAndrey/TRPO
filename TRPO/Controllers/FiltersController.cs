@@ -5,7 +5,7 @@ namespace TRPO.Controllers
 {
     public class FiltersController : Controller
     {
-        [Authorize(Policy ="")]        
+        //[Authorize(Policy ="")]        
         public IActionResult Index()
         {
             return View();
