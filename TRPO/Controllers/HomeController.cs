@@ -1,17 +1,13 @@
-﻿ using Microsoft.AspNetCore.Mvc;
-using Microsoft.Data.SqlClient;
-using System.Data;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
-using TRPO.mocks;
 using TRPO.Models;
-//using TRPO.VievModels;
 
 namespace TRPO.Controllers
 {
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
-        //private DataBase _dataBase = new DataBase();
 
         public HomeController(ILogger<HomeController> logger)
         {

@@ -3,11 +3,13 @@ using Microsoft.Data.SqlClient;
 using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
 using System.Data;
 using System.Security.Claims;
+using Microsoft.AspNetCore.Authorization;
 
 namespace TRPO.Controllers
 {
     public class TicketsController : Controller
     {
+        [Authorize(Policy = "")]
         public IActionResult Index()
         {
             int userId = Convert.ToInt32(HttpContext.User.FindFirstValue("id"));
