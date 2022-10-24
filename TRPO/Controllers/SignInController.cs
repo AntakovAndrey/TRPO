@@ -15,10 +15,10 @@ namespace TRPO.Controllers
                 Passanger passanger = Passanger.GetFromDBByEmailAndPassword(Request.Form["Email"], Request.Form["Password"]);
                 if (passanger!=null)
                 {
-                    var claims = new List<Claim> { 
+                    var claims = new List<Claim> {
                         new Claim("id", Convert.ToString(passanger.PassangerId)),
-                        new Claim("Name", passanger.Name), 
-                        new Claim(ClaimTypes.Role,passanger.Role)
+                        new Claim("Name", passanger.Name),
+                        new Claim(ClaimTypes.Role,passanger.GetRole())
                     };
                     ClaimsIdentity claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
                     await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(claimsIdentity));

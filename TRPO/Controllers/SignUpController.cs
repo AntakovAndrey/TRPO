@@ -11,49 +11,32 @@ namespace TRPO.Controllers
             return View();
         }
         [HttpPost]
-        public IActionResult Check(Passanger passange)
+        public IActionResult Check()
         {
             if (ModelState.IsValid)
             {
+                if (Passanger.GetFromDBByEmail(Request.Form["Email"]) == null)
+                {
+                    if(Request.Form["Password"] == Request.Form["Password_repeat"])
+                    {
+                        Passanger passanger = new Passanger();
+                        passanger.Name = Request.Form["Name"];
+                        passanger.Surname = Request.Form["Surname"];
+                        passanger.Email = Request.Form["Email"];
+                        passanger.Role = new UserRole();
+                        passanger.Telephone = Request.Form["Telephone"];
+                        passanger.PassportSeries = Request.Form["PassportSeries"];
+                        passanger.PassportNumber = Convert.ToInt32(Request.Form["PassportNumber"]);
+                        passanger.DateOfBirth = Convert.ToDateTime(Request.Form["DateOfBirth"]);
+                        passanger.Nationality = Request.Form["Nationality"];
+                        passanger.SavePassangerToDB();
 
+                    }
+                    
+                }
 
-
-
-                string Name = Request.Form["Name"];
-                string Surname = Request.Form["Surname"];
-                string Pasport_ser = Request.Form["PassportSeries"];
-                string Pasport_num = Request.Form["PassportNumber"];
-                string Telephone = Request.Form["Telephone"];
-                string Nationality = Request.Form["Nationality"];
-                string Password = Request.Form["Password"];
-                DateTime Date_of_birth = DateTime.Now;
-
-                string commandExpression = $"INSERT INTO Passanger (Name,Surname,Pasport_ser,Pasport_num,Nationality,Date_of_birth,Telephone,Password) VALUES" +
-                    $" (@Name,@Surname,@Pasport_ser,@Pasport_num,@Nationality,@Date_of_birth,@Telephone,@Password)";
-                SqlParameter NameParameter = new SqlParameter("@Name", System.Data.SqlDbType.NChar,20);
-                NameParameter.Value = Name;
-                SqlParameter SurnameameParameter = new SqlParameter("@Surname", Surname);
-                SqlParameter PasportSerParapmeter = new SqlParameter("@Pasport_ser", Pasport_ser);
-                SqlParameter PasportNumParameter = new SqlParameter("@Pasport_num", Pasport_num);
-                SqlParameter TelephoneParameter = new SqlParameter("@Telephone", Telephone);
-                SqlParameter NationalityParameter = new SqlParameter("@Nationality", Nationality);
-                SqlParameter PasswordParameter = new SqlParameter("@Password", Password);
-                SqlParameter DateOfBirthParameter = new SqlParameter("@Date_of_birth", System.Data.SqlDbType.DateTime);
-                DateOfBirthParameter.Value = Date_of_birth;
-
-                DataBase dataBase = DataBase.getInstance();
-                dataBase.openConnection();
-                SqlCommand command = new SqlCommand(commandExpression,dataBase.GetConnection());
-                command.Parameters.Add(NameParameter);
-                command.Parameters.Add(SurnameameParameter);
-                command.Parameters.Add(PasportSerParapmeter);
-                command.Parameters.Add(PasportNumParameter);
-                command.Parameters.Add(TelephoneParameter);
-                command.Parameters.Add(NationalityParameter);
-                command.Parameters.Add(PasswordParameter);
-                command.Parameters.Add(DateOfBirthParameter);
-                command.ExecuteNonQuery();
-                dataBase.closeConnection();
+                
+                DataBase.getInstance().closeConnection();
             }
             return View("Index");
         }

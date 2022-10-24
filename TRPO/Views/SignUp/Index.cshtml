@@ -5,15 +5,20 @@
 
 
 <form method = "post" asp-controller="SignUp" asp-action="Check" class = "sign_in_container">
-    <p>Имя</p>
-    
+    <p>Имя</p>    
     <input class = "short_input" asp-for="Name"> </input>
     <span asp-validation-for="Name"></span>
     <p>Фамилия</p>
     <input class = "short_input" asp-for="Surname"> </input>
     <span asp-validation-for="Name"></span>
+    <p>Email</p>
+    <input class = "short_input" asp-for="Email"> </input>
+    <span asp-validation-for="Name"></span>
     <p>Пароль</p>
     <input class = "short_input" type="password" asp-for="Password"> </input>
+    <span asp-validation-for="Name"></span>
+    <p>Повторите пароль</p>
+    <input class = "short_input" type="password" name="Password_repeat"> </input>
     <span asp-validation-for="Name"></span>
     <p>Телефон</p>
     <input class = "short_input"asp-for="Telephone"> </input>
@@ -26,6 +31,9 @@
     <span asp-validation-for="Name"></span>
     <p>Гражданство</p>
     <input class = "short_input"asp-for="Nationality"> </input>
+    <span asp-validation-for="Name"></span>
+    <p>Дата рождения</p>
+    <input class = "short_input"asp-for="DateOfBirth" type="Date"> </input>
     <span asp-validation-for="Name"></span>
     <button class = "sign_in_button">Зарегистрироваться</button>
     
