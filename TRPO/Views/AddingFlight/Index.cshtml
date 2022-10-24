@@ -1,4 +1,5 @@
-﻿@{
+﻿@model AddingFlight
+@{
     ViewData["Title"] = "Добавление рейса";
 }
 @*
@@ -7,23 +8,23 @@
 @{
 }
 
-<div class = "adding_flight_container">
-    <p>Дата</p>
-    <input class = "long_input"> </input>
+<form method="post" asp-controller="AddingFlight" asp-action="Check" class="adding_flight_container">
+   @* <p>Дата</p>
+    <input class="long_input" > </input>
     <p>Время вылета</p>
     <input class = "long_input"> </input>
     <p>Время прилета</p>
-    <input class = "long_input"> </input>
+    <input class = "long_input"> </input>*@
     <p>Место вылета</p>
-    <input class = "long_input"> </input>
+    <input class="long_input" asp-for="DeparturePoint"> </input>
+    @*<span asp-validation-for="DeparturePoint"></span>*@
     <p>Место прилета</p>
-    <input class = "long_input"> </input>
+    <input class="long_input" asp-for="PlaceOfArrival"> </input>
     <p>Номер первого пилота</p>
-    <input class = "long_input"> </input>
+    <input class="long_input" asp-for="FirstPilot"> </input>
     <p>Номер второго пилота</p>
-    <input class = "long_input"> </input>
+    <input class="long_input" asp-for="SecondPilot"> </input>
     <p>Номер самолета</p>
-    <input class = "long_input"> </input>
+    <input class="long_input" asp-for="NumberPlane"> </input>
     <p></p>
-    <button class="search_button">Добавить</button>
-</div>
+</form>
