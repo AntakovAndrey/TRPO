@@ -29,6 +29,7 @@ namespace TRPO.Controllers
                         passanger.PassportNumber = Convert.ToInt32(Request.Form["PassportNumber"]);
                         passanger.DateOfBirth = Convert.ToDateTime(Request.Form["DateOfBirth"]);
                         passanger.Nationality = Request.Form["Nationality"];
+                        passanger.Password = Request.Form["Password"];
                         passanger.SavePassangerToDB();
 
                     }

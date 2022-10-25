@@ -18,7 +18,9 @@ namespace TRPO.Models
         public Role Role { set; get; }
         public string Email { set; get; }
         
-        public Passanger() { }
+        public Passanger() { 
+            Role = new UserRole();
+        }
 
         public Passanger(int passangerId, string name, string surname, string passportSeries, int passportNumber, DateTime dateOfBirth, string telephone, string nationality, string password, string role, string email)
         {
@@ -47,52 +49,24 @@ namespace TRPO.Models
         }
         public void SavePassangerToDB()
         {
-            string commandExpression = "INSERT INTO Passanger" +
-                " (Name, Surname, Pasport_ser, Pasport_num, Nationality, Date_of_birth, Telephone, Password, Role, Email) VALUES" +
-                " (@Name, @Surname, @PassportSeries, @PassportNumber, @Nationality, @DateOfBirth, @Telephone, @Password, @Role, @Email)";
+            string commandExpression = "INSERT Passanger (Name, Surname, Pasport_ser, Pasport_num, Nationality, Date_of_birth, Telephone, Password, Role, Email)" +
+                " VALUES (@Name, @Surname, @PassportSeries, @PassportNumber, @Nationality, @DateOfBirth, @Telephone, @Password, @Role, @Email)";
+
             SqlCommand command = new SqlCommand(commandExpression, DataBase.getInstance().GetConnection());
+            command.Parameters.Add("@Name", System.Data.SqlDbType.NChar, 20).Value = Name;
+            command.Parameters.Add("@Surname", System.Data.SqlDbType.NChar, 20).Value = Surname;
 
-            SqlParameter nameParameter = new SqlParameter("@Name", SqlDbType.NChar);
-            SqlParameter surnameParameter = new SqlParameter("@Surname", Surname);
-            SqlParameter passwordParameter = new SqlParameter("@Password", Password);
-            SqlParameter passportSeriesParameter = new SqlParameter("@PassportSeries", PassportSeries);
-            SqlParameter passportNumberParameter = new SqlParameter("@PassportNumber", PassportNumber);
-            SqlParameter nationalityParameter = new SqlParameter("@Nationality",Nationality);
-            SqlParameter emailParameter = new SqlParameter("@Email", Email);
-            SqlParameter telephoneParameter = new SqlParameter("@Telephone", Telephone);
-            SqlParameter roleParameter = new SqlParameter("@Role", Role.role);
-            SqlParameter dateOfBirthParameter = new SqlParameter("@DateOfBirth", DateOfBirth);
-            command.Parameters.Add(nameParameter);
-            command.Parameters.Add(surnameParameter);
-            command.Parameters.Add(passwordParameter);
-            command.Parameters.Add(passportSeriesParameter);
-            command.Parameters.Add(passportNumberParameter);
-            command.Parameters.Add(telephoneParameter);
-            command.Parameters.Add(roleParameter);
-            command.Parameters.Add(dateOfBirthParameter);
-            command.Parameters.Add(emailParameter);
-            command.Parameters.Add(nationalityParameter);
-            //command.Parameters.Add(new SqlParameter("@PasportSeries", PassportSeries));
-            //command.Parameters.Add(new SqlParameter("@PasportNumber", PassportNumber));
-            //command.Parameters.Add(new SqlParameter("@Nationality", Nationality));
-            //command.Parameters.Add(new SqlParameter("@DateOFBirth", DateOfBirth));
-            //command.Parameters.Add(new SqlParameter("@Telephone", Telephone));
-            //command.Parameters.Add(new SqlParameter("@Role", Role.role));
-            //command.Parameters.Add(new SqlParameter("@Email", Email));
-            //command.Parameters.Add("@Surname", System.Data.SqlDbType.NChar, 20).Value = Surname;
+            command.Parameters.Add("@Password", System.Data.SqlDbType.NVarChar, 20).Value = Password;
+            command.Parameters.Add("@PassportSeries", System.Data.SqlDbType.NChar, 2).Value = PassportSeries;
 
-            //command.Parameters.Add("@Password", System.Data.SqlDbType.NChar, 20).Value = Password;
-            //command.Parameters.Add("@PasportSeries", System.Data.SqlDbType.NChar, 2).Value = PassportSeries;
-
-            //command.Parameters.Add("@Nationality", System.Data.SqlDbType.NChar, 20).Value = Nationality;
-            //command.Parameters.Add("@DateOfBirth", System.Data.SqlDbType.Date).Value = DateOfBirth;
-            //command.Parameters.Add("@Telephone",System.Data.SqlDbType.NChar,20).Value = Telephone;
-            //command.Parameters.Add("@PasportNumber", System.Data.SqlDbType.Int).Value = PassportNumber;
-            //command.Parameters.Add("@Role", System.Data.SqlDbType.NChar, 5).Value = Role.role;
-            //command.Parameters.Add("@Email", System.Data.SqlDbType.NVarChar, 50).Value = Email;
+            command.Parameters.Add("@Nationality", System.Data.SqlDbType.NChar, 20).Value = Nationality;
+            command.Parameters.Add("@DateOfBirth", System.Data.SqlDbType.Date).Value = DateOfBirth;
+            command.Parameters.Add("@Telephone", System.Data.SqlDbType.NChar, 20).Value = Telephone;
+            command.Parameters.Add("@PassportNumber", System.Data.SqlDbType.Int).Value = PassportNumber;
+            command.Parameters.Add("@Role", System.Data.SqlDbType.NChar, 5).Value = Role.role;
+            command.Parameters.Add("@Email", System.Data.SqlDbType.NVarChar, 50).Value = Email;
             DataBase.getInstance().openConnection();
             command.ExecuteNonQuery();
-            //command.ExecuteNonQuery();
             DataBase.getInstance().closeConnection();
         }
 
