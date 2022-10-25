@@ -15,11 +15,11 @@ namespace TRPO.Models
         public string Telephone { set; get; } 
         public string Nationality { set; get; }
         public string Password { set; get; }
-        public Role Role { set; get; }
+        public Role PassangerRole { set; get; }
         public string Email { set; get; }
         
         public Passanger() { 
-            Role = new UserRole();
+            PassangerRole = new UserRole();
         }
 
         public Passanger(int passangerId, string name, string surname, string passportSeries, int passportNumber, DateTime dateOfBirth, string telephone, string nationality, string password, string role, string email)
@@ -35,11 +35,11 @@ namespace TRPO.Models
             Password = password;
             if(role==AdminRole.role)
             {
-                Role = new AdminRole();
+                PassangerRole = new AdminRole();
             }
             else
             {
-                Role = new UserRole();
+                PassangerRole = new UserRole();
             }
             Email = email;
         }
@@ -51,19 +51,16 @@ namespace TRPO.Models
         {
             string commandExpression = "INSERT Passanger (Name, Surname, Pasport_ser, Pasport_num, Nationality, Date_of_birth, Telephone, Password, Role, Email)" +
                 " VALUES (@Name, @Surname, @PassportSeries, @PassportNumber, @Nationality, @DateOfBirth, @Telephone, @Password, @Role, @Email)";
-
             SqlCommand command = new SqlCommand(commandExpression, DataBase.getInstance().GetConnection());
             command.Parameters.Add("@Name", System.Data.SqlDbType.NChar, 20).Value = Name;
             command.Parameters.Add("@Surname", System.Data.SqlDbType.NChar, 20).Value = Surname;
-
             command.Parameters.Add("@Password", System.Data.SqlDbType.NVarChar, 20).Value = Password;
             command.Parameters.Add("@PassportSeries", System.Data.SqlDbType.NChar, 2).Value = PassportSeries;
-
             command.Parameters.Add("@Nationality", System.Data.SqlDbType.NChar, 20).Value = Nationality;
             command.Parameters.Add("@DateOfBirth", System.Data.SqlDbType.Date).Value = DateOfBirth;
             command.Parameters.Add("@Telephone", System.Data.SqlDbType.NChar, 20).Value = Telephone;
             command.Parameters.Add("@PassportNumber", System.Data.SqlDbType.Int).Value = PassportNumber;
-            command.Parameters.Add("@Role", System.Data.SqlDbType.NChar, 5).Value = Role.role;
+            command.Parameters.Add("@Role", System.Data.SqlDbType.NChar, 5).Value = GetRole();
             command.Parameters.Add("@Email", System.Data.SqlDbType.NVarChar, 50).Value = Email;
             DataBase.getInstance().openConnection();
             command.ExecuteNonQuery();
