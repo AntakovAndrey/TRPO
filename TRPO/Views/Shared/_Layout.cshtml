@@ -24,15 +24,18 @@
                             <a href="../Home" class = "nav_link">Главная</a>
                             <a href="../Filters" class = "nav_link">Поиск</a>
                             <a href="../Tickets" class = "nav_link">Билеты</a>
-                            <a href="../Pilots" class = "nav_link">Пилоты</a>
-                            <a href="../AddingFlight" class = "nav_link">Добавление рейса</a>                            
+                            //if(passanger.GetRole()==AdminRole.role)
+                            //{
+                                <a href="../Pilots" class = "nav_link">Пилоты</a>
+                                <a href="../AddingFlight" class = "nav_link">Добавление рейса</a>
+                            //}                        
                             <div class = "dropdown">
                                 <a href="" class = "nav_link">Аккаунт</a>      
                                 <div class="dropdown-content">
                                     <p class = "dropdown_content_name">@Convert.ToString(passanger.Name+" "+passanger.Surname)</p>
                                     <p class = "dropdown_content_email">@Convert.ToString(passanger.Email)</p>
                                     <a href="#">Параметры аккаунта</a>
-                                    <a href="../SignIn">Выход</a>
+                                    <a href="../logout">Выход</a>
                                     <a href="../SignUp">Регистрация</a>
                                 </div>                                    
                             </div>

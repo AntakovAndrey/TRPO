@@ -3,14 +3,26 @@
     public class Role
     {
         public const string role="role";
+        public string getRole()
+        {
+            return role;
+        }
     }
     public class AdminRole:Role
     {
-        public const string role = "admin";
+        private const string role = "admin";
+        public string getRole()
+        {
+            return role;
+        }
     }
     public class UserRole : Role 
     {
-        public const string role = "admin";
+        private const string role = "admin";
+        public string getRole()
+        {
+            return role;
+        }
     }
 
 }

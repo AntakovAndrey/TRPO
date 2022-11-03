@@ -3,23 +3,13 @@
     ViewData["Title"] = "Главная";
 }
 
-@*
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-</div>
-*@
-
-
-
-
-
 @{
     MockFlights Flights = new MockFlights();
     var flights = Flights.Flights;
     foreach (var flight in flights)
     {
-        <div class="flight_item">
+        <form asp-route-FlightId=@flight.FlightId class="flight_item">
+        <div>
                 <p>@flight.FlightId</p>
                 <p>@flight.StartPoint</p>
                 <p>@flight.FinishPoint</p>
@@ -29,7 +19,10 @@
                 <p>@flight.StartTime</p>
                 <p>Время прилета:</p>
                 <p>@flight.FinishTime</p>
+                <button></button>
         </div>
+        </form>
+        
     }
 }
  

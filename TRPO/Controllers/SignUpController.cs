@@ -23,7 +23,6 @@ namespace TRPO.Controllers
                         passanger.Name = Request.Form["Name"];
                         passanger.Surname = Request.Form["Surname"];
                         passanger.Email = Request.Form["Email"];
-                        passanger.Role = new UserRole();
                         passanger.Telephone = Request.Form["Telephone"];
                         passanger.PassportSeries = Request.Form["PassportSeries"];
                         passanger.PassportNumber = Convert.ToInt32(Request.Form["PassportNumber"]);
@@ -31,12 +30,8 @@ namespace TRPO.Controllers
                         passanger.Nationality = Request.Form["Nationality"];
                         passanger.Password = Request.Form["Password"];
                         passanger.SavePassangerToDB();
-
                     }
-                    
                 }
-
-                
                 DataBase.getInstance().closeConnection();
             }
             return View("Index");

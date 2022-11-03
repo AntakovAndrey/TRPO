@@ -18,6 +18,7 @@ namespace TRPO.Controllers
                     var claims = new List<Claim> {
                         new Claim("id", Convert.ToString(passanger.PassangerId)),
                         new Claim("Name", passanger.Name),
+                        new Claim("Role",passanger.GetRole()),
                         new Claim(ClaimTypes.Role,passanger.GetRole())
                     };
                     ClaimsIdentity claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);

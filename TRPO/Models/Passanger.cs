@@ -45,7 +45,7 @@ namespace TRPO.Models
         }
         public string GetRole()
         {
-            return Role.role;
+            return PassangerRole.getRole();
         }
         public void SavePassangerToDB()
         {
