@@ -9,7 +9,6 @@
     foreach (var flight in flights)
     {
         <form asp-route-FlightId=@flight.FlightId class="flight_item">
-        <div>
                 <p>@flight.FlightId</p>
                 <p>@flight.StartPoint</p>
                 <p>@flight.FinishPoint</p>
@@ -19,8 +18,7 @@
                 <p>@flight.StartTime</p>
                 <p>Время прилета:</p>
                 <p>@flight.FinishTime</p>
-                <button></button>
-        </div>
+                <button class="search_button">Подробности</button>
         </form>
         
     }

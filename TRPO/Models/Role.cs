@@ -2,7 +2,7 @@
 {
     public class Role
     {
-        public const string role="role";
+        public const string role = "e";
         public string getRole()
         {
             return role;
@@ -11,7 +11,7 @@
     public class AdminRole:Role
     {
         private const string role = "admin";
-        public string getRole()
+        public static string getRole()
         {
             return role;
         }
@@ -19,7 +19,7 @@
     public class UserRole : Role 
     {
         private const string role = "admin";
-        public string getRole()
+        public static string getRole()
         {
             return role;
         }

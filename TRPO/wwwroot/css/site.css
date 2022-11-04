@@ -30,27 +30,6 @@ main
     position: absolute;
     top:60px;
 }
-.flight_item {
-    width: 80%;
-    height: 85px;
-    margin: 20px 10%;
-    background: #FFFFFF;
-    border: 2px solid #35C7BE;
-    border-radius: 10px;
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-}
-
-.flight_item p {
-    font-family: 'Roboto';
-    font-style: normal;
-    font-weight: 500;
-    font-size: 20px;
-    line-height: 23px;
-    color: #000000;
-}
-
 
 /*tickets*/
 .ticket_item

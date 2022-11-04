@@ -33,7 +33,7 @@ namespace TRPO.Models
             Telephone = telephone;
             Nationality = nationality;
             Password = password;
-            if(role==AdminRole.role)
+            if(role==AdminRole.getRole())
             {
                 PassangerRole = new AdminRole();
             }
@@ -114,6 +114,4 @@ namespace TRPO.Models
             return GetFromDBByCommand(command);
         }
     }
-    
-
 }
