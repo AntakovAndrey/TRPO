@@ -8,6 +8,15 @@
     var flights = Flights.Flights;
     foreach (var flight in flights)
     {
+
+
+        
+
+        ///TODO
+            ///сделать GetDeparture и GуtArriva
+            
+        ///TODO
+
         <form asp-route-FlightId=@flight.FlightId class="flight_item">
                 <p>@flight.FlightId</p>
                 <p>@flight.StartPoint</p>
@@ -18,7 +27,7 @@
                 <p>@flight.StartTime</p>
                 <p>Время прилета:</p>
                 <p>@flight.FinishTime</p>
-                <button class="search_button">Подробности</button>
+                <button class="about_button">Подробности</button>
         </form>
         
     }
