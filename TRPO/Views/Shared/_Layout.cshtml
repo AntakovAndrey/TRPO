@@ -19,11 +19,12 @@
                 <div class="header_title">@ViewData["Title"]</div>
                 <nav class = "nav">
                     @{
+                            <a href="../Home" class = "nav_link">Главная</a>
+                                <a href="../Filters" class = "nav_link">Поиск</a>
                         if (Context.User.FindFirst("id") != null)
                         {
                             Passanger passanger = Passanger.GetFromDBById(Convert.ToInt32(Context.User.FindFirst("id").Value));
-                            <a href="../Home" class = "nav_link">Главная</a>
-                            <a href="../Filters" class = "nav_link">Поиск</a>
+                            
                             <a href="../Tickets" class = "nav_link">Билеты</a>
                             //if(passanger.GetRole()==AdminRole.role)
                             //{
@@ -43,8 +44,6 @@
                         }
                         else
                         {
-                                <a href="../Home" class = "nav_link">Главная</a>
-                                <a href="../Filters" class = "nav_link">Поиск</a>
                                 <div class = "dropdown">
                                     <a href="" class = "nav_link">Аккаунт</a>      
                                     <div class="dropdown-content">

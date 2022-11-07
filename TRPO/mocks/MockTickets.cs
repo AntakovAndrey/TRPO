@@ -1,6 +1,6 @@
 ﻿using Microsoft.Data.SqlClient;
 using TRPO.Models;
-using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
+
 
 namespace TRPO.mocks
 {

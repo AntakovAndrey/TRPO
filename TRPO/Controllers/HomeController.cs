@@ -18,6 +18,12 @@ namespace TRPO.Controllers
         {
             return View("Index");
         }
+        public IActionResult FlightItem(int id)
+        {
+            ViewBag.Id = id;
+            return View("FlightItem");
+        }
+
 
         public IActionResult Privacy()
         {
