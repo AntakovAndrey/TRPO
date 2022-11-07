@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Authorization;
+using TRPO.Database;
 
 namespace TRPO.Controllers
 {
@@ -11,7 +12,6 @@ namespace TRPO.Controllers
         }
         public IActionResult Resault()
         {
-            //string s = Request.RouteValues["Password"];
             FiltersBuilder filtersBuilder = new FiltersBuilder(DataBase.getInstance().GetConnection());
             filtersBuilder.SetFinishPoint(Request.Form["FinishPoint"]);
             filtersBuilder.SetFinishDate(Request.Form["FinishDate"]);

@@ -18,41 +18,40 @@
             <div class="header_inner">
                 <div class="header_title">@ViewData["Title"]</div>
                 <nav class = "nav">
-                    @{
-                            <a href="../Home" class = "nav_link">Главная</a>
-                                <a href="../Filters" class = "nav_link">Поиск</a>
-                        if (Context.User.FindFirst("id") != null)
-                        {
-                            Passanger passanger = Passanger.GetFromDBById(Convert.ToInt32(Context.User.FindFirst("id").Value));
-                            
-                            <a href="../Tickets" class = "nav_link">Билеты</a>
-                            //if(passanger.GetRole()==AdminRole.role)
-                            //{
-                                <a href="../Pilots" class = "nav_link">Пилоты</a>
-                                <a href="../AddingFlight" class = "nav_link">Добавление рейса</a>
-                            //}                        
+                @{
+                    <a href="https://localhost:7297/Home" class = "nav_link">Главная</a>
+                    <a href="../Filters" class = "nav_link">Поиск</a>
+                    if (Context.User.FindFirst("id") != null)
+                    {
+                        Passanger passanger = Passanger.GetFromDBById(Convert.ToInt32(Context.User.FindFirst("id").Value));   
+                        <a href="../Tickets" class = "nav_link">Билеты</a>
+                        //if(passanger.GetRole()==AdminRole.role)
+                        //{
+                            <a href="../Pilots" class = "nav_link">Пилоты</a>
+                            <a href="../AddingFlight" class = "nav_link">Добавление рейса</a>
+                        //}                        
+                        <div class = "dropdown">
+                            <a href="" class = "nav_link">Аккаунт</a>      
+                            <div class="dropdown-content">
+                                <p class = "dropdown_content_name">@Convert.ToString(passanger.Name+" "+passanger.Surname)</p>
+                                <p class = "dropdown_content_email">@Convert.ToString(passanger.Email)</p>
+                                <a href="#">Параметры аккаунта</a>
+                                <a href="../logout">Выход</a>
+                                <a href="../SignUp">Регистрация</a>
+                            </div>                                    
+                        </div>
+                    }
+                    else
+                    {
                             <div class = "dropdown">
                                 <a href="" class = "nav_link">Аккаунт</a>      
                                 <div class="dropdown-content">
-                                    <p class = "dropdown_content_name">@Convert.ToString(passanger.Name+" "+passanger.Surname)</p>
-                                    <p class = "dropdown_content_email">@Convert.ToString(passanger.Email)</p>
-                                    <a href="#">Параметры аккаунта</a>
-                                    <a href="../logout">Выход</a>
+                                    <a href="../SignIn">Вход</a>
                                     <a href="../SignUp">Регистрация</a>
                                 </div>                                    
                             </div>
-                        }
-                        else
-                        {
-                                <div class = "dropdown">
-                                    <a href="" class = "nav_link">Аккаунт</a>      
-                                    <div class="dropdown-content">
-                                        <a href="../SignIn">Вход</a>
-                                        <a href="../SignUp">Регистрация</a>
-                                    </div>                                    
-                                </div>
-                        }
                     }
+                }
                 </nav>
             </div>
         </div>

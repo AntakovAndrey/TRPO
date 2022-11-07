@@ -31,8 +31,7 @@ namespace TRPO.Controllers
                         passanger.Password = Request.Form["Password"];
                         passanger.SavePassangerToDB();
                     }
-                }
-                DataBase.getInstance().closeConnection();
+                }               
             }
             return View("Index");
         }

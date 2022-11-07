@@ -2,18 +2,12 @@
 @{
     ViewData["Title"] = "Главная";
 }
-
 @{
     MockFlights Flights = new MockFlights();
     var flights = Flights.Flights;
     foreach (var flight in flights)
     {
-        ///TODO
-            ///сделать GetDeparture и GуtArriva
-            
-        ///TODO
-
-        <form asp-route-FlightId=@flight.FlightId class="flight_item" method="post" asp-controller="Home" asp-action="FlightItem">
+        <form asp-route-id=@flight.FlightId class="flight_item" method="post" asp-controller="Home" asp-action="FlightItem">
                 <p>@flight.FlightId</p>
                 <p>@flight.StartPoint</p>
                 <p>@flight.FinishPoint</p>
@@ -25,7 +19,6 @@
                 <p>@flight.FinishTime</p>
                 <button class="about_button">Подробности</button>
         </form>
-        
     }
 }
  
