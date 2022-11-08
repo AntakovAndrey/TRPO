@@ -1,0 +1,56 @@
+﻿.main {
+    padding-left: 10%;
+    width: 80%;
+}
+
+.buy {
+    display: flex;
+}
+
+    .buy div {
+        padding: 10px 10px;
+    }
+
+.flight_time {
+    text-align: center;
+    align-items: center;
+}
+
+.flight_time_img {
+    width: 200px;
+    display: block;
+}
+
+    .flight_time_img p {
+        margin: 0;
+    }
+
+.flight_time_line {
+    display: flex;
+    justify-content: space-between;
+}
+
+    .flight_time_line hr {
+        width: 100%;
+        color: #aaaeb5;
+        border-bottom: 1px solid #aaaeb5;
+    }
+
+.waypoint {
+    margin-top: 3px;
+    height: 10px;
+    width: 10px;
+    border: 1px solid #aaaeb5;
+    border-radius: 5px;
+}
+
+.flight_start_finish {
+    margin: 0;
+    width: 200px;
+    display: flex;
+    justify-content: space-between;
+}
+
+    .flight_start_finish p {
+        margin: 0;
+    }
