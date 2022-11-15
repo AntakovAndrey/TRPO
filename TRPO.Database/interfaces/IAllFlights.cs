@@ -2,6 +2,6 @@
 {
     public interface IAllFlights
     {
-        static IEnumerable<Flight> Flights { get; } 
+        IEnumerable<Flight> Flights { get; } 
     }
 }

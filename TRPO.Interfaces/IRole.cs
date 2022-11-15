@@ -8,7 +8,7 @@ namespace TRPO.Interfaces
 {
     public interface IRole
     {
-        static string? Name { get; }
-        List<IService>? AvaliableServices { get; }
+        public static string Name { get; }
+        public List<IService>? AvaliableServices { get; }
     }
 }

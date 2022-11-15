@@ -1,8 +1,6 @@
 ﻿using Microsoft.Data.SqlClient;
 using System.Text.RegularExpressions;
-
 using TRPO.Interfaces;
-
 
 namespace TRPO.Services
 {

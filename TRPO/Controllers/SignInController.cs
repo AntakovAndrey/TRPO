@@ -12,7 +12,7 @@ namespace TRPO.Controllers
         {
             if(ModelState.IsValid)
             {
-                Passanger passanger = Passanger.GetFromDBByEmailAndPassword(Request.Form["Email"], Request.Form["Password"]);
+                User passanger = User.GetFromDBByEmailAndPassword(Request.Form["Email"], Request.Form["Password"]);
                 if (passanger!=null)
                 {
                     var claims = new List<Claim> {

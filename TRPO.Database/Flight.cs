@@ -1,7 +1,6 @@
 ﻿using Microsoft.Data.SqlClient;
 using System.Data;
-using TRPO.Database;
-using TRPO.interfaces;
+
 
 namespace TRPO
 {
