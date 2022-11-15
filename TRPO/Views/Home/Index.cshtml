@@ -4,8 +4,8 @@
 }
 @{
     MockFlights Flights = new MockFlights();
-    var flights = Flights.Flights;
-    foreach (var flight in flights)
+    
+    foreach (var flight in Flights.Flights)
     {
         <form asp-route-id=@flight.FlightId class="flight_item" method="post" asp-controller="Home" asp-action="FlightItem">
                 <p>@flight.FlightId</p>

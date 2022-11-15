@@ -1,7 +1,5 @@
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
-using Microsoft.AspNetCore.Authorization;
-using TRPO;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -31,7 +29,6 @@ app.UseRouting();
 app.UseAuthentication();
 app.UseAuthorization();
 
-
 //app.MapRazorPages();
 app.MapDefaultControllerRoute();
 
@@ -39,19 +36,16 @@ app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
 
-
 app.MapGet("/accessdenied", async (HttpContext context) =>
 {
     context.Response.StatusCode = 403;
     await context.Response.WriteAsync("Access Denied");
 });
 
-
 app.MapGet("/logout", async (HttpContext context) =>
 {
     await context.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
     return Results.Redirect("../SignIn");
 });
-
 
 app.Run();

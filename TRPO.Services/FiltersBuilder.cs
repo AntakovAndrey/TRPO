@@ -1,11 +1,13 @@
 ﻿using Microsoft.Data.SqlClient;
 using System.Text.RegularExpressions;
 
-namespace TRPO
+using TRPO.Interfaces;
+
+
+namespace TRPO.Services
 {
     public class FiltersBuilder
     {
-        
         private string _commandExpression;
         private string _filters;
         private readonly SqlConnection _connection;

@@ -1,6 +1,4 @@
-﻿using TRPO.Models;
-
-namespace TRPO.interfaces
+﻿namespace TRPO.interfaces
 {
     public interface IAllPilots
     {

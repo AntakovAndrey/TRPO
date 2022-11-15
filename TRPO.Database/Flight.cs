@@ -1,8 +1,9 @@
 ﻿using Microsoft.Data.SqlClient;
 using System.Data;
 using TRPO.Database;
+using TRPO.interfaces;
 
-namespace TRPO.Models
+namespace TRPO
 {
     public class Flight
     {
@@ -30,7 +31,7 @@ namespace TRPO.Models
         public static Flight GetByID(int id)
         {
             DataRow[] flightInfo;
-            SqlCommand command = new SqlCommand("SELECT * FROM Flight WHERE Flight_id = @id", DataBase.getInstance().GetConnection());
+            SqlCommand command = new SqlCommand("SELECT * FROM Flight WHERE Flight_id = @id", DataBase.getInstance().getConnection());
             command.Parameters.Add("@id", System.Data.SqlDbType.Int).Value = id;
             DataTable table = new DataTable();
             SqlDataAdapter adapter = new SqlDataAdapter();
@@ -48,6 +49,40 @@ namespace TRPO.Models
                 Convert.ToInt32(flightInfo[0][7])
             );
         }
+        //public IEnumerable<Flight> Flights
+        //{
+        //    get
+        //    {
+        //        DataBase.getInstance().openConnection();
+        //        //SqlDataReader reader = command.ExecuteReader();
+        //        if (reader.HasRows)
+        //        {
+        //            while (reader.Read())
+        //            {
+
+        //                int id = reader.GetInt32(0);
+        //                DateOnly date = DateOnly.FromDateTime(reader.GetDateTime(1));
+        //                TimeOnly startTime = TimeOnly.FromDateTime(reader.GetDateTime(2));
+        //                TimeOnly finishTime = TimeOnly.FromDateTime(reader.GetDateTime(3));
+        //                string startPoint = reader.GetString(4);
+        //                string finishPoint = reader.GetString(5);
+        //                int planeId = reader.GetInt32(6);
+        //                int crewId = reader.GetInt32(7);
+        //                tmpFlights.Add(new Flight(id, date, startTime, finishTime, startPoint, finishPoint, planeId, crewId));
+        //            }
+        //        }
+        //        DataBase.getInstance().closeConnection();
+        //        return Flights = new List<Flight>(tmpFlights);
+        //    }
+
+        //    set
+        //    {
+
+        //    }
+        //}
+
+
+
     }
    
 }

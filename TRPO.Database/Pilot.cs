@@ -1,5 +1,4 @@
-﻿
-namespace TRPO.Models
+﻿namespace TRPO
 {
     public class Pilot
     {

@@ -7,7 +7,6 @@ namespace TRPO.mocks
 {
     public class MockPilots : IAllPilots
     {
-        
         List<Pilot> tmpPilots = new List<Pilot>();
         public IEnumerable<Pilot> Pilots
         {
