@@ -1,16 +1,28 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using TRPO.Interfaces;
+﻿using TRPO.Interfaces;
 
 namespace TRPO.Models
 {
-    internal class AdminRole : IRole
+    public class AdminRole : IRole
     {
-        string IRole.Name = "Admin";
+        private static string _roleName = "Admin";
+        
+        List<IService> IRole.AvaliableServices => throw new NotImplementedException();
+
+        static string Name
+        {
+            get => _roleName;
+        }
+    }
+
+    public class UserRole : IRole
+    {
+        private static string _roleName = "User";
 
         List<IService> IRole.AvaliableServices => throw new NotImplementedException();
+
+        static string Name
+        {
+            get => _roleName;
+        }
     }
 }
