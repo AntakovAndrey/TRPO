@@ -157,3 +157,7 @@ main
     font-size: 32px;
 }
 
+
+.input_item_container{
+    display:block;
+}

@@ -23,20 +23,20 @@ namespace TRPO.Models
         [Required]
         public DateTime DateOfBirth { set; get; }
         [Required]
+        [Phone]
         public string Telephone { set; get; }
         [Required]
         public string Nationality { set; get; }
         [Required]
         public string Password { set; get; }
         [Required]
-        public IRole Role { get; }
-        [Required]
         [RegularExpression(@"[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4}", ErrorMessage = "Некорректный адрес")]
         public string Email { set; get; }
+        public IRole Role { get; }
+
 
         public User()
         {
-            
             Role = new UserRole();
         }
 
@@ -61,24 +61,6 @@ namespace TRPO.Models
             }
             Email = email;
         }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
         public void SavePassangerToDB()
         {

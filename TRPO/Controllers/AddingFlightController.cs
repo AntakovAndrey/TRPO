@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.Data.SqlClient;
+using TRPO.Services;
 
 namespace TRPO.Controllers
 {
@@ -34,7 +35,7 @@ namespace TRPO.Controllers
 
                 DataBase dataBase = DataBase.getInstance();
                 dataBase.openConnection();
-                SqlCommand command = new SqlCommand(commandExpression, dataBase.GetConnection());
+                SqlCommand command = new SqlCommand(commandExpression, dataBase.getConnection());
                 command.Parameters.Add(Date);
                 command.Parameters.Add(TimeUp);
                 command.Parameters.Add(TimeIn);

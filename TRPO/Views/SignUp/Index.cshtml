@@ -3,43 +3,61 @@
     ViewData["Title"] = "Регистрация";
 }
 
-
 <form method = "post" asp-controller="SignUp" asp-action="Check" class = "sign_in_container">
-    <p>Имя</p>    
-    <input class = "short_input" asp-for="Name"> </input>
-    <span asp-validation-for="Name"></span>
-    <p>Фамилия</p>
-    <input class = "short_input" asp-for="Surname"> </input>
-    <span asp-validation-for="Surname"></span>
-    <p>Email</p>
-    <input class = "short_input" asp-for="Email"> </input>
-    <span asp-validation-for="Email"></span>
-    <p>Пароль</p>
-    <input class = "short_input" type="password" asp-for="Password"> </input>
-    <span asp-validation-for="Password"></span>
-    <p>Повторите пароль</p>
-    <input class = "short_input" type="password" name="Password_repeat"> </input>
-    <span asp-validation-for="Password"></span>
-    <p>Телефон</p>
-    <input class = "short_input"asp-for="Telephone"> </input>
-    <span asp-validation-for="Telephone"></span>
-    <p>Серия паспорта</p>
-    <input class = "short_input" asp-for="PassportSeries"> </input>
-    <span asp-validation-for="PassportSeries"></span>
-    <p>Номер паспорта</p>
-    <input class = "short_input"asp-for="PassportNumber"> </input>
-    <span asp-validation-for="PassportNumber"></span>
-    <p>Гражданство</p>
-    <input class = "short_input"asp-for="Nationality"> </input>
-    <span asp-validation-for="Nationality"></span>
-    <p>Дата рождения</p>
-    <input class = "short_input"asp-for="DateOfBirth" type="Date"> </input>
-    <span asp-validation-for="DateOfBirth"></span>
+    <div class="input_item_container">
+        <p>Имя</p>    
+        <input class = "short_input" asp-for="Name"> 
+        <span asp-validation-for="Name"></span>
+    </div>
+    <div class="input_item_container">
+        <p>Фамилия</p>
+        <input class = "short_input" asp-for="Surname"> 
+        <span asp-validation-for="Surname"></span>
+    </div>
+    <div class="input_item_container">
+        <p>Email</p>
+        <input class = "short_input" asp-for="Email"> 
+        <span asp-validation-for="Email"></span>
+    </div>
+    <div class="input_item_container">
+        <p>Пароль</p>
+        <input class = "short_input" type="password" asp-for="Password"> 
+        <span asp-validation-for="Password"></span>
+    </div>
+    <div class="input_item_container">
+        <p>Повторите пароль</p>
+        <input class = "short_input" type="password" name="Password_repeat">
+        <span asp-validation-for="Password"></span>
+    </div>
+    <div class="input_item_container">
+        <p>Телефон</p>
+        <input class = "short_input"asp-for="Telephone" type="Phone"> 
+        <span asp-validation-for="Telephone"></span>
+    </div>
+    <div class="input_item_container">
+        <p>Серия паспорта</p>
+        <input class = "short_input" asp-for="PassportSeries"> 
+        <span asp-validation-for="PassportSeries"></span>
+    </div>
+    <div class="input_item_container">
+        <p>Номер паспорта</p>
+        <input class = "short_input"asp-for="PassportNumber"> 
+        <span asp-validation-for="PassportNumber"></span>
+    </div>
+    <div class="input_item_container">
+        <p>Гражданство</p>
+        <input class = "short_input"asp-for="Nationality"> 
+        <span asp-validation-for="Nationality"></span>
+    </div>
+    <div class="input_item_container">
+        <p>Дата рождения</p>
+        <input class = "short_input"asp-for="DateOfBirth" type="Date"> 
+        <span asp-validation-for="DateOfBirth"></span>
+    </div>
     <button class = "sign_in_button">Зарегистрироваться</button>
 </form>
 
 @section scripts{
-
-        <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
-        <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+    <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
 }
