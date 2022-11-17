@@ -1,10 +1,10 @@
 ﻿using Microsoft.Data.SqlClient;
 
-namespace TRPO.Database
+namespace TRPO.Services
 {
     public class DataBase
     {
-        private static DataBase _instance;
+        private static DataBase? _instance;
 
         private static SqlConnection _sqlConnection = new SqlConnection(@"Data Source = DESKTOP-30507DA;Initial catalog = trpo;Integrated Security = true;TrustServerCertificate = true");
 

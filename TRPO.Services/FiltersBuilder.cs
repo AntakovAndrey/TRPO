@@ -1,6 +1,5 @@
 ﻿using Microsoft.Data.SqlClient;
 using System.Text.RegularExpressions;
-using TRPO.Interfaces;
 
 namespace TRPO.Services
 {
@@ -8,27 +7,27 @@ namespace TRPO.Services
     {
         private string _commandExpression;
         private string _filters;
-        private readonly SqlConnection _connection;
-        private SqlCommand _command = new SqlCommand();
+
+        readonly SqlConnection _connection;
+
+        private SqlCommand _command;
+
         public FiltersBuilder(SqlConnection connection)
         {
             _connection = connection;
             _commandExpression = "SELECT * FROM Flight ";
+            _filters = "";
+            _command = new SqlCommand();
         }
-        private bool addCondition()
+
+        public SqlCommand GetResault()
         {
-            if (_filters != ""&&_filters != " "&&_filters!=null)
-            {
-                _filters += "AND ";
-            }
-            else
-            {
-                _filters += "WHERE ";
-                return true;
-                
-            }
-            return false;
+            _commandExpression += _filters;
+            _command.CommandText = _commandExpression;
+            _command.Connection = _connection;
+            return _command;
         }
+
         public void SetFinishDate(string finishDate)
         {
             if (finishDate != null && !Regex.IsMatch(finishDate, @"(\s)+", RegexOptions.IgnoreCase) && finishDate != "")
@@ -41,13 +40,13 @@ namespace TRPO.Services
         }
         public void SetStartDate(string startDate)
         {
-            if(startDate != null && !Regex.IsMatch(startDate, @"(\s)+", RegexOptions.IgnoreCase) && startDate != "")
+            if (startDate != null && !Regex.IsMatch(startDate, @"(\s)+", RegexOptions.IgnoreCase) && startDate != "")
             {
                 addCondition();
                 _filters += $"Date >= @startDate ";
                 _command.Parameters.Add("@startDate", System.Data.SqlDbType.DateTime).Value = Convert.ToDateTime(startDate);
             }
-            
+
         }
         public void SetFinishPoint(string finishPoint)
         {
@@ -58,12 +57,17 @@ namespace TRPO.Services
                 _command.Parameters.Add("@finishPoint", System.Data.SqlDbType.NChar, 20).Value = finishPoint;
             }
         }
-        public SqlCommand GetResault()
+
+        private void addCondition()
         {
-            _commandExpression += _filters;
-            _command.CommandText = _commandExpression;
-            _command.Connection = _connection;
-            return _command;
+            if (_filters != "" && _filters != " " && _filters != null)
+            {
+                _filters += "AND ";
+            }
+            else
+            {
+                _filters += "WHERE ";
+            }
         }
     }
 }

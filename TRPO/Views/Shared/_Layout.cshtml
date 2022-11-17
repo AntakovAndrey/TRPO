@@ -24,7 +24,7 @@
                     <a href="../Filters" class = "nav_link">Поиск</a>
                     if (Context.User.FindFirst("id") != null)
                     {
-                        User passanger = User.GetFromDBById(Convert.ToInt32(Context.User.FindFirst("id").Value));   
+                        User passanger = TRPO.Models.User.GetFromDBById(Convert.ToInt32(Context.User.FindFirst("id").Value));   
                         <a href="../Tickets" class = "nav_link">Билеты</a>
                         //if(passanger.GetRole()==AdminRole.role)
                         //{

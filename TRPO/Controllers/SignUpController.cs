@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.Data.SqlClient;
+using System;
 using TRPO.Models;
 
 namespace TRPO.Controllers
@@ -11,15 +12,15 @@ namespace TRPO.Controllers
             return View();
         }
         [HttpPost]
-        public IActionResult Check()
+        public IActionResult Check(User user)
         {
             if (ModelState.IsValid)
             {
-                if (Passanger.GetFromDBByEmail(Request.Form["Email"]) == null)
+                if (TRPO.Models.User.GetFromDBByEmail(Request.Form["Email"]) == null)
                 {
                     if(Request.Form["Password"] == Request.Form["Password_repeat"])
                     {
-                        Passanger passanger = new Passanger();
+                        User passanger = new User();
                         passanger.Name = Request.Form["Name"];
                         passanger.Surname = Request.Form["Surname"];
                         passanger.Email = Request.Form["Email"];
@@ -30,10 +31,16 @@ namespace TRPO.Controllers
                         passanger.Nationality = Request.Form["Nationality"];
                         passanger.Password = Request.Form["Password"];
                         passanger.SavePassangerToDB();
+                        
                     }
-                }               
+                }
+                return Content($"{user.Name} - {user.Email}");
             }
-            return View("Index");
+            else
+            {
+                return View(user);
+            }
+            
         }
     }
 }

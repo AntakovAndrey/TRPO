@@ -6,4 +6,9 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\TRPO.Interfaces\TRPO.Interfaces.csproj" />
+    <ProjectReference Include="..\TRPO.Services\TRPO.Services.csproj" />
+  </ItemGroup>
+
 </Project>

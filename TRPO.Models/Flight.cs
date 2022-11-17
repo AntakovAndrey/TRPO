@@ -1,8 +1,9 @@
 ﻿using Microsoft.Data.SqlClient;
+using System;
 using System.Data;
+using TRPO.Services;
 
-
-namespace TRPO
+namespace TRPO.Models
 {
     public class Flight
     {

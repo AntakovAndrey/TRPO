@@ -1,5 +1,5 @@
 ﻿using Microsoft.Data.SqlClient;
-using TRPO.Database;
+using TRPO.Services;
 using TRPO.Models;
 
 
@@ -14,7 +14,7 @@ namespace TRPO.mocks
             _command = new SqlCommand();
             _command.CommandText = "SELECT * FROM Ticket WHERE Passanger_id = @PassangerId";
             _command.Parameters.Add("@PassangerId", System.Data.SqlDbType.Int).Value = userId;
-            _command.Connection = DataBase.getInstance().GetConnection();
+            _command.Connection = DataBase.getInstance().getConnection();
         }
         public IEnumerable<Ticket> Tickets
         {

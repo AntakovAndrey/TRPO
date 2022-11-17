@@ -1,5 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using TRPO.Database;
+using TRPO.Services;
 
 namespace TRPO.Controllers
 {
@@ -11,7 +11,7 @@ namespace TRPO.Controllers
         }
         public IActionResult Resault()
         {
-            FiltersBuilder filtersBuilder = new FiltersBuilder(DataBase.getInstance().GetConnection());
+            FiltersBuilder filtersBuilder = new FiltersBuilder(DataBase.getInstance().getConnection());
             filtersBuilder.SetFinishPoint(Request.Form["FinishPoint"]);
             filtersBuilder.SetFinishDate(Request.Form["FinishDate"]);
             filtersBuilder.SetStartDate(Request.Form["StartDate"]);

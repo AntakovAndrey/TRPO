@@ -1,11 +1,11 @@
 ﻿using Microsoft.Data.SqlClient;
-using TRPO.Database;
-using TRPO.interfaces;
+using TRPO.Interfaces;
 using TRPO.Models;
+using TRPO.Services;
 
 namespace TRPO.mocks
 {
-    public class MockFlights:IAllFlights
+    public class MockFlights
     {
         SqlCommand command;
         public MockFlights(SqlCommand command)
@@ -14,7 +14,7 @@ namespace TRPO.mocks
         }
         public MockFlights()
         {
-            command = new SqlCommand("SELECT * FROM Flight", DataBase.getInstance().GetConnection());
+            command = new SqlCommand("SELECT * FROM Flight", DataBase.getInstance().getConnection());
         }
         List<Flight> tmpFlights = new List<Flight>();
         public IEnumerable<Flight> Flights

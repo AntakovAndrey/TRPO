@@ -1,11 +1,10 @@
 ﻿using Microsoft.Data.SqlClient;
-using TRPO.Database;
-using TRPO.interfaces;
 using TRPO.Models;
+using TRPO.Services;
 
 namespace TRPO.mocks
 {
-    public class MockPilots : IAllPilots
+    public class MockPilots
     {
         List<Pilot> tmpPilots = new List<Pilot>();
         public IEnumerable<Pilot> Pilots
@@ -13,7 +12,7 @@ namespace TRPO.mocks
             get
             {
                 DataBase.getInstance().openConnection();
-                SqlCommand command = new SqlCommand("SELECT * FROM Pilot", DataBase.getInstance().GetConnection());
+                SqlCommand command = new SqlCommand("SELECT * FROM Pilot", DataBase.getInstance().getConnection());
                 SqlDataReader reader = command.ExecuteReader();
                 if (reader.HasRows)
                 {
