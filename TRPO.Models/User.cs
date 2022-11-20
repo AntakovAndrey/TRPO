@@ -3,35 +3,50 @@ using System.Data;
 using TRPO.Services;
 using TRPO.Interfaces;
 using System.ComponentModel.DataAnnotations;
-//using TRPO.Database;
+using System.Text.RegularExpressions;
 
 namespace TRPO.Models
 {
     public class User
-    {
-        
+    {   
         public int PassangerId { get; }
-        [Required]
-        [StringLength(50,MinimumLength =1,ErrorMessage ="Иди в Анус")]
+
+        [Required(ErrorMessage ="Имя не введено")]
+        [StringLength(50,ErrorMessage ="Имя слишком длинное.")]
+        [MinLength(1,ErrorMessage ="Имя слишком короткое.")]
+        [RegularExpression(@"([А-Я]{1}[а-яё]{1,23})|([A-Z]{1}[a-z]{1-23})",ErrorMessage ="Имя введено неправильно.")]
         public string Name { set; get; }
-        [Required]
+
+        [Required(ErrorMessage = "Фамилия не введена")]
+        [StringLength(50, ErrorMessage = "Фамилия слишком длинная.")]
+        [MinLength(1, ErrorMessage = "Фамилия слишком короткое.")]
+        [RegularExpression(@"([А-Я]{1}[а-яё]{1,23})|([A-Z]{1}[a-z]{1-23})", ErrorMessage = "Фамилия введена неправильно.")]
         public string Surname { set; get; }
-        [Required]
+
+        [Required(ErrorMessage ="Серия паспорта не введена.")]
+        [RegularExpression(@"(MC)|(MP)",ErrorMessage ="Некорректная серия паспорта.")]
         public string PassportSeries { set; get; }
-        [Required]
+
+        [Required(ErrorMessage ="Номер паспорта не введен.")]
         public int PassportNumber { set; get; }
-        [Required]
+
+        [Required(ErrorMessage ="Дата рождения не введена.")]
         public DateTime DateOfBirth { set; get; }
-        [Required]
-        [Phone]
+
+        [Required(ErrorMessage ="Номер телефона не введен.")]
+        [Phone(ErrorMessage ="Некорректный номер.")]
         public string Telephone { set; get; }
-        [Required]
+
+        [Required(ErrorMessage ="Гражданство не введено.")]
         public string Nationality { set; get; }
-        [Required]
+
+        [Required(ErrorMessage ="Пароль не введен.")]
         public string Password { set; get; }
-        [Required]
-        [RegularExpression(@"[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4}", ErrorMessage = "Некорректный адрес")]
+
+        [Required(ErrorMessage ="Адрес не введен.")]
+        [EmailAddress(ErrorMessage = "Некорректный адрес.")]
         public string Email { set; get; }
+
         public IRole Role { get; }
 
 

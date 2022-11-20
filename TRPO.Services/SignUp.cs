@@ -32,7 +32,7 @@ namespace TRPO
         }
         public static bool SetName(string name)
         {
-            if (!String.IsNullOrEmpty(name) && name != "" && name != " " && Regex.IsMatch(name, @"([А-Я]{1}[а-яё]{1,23}|[A-Z]{1}[a-z]{1-23})+", RegexOptions.IgnoreCase))
+            if (!String.IsNullOrEmpty(name) && name != "" && name != " " && Regex.IsMatch(name, @"([А-Я]{1}[а-яё]{1,23})|([A-Z]{1}[a-z]{1-23})", RegexOptions.IgnoreCase))
             {
                 return true;
             }
