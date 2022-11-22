@@ -1,25 +1,54 @@
 ﻿@using TRPO.mocks
+@using TRPO.Models
 @{
     ViewData["Title"] = "Главная";
 }
-@{
-    MockFlights Flights = new MockFlights();
-    
-    foreach (var flight in Flights.Flights)
-    {
-        <form asp-route-id=@flight.FlightId class="flight_item" method="post" asp-controller="Home" asp-action="FlightItem">
-                <p>@flight.FlightId</p>
-                <p>@flight.StartPoint</p>
-                <p>@flight.FinishPoint</p>
-                <p>Дата вылета:</p>
-                <p>@flight.Date</p>
-                <p>Время вылета:</p>
-                <p>@flight.StartTime</p>
-                <p>Время прилета:</p>
-                <p>@flight.FinishTime</p>
-                <button class="about_button">Подробности</button>
-        </form>
+
+<div>
+    <button>Вылет</button>
+    <button>Прилет</button>
+</div>
+
+
+<table class = "arrival_table">
+  <tr>
+    <th>Рейс</th>
+    <th>Прибывает из</th>
+    <th>Время прилета</th>
+    <th>Статус</th>
+  </tr>
+    @{
+        
+        foreach (var flight in Flight.getArrivlToady())
+        {
+           <tr>
+            <td>@flight.FlightId</td>
+            <td>@flight.FinishPoint</td>
+            <td>@flight.FinishTime</td>
+            <td>В полете</td>
+          </tr>
+        }
     }
-}
+</table>
+
+@*<table class = "departure_table">
+  <tr>
+    <th>Рейс</th>
+    <th>Направляется в</th>
+    <th>Время вылета</th>
+    <th>Статус</th>
+  </tr>
+    @{
+        foreach (var flight in Flight.getDepartureToday())
+        {
+           <tr>
+            <td>@flight.FlightId</td>
+            <td>@flight.FinishPoint</td>
+            <td>@flight.FinishTime</td>
+            <td>В полете</td>
+          </tr>
+        }
+    }
+</table>*@
  
 

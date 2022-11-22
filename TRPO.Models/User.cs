@@ -85,7 +85,7 @@ namespace TRPO.Models
             SqlCommand command = new SqlCommand(commandExpression, DataBase.getInstance().getConnection());
             command.Parameters.Add("@Name", System.Data.SqlDbType.NChar, 20).Value = Name;
             command.Parameters.Add("@Surname", System.Data.SqlDbType.NChar, 20).Value = Surname;
-            command.Parameters.Add("@Password", System.Data.SqlDbType.NVarChar, 20).Value = HashPassword(Password);
+            command.Parameters.Add("@Password", System.Data.SqlDbType.NVarChar, 50).Value = HashPassword(Password);
             command.Parameters.Add("@PassportSeries", System.Data.SqlDbType.NChar, 2).Value = PassportSeries;
             command.Parameters.Add("@Nationality", System.Data.SqlDbType.NChar, 20).Value = Nationality;
             command.Parameters.Add("@DateOfBirth", System.Data.SqlDbType.Date).Value = DateOfBirth;
