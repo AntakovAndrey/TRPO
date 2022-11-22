@@ -13,16 +13,14 @@ namespace TRPO.Controllers
         {
             if(ModelState.IsValid)
             {
-                User passanger = TRPO.Models.User.GetFromDBByEmailAndPassword(Request.Form["Email"], Request.Form["Password"]);
+                User user = Models.User.GetFromDBByEmailAndPassword(Request.Form["Email"], Request.Form["Password"]);
                 
-                if (passanger!=null)
+                if (user!=null)
                 {
-                    
-                    var claims = new List<Claim> {
-                        new Claim("id", Convert.ToString(passanger.PassangerId)),
-                        new Claim("Name", passanger.Name),
-                        new Claim("Role", passanger.Role.Name),
-                        //new Claim(ClaimTypes.Role,passanger.GetRole())
+                    var claims = new List<Claim> { 
+                        new Claim("id", Convert.ToString(user.PassangerId)),
+                        new Claim("Name", user.Name)
+                        //new Claim("Role", user.Role.Name)
                     };
                     ClaimsIdentity claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
                     await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(claimsIdentity));

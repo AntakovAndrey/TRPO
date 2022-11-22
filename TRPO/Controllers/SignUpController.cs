@@ -19,7 +19,7 @@ namespace TRPO.Controllers
             {
                 if ((TRPO.Models.User.GetFromDBByEmail(Request.Form["Email"]) == null) && (Request.Form["Password"] == Request.Form["Password_repeat"]))
                 {
-                    user.SavePassangerToDB();
+                    user.SaveUserToDB();
                     return Redirect("../Home");
                 }
                 else

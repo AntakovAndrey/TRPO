@@ -16,7 +16,7 @@
     </div>
     <div class="input_item_container">
         <p>Email</p>
-        <input class = "short_input" asp-for="Email"> 
+        <input class = "short_input" asp-for="Email"></input>
         <span asp-validation-for="Email"></span>
     </div>
     <div class="input_item_container">
@@ -31,12 +31,12 @@
     </div>
     <div class="input_item_container">
         <p>Телефон</p>
-        <input class = "short_input"asp-for="Telephone" type="Phone"> 
+        <input class = "short_input"asp-for="Telephone" type="tel" placeholder="+375xxxxxxx" /> 
         <span asp-validation-for="Telephone"></span>
     </div>
     <div class="input_item_container">
         <p>Серия паспорта</p>
-        <input class = "short_input" asp-for="PassportSeries" placeholder="http://www.example.com" />
+        <input class = "short_input" asp-for="PassportSeries">
         <span asp-validation-for="PassportSeries"></span>
     </div>
     <div class="input_item_container">

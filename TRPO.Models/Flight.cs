@@ -28,6 +28,11 @@ namespace TRPO.Models
             CrewId = crewId;
         }
 
+        public void saveFlightsToDB()
+        {   
+        
+        }
+
         public static Flight GetByID(int id)
         {
             DataRow[] flightInfo;
@@ -49,6 +54,8 @@ namespace TRPO.Models
                 Convert.ToInt32(flightInfo[0][7])
             );
         }
+
+
         //public IEnumerable<Flight> Flights
         //{
         //    get

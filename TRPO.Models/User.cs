@@ -4,6 +4,7 @@ using TRPO.Services;
 using TRPO.Interfaces;
 using System.ComponentModel.DataAnnotations;
 using System.Text.RegularExpressions;
+using System.Security.Cryptography;
 
 namespace TRPO.Models
 {
@@ -47,7 +48,7 @@ namespace TRPO.Models
         [EmailAddress(ErrorMessage = "Некорректный адрес.")]
         public string Email { set; get; }
 
-        public IRole Role { get; }
+        public IRole Role { private set; get; }
 
 
         public User()
@@ -77,14 +78,14 @@ namespace TRPO.Models
             Email = email;
         }
 
-        public void SavePassangerToDB()
+        public void SaveUserToDB()
         {
-            string commandExpression = "INSERT Passanger (Name, Surname, Pasport_ser, Pasport_num, Nationality, Date_of_birth, Telephone, Password, Role, Email)" +
+            string commandExpression = "INSERT [User] (Name, Surname, Pasport_ser, Pasport_num, Nationality, Date_of_birth, Telephone, Password, Role, Email)" +
                 " VALUES (@Name, @Surname, @PassportSeries, @PassportNumber, @Nationality, @DateOfBirth, @Telephone, @Password, @Role, @Email)";
             SqlCommand command = new SqlCommand(commandExpression, DataBase.getInstance().getConnection());
             command.Parameters.Add("@Name", System.Data.SqlDbType.NChar, 20).Value = Name;
             command.Parameters.Add("@Surname", System.Data.SqlDbType.NChar, 20).Value = Surname;
-            command.Parameters.Add("@Password", System.Data.SqlDbType.NVarChar, 20).Value = Password;
+            command.Parameters.Add("@Password", System.Data.SqlDbType.NVarChar, 20).Value = HashPassword(Password);
             command.Parameters.Add("@PassportSeries", System.Data.SqlDbType.NChar, 2).Value = PassportSeries;
             command.Parameters.Add("@Nationality", System.Data.SqlDbType.NChar, 20).Value = Nationality;
             command.Parameters.Add("@DateOfBirth", System.Data.SqlDbType.Date).Value = DateOfBirth;
@@ -97,8 +98,28 @@ namespace TRPO.Models
             DataBase.getInstance().closeConnection();
         }
 
-        private static User GetFromDBByCommand(SqlCommand command)
+        public static User GetFromDBById(int id)
         {
+            SqlCommand command = new SqlCommand("SELECT * FROM [User] WHERE Passanger_id = @id", DataBase.getInstance().getConnection());
+            command.Parameters.Add("@id", System.Data.SqlDbType.Int).Value = id;
+            return GetFromDBByCommand(command);
+        }
+        public static User GetFromDBByEmail(string email)
+        {
+            SqlCommand command = new SqlCommand("SELECT * FROM [User] WHERE Email = @userEmail", DataBase.getInstance().getConnection());
+            command.Parameters.Add("@userEmail", System.Data.SqlDbType.NVarChar, 50).Value = email;
+            return GetFromDBByCommand(command);
+        }
+        public static User GetFromDBByEmailAndPassword(string email, string password)
+        {
+            SqlCommand command = new SqlCommand("SELECT * FROM [User] WHERE Email = @userEmail AND Password = @userPassword", DataBase.getInstance().getConnection());
+            command.Parameters.Add("@userEmail", System.Data.SqlDbType.NVarChar, 50).Value = email;
+            command.Parameters.Add("@userPassword", System.Data.SqlDbType.NVarChar, 50).Value = password;
+            return GetFromDBByCommand(command);
+        }
+
+        private static User GetFromDBByCommand(SqlCommand command)
+        { 
             DataRow[] userInfo;
             DataTable table = new DataTable();
             SqlDataAdapter adapter = new SqlDataAdapter();
@@ -121,27 +142,27 @@ namespace TRPO.Models
                     email: Convert.ToString(userInfo[0][10])
                 );
             }
-            return null;
+            else return null;
         }
 
-        public static User GetFromDBById(int id)
+        private static string HashPassword(string password)
         {
-            SqlCommand command = new SqlCommand("SELECT * FROM Passanger WHERE Passanger_id = @id", DataBase.getInstance().getConnection());
-            command.Parameters.Add("@id", System.Data.SqlDbType.Int).Value = id;
-            return GetFromDBByCommand(command);
+            byte[] salt;
+            byte[] buffer;
+            if (password == null)
+            {
+                throw new ArgumentNullException("password");
+            }
+            using (Rfc2898DeriveBytes bytes = new Rfc2898DeriveBytes(password, 0x10, 0x3e8))
+            {
+                salt = bytes.Salt;
+                buffer = bytes.GetBytes(0x20);
+            }
+            byte[] dst = new byte[0x31];
+            Buffer.BlockCopy(salt, 0, dst, 1, 0x10);
+            Buffer.BlockCopy(buffer, 0, dst, 0x11, 0x20);
+            return Convert.ToBase64String(dst);
         }
-        public static User GetFromDBByEmail(string email)
-        {
-            SqlCommand command = new SqlCommand("SELECT * FROM Passanger WHERE Email = @userEmail", DataBase.getInstance().getConnection());
-            command.Parameters.Add("@userEmail", System.Data.SqlDbType.NVarChar, 50).Value = email;
-            return GetFromDBByCommand(command);
-        }
-        public static User GetFromDBByEmailAndPassword(string email, string password)
-        {
-            SqlCommand command = new SqlCommand("SELECT * FROM Passanger WHERE Email = @userEmail AND Password = @userPassword", DataBase.getInstance().getConnection());
-            command.Parameters.Add("@userEmail", System.Data.SqlDbType.NVarChar, 50).Value = email;
-            command.Parameters.Add("@userPassword", System.Data.SqlDbType.NChar, 20).Value = password;
-            return GetFromDBByCommand(command);
-        }
+
     }
 }
