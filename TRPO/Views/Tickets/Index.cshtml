@@ -6,28 +6,28 @@
 @{
     MockTickets tickets = new MockTickets(ViewBag.UserId);
     var Tickets = tickets.Tickets;
-    if(Tickets.Count()>1)
-    {
-        foreach (var ticket in Tickets)
-        {
-            Flight flight = Flight.GetByID(ViewBag.UserId);
-            <div class="ticket_item">
-                        <div calss="upper_row">
-                            <div class="prices">
-                                <p>Билет № @ticket.TicketId</p>
-                                <p>Цена за один: @ticket.Price</p>
-                            </div>
-                        </div>
-                        <div class="waypoints">
-                            <p>Откуда: @flight.StartPoint</p>
-                            <p>Куда: @flight.FinishPoint</p>
-                        </div>
-            </div>
-        }
-    }
-    else{
-        <p>У вас нет забронированных билетов</p>
-    }
+    //if(Tickets.Count()>1)
+    //{
+    //    foreach (var ticket in Tickets)
+    //    {
+    //        Flight flight = Flight.GetByID(ViewBag.UserId);
+    //        <div class="ticket_item">
+    //                    <div calss="upper_row">
+    //                        <div class="prices">
+    //                            <p>Билет № @ticket.TicketId</p>
+    //                            <p>Цена за один: @ticket.Price</p>
+    //                        </div>
+    //                    </div>
+    //                    <div class="waypoints">
+    //                        <p>Откуда: @flight.StartPoint</p>
+    //                        <p>Куда: @flight.FinishPoint</p>
+    //                    </div>
+    //        </div>
+    //    }
+    //}
+    //else{
+    //    <p>У вас нет забронированных билетов</p>
+    //}
     
 }
 

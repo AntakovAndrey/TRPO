@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace TRPO.Models
 {
-    internal class Route
+    public class Route
     {
         public int Id { get; set; }
         public string StartPoint { get; set; }

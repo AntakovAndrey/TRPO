@@ -11,21 +11,19 @@ namespace TRPO.Models
         public DateOnly Date { get; set; }
         public TimeOnly StartTime { get; set; }
         public TimeOnly FinishTime { get; set; }
-        public string StartPoint { get; set; }
-        public string FinishPoint { get; set; }
+        public Route FlightRoute { get; set; }
         public int PlaneId { get; set; }
         public int CrewId { get; set; }
 
-        public Flight(int flightId, DateOnly date, TimeOnly startTime, TimeOnly finishTime, string startPoint, string finishPoint, int planeId, int crewId)
+        public Flight(int flightId, DateOnly date, TimeOnly startTime, TimeOnly finishTime, Route route, int planeId, int crewId)
         {
             FlightId = flightId;
             Date = date;
             StartTime = startTime;
             FinishTime = finishTime;
-            StartPoint = startPoint;
-            FinishPoint = finishPoint;
             PlaneId = planeId;
             CrewId = crewId;
+            FlightRoute = route;
         }
 
         public void saveFlightsToDB()
@@ -33,27 +31,27 @@ namespace TRPO.Models
         
         }
 
-        public static Flight GetByID(int id)
-        {
-            DataRow[] flightInfo;
-            SqlCommand command = new SqlCommand("SELECT * FROM Flight WHERE Flight_id = @id", DataBase.getInstance().getConnection());
-            command.Parameters.Add("@id", System.Data.SqlDbType.Int).Value = id;
-            DataTable table = new DataTable();
-            SqlDataAdapter adapter = new SqlDataAdapter();
-            adapter.SelectCommand = command;
-            adapter.Fill(table);
-            flightInfo = table.Select();
-            return new Flight(
-                Convert.ToInt32(flightInfo[0][0]),
-                DateOnly.FromDateTime(Convert.ToDateTime(flightInfo[0][1])),
-                TimeOnly.FromDateTime(Convert.ToDateTime(flightInfo[0][2])), 
-                TimeOnly.FromDateTime(Convert.ToDateTime(flightInfo[0][3])), 
-                Convert.ToString(flightInfo[0][4]), 
-                Convert.ToString(flightInfo[0][5]), 
-                Convert.ToInt32(flightInfo[0][6]), 
-                Convert.ToInt32(flightInfo[0][7])
-            );
-        }
+        //public static Flight GetByID(int id)
+        //{
+        //    DataRow[] flightInfo;
+        //    SqlCommand command = new SqlCommand("SELECT * FROM Flight WHERE Flight_id = @id", DataBase.getInstance().getConnection());
+        //    command.Parameters.Add("@id", System.Data.SqlDbType.Int).Value = id;
+        //    DataTable table = new DataTable();
+        //    SqlDataAdapter adapter = new SqlDataAdapter();
+        //    adapter.SelectCommand = command;
+        //    adapter.Fill(table);
+        //    flightInfo = table.Select();
+        //    return new Flight(
+        //        Convert.ToInt32(flightInfo[0][0]),
+        //        DateOnly.FromDateTime(Convert.ToDateTime(flightInfo[0][1])),
+        //        TimeOnly.FromDateTime(Convert.ToDateTime(flightInfo[0][2])), 
+        //        TimeOnly.FromDateTime(Convert.ToDateTime(flightInfo[0][3])), 
+        //        Convert.ToString(flightInfo[0][4]), 
+        //        Convert.ToString(flightInfo[0][5]), 
+        //        Convert.ToInt32(flightInfo[0][6]), 
+        //        Convert.ToInt32(flightInfo[0][7])
+        //    );
+        //}
 
         public static List<Flight> getDepartureToday()
         {
@@ -85,11 +83,13 @@ namespace TRPO.Models
                     DateOnly date = DateOnly.FromDateTime(reader.GetDateTime(1));
                     TimeOnly startTime = TimeOnly.FromDateTime(reader.GetDateTime(2));
                     TimeOnly finishTime = TimeOnly.FromDateTime(reader.GetDateTime(3));
-                    string startPoint = reader.GetString(4);
-                    string finishPoint = reader.GetString(5);
-                    int planeId = reader.GetInt32(6);
-                    int crewId = reader.GetInt32(7);
-                    tmpFlights.Add(new Flight(id, date, startTime, finishTime, startPoint, finishPoint, planeId, crewId));
+                    int planeId = reader.GetInt32(4);
+                    int crewId = reader.GetInt32(5);
+                    int routeId = Convert.ToInt32(6);
+                    string startPoint = reader.GetString(8);
+                    string finishPoint = reader.GetString(9);
+                    int distance = reader.GetInt32(10);
+                    tmpFlights.Add(new Flight(id, date, startTime, finishTime, new Route(id,startPoint,finishPoint,distance), planeId, crewId));
                 }
             }
             DataBase.getInstance().closeConnection();
