@@ -48,12 +48,12 @@ namespace TRPO.Models
         [EmailAddress(ErrorMessage = "Некорректный адрес.")]
         public string Email { set; get; }
 
-        public IRole Role { private set; get; }
+        public string Role { private set; get; }
 
 
         public User()
         {
-            Role = new UserRole();
+            Role = UserRole.Name;
         }
 
         public User(int passangerId, string name, string surname, string passportSeries, int passportNumber, DateTime dateOfBirth, string telephone, string nationality, string password, string role, string email)
@@ -69,11 +69,11 @@ namespace TRPO.Models
             Password = password;
             if (role == AdminRole.Name)
             {
-                Role = new AdminRole();
+                Role = AdminRole.Name;
             }
             else
             {
-                Role = new UserRole();
+                Role = UserRole.Name;
             }
             Email = email;
         }
@@ -85,13 +85,13 @@ namespace TRPO.Models
             SqlCommand command = new SqlCommand(commandExpression, DataBase.getInstance().getConnection());
             command.Parameters.Add("@Name", System.Data.SqlDbType.NChar, 20).Value = Name;
             command.Parameters.Add("@Surname", System.Data.SqlDbType.NChar, 20).Value = Surname;
-            command.Parameters.Add("@Password", System.Data.SqlDbType.NVarChar, 50).Value = HashPassword(Password);
+            command.Parameters.Add("@Password", System.Data.SqlDbType.NVarChar, 100).Value = HashPassword(Password);
             command.Parameters.Add("@PassportSeries", System.Data.SqlDbType.NChar, 2).Value = PassportSeries;
             command.Parameters.Add("@Nationality", System.Data.SqlDbType.NChar, 20).Value = Nationality;
             command.Parameters.Add("@DateOfBirth", System.Data.SqlDbType.Date).Value = DateOfBirth;
             command.Parameters.Add("@Telephone", System.Data.SqlDbType.NChar, 20).Value = Telephone;
             command.Parameters.Add("@PassportNumber", System.Data.SqlDbType.Int).Value = PassportNumber;
-            command.Parameters.Add("@Role", System.Data.SqlDbType.NChar, 5).Value = Role.Name;
+            command.Parameters.Add("@Role", System.Data.SqlDbType.NChar, 5).Value = Role;
             command.Parameters.Add("@Email", System.Data.SqlDbType.NVarChar, 50).Value = Email;
             DataBase.getInstance().openConnection();
             command.ExecuteNonQuery();
@@ -112,10 +112,26 @@ namespace TRPO.Models
         }
         public static User GetFromDBByEmailAndPassword(string email, string password)
         {
-            SqlCommand command = new SqlCommand("SELECT * FROM [User] WHERE Email = @userEmail AND Password = @userPassword", DataBase.getInstance().getConnection());
+            SqlCommand command = new SqlCommand("SELECT * FROM [User] WHERE Email = @userEmail", DataBase.getInstance().getConnection());
             command.Parameters.Add("@userEmail", System.Data.SqlDbType.NVarChar, 50).Value = email;
             command.Parameters.Add("@userPassword", System.Data.SqlDbType.NVarChar, 50).Value = password;
-            return GetFromDBByCommand(command);
+            try
+            {
+                var tmpUser = GetFromDBByCommand(command);
+                if (VerifyHashedPassword(tmpUser.Password, password))
+                {
+                    return tmpUser;
+                }
+                else
+                {
+                    throw new ArgumentException("Неверное имя пользователя или пароль.");
+                }
+            }
+            catch(NullReferenceException)
+            {
+                throw new ArgumentException("Неверное имя пользователя или пароль.");
+            }
+            
         }
 
         private static User GetFromDBByCommand(SqlCommand command)
@@ -163,6 +179,32 @@ namespace TRPO.Models
             Buffer.BlockCopy(buffer, 0, dst, 0x11, 0x20);
             return Convert.ToBase64String(dst);
         }
-
+        private static bool VerifyHashedPassword(string hashedPassword, string password)
+        {
+            byte[] buffer4;
+            if (hashedPassword == null)
+            {
+                return false;
+            }
+            if (password == null)
+            {
+                throw new ArgumentNullException("password");
+            }
+            byte[] src = Convert.FromBase64String(hashedPassword);
+            //byte[] src = Convert.FromHexString(hashedPassword);
+            if ((src.Length != 0x31) || (src[0] != 0))
+            {
+                return false;
+            }
+            byte[] dst = new byte[0x10];
+            Buffer.BlockCopy(src, 1, dst, 0, 0x10);
+            byte[] buffer3 = new byte[0x20];
+            Buffer.BlockCopy(src, 0x11, buffer3, 0, 0x20);
+            using (Rfc2898DeriveBytes bytes = new Rfc2898DeriveBytes(password, dst, 0x3e8))
+            {
+                buffer4 = bytes.GetBytes(0x20);
+            }
+            return buffer3.SequenceEqual(buffer4);
+        }
     }
 }

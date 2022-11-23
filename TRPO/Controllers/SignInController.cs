@@ -19,8 +19,8 @@ namespace TRPO.Controllers
                 {
                     var claims = new List<Claim> { 
                         new Claim("id", Convert.ToString(user.PassangerId)),
-                        new Claim("Name", user.Name)
-                        //new Claim("Role", user.Role.Name)
+                        new Claim("Name", user.Name),
+                        new Claim("Role", user.Role)
                     };
                     ClaimsIdentity claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
                     await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(claimsIdentity));

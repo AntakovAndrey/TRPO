@@ -3,24 +3,18 @@
 namespace TRPO.Models
 {
     public class AdminRole : IRole
-    {
-        private static string _roleName = "Admin";
-        
-
+    {   
         public static string Name
         {
-            get  => _roleName;
+            get  => "Admin";
         }
     }
 
     public class UserRole : IRole
     {
-        private static string _roleName = "User";
-
-        public string Name
+        public static string Name
         {
-            get => _roleName;
+            get => "User";
         }
-
     }
 }
