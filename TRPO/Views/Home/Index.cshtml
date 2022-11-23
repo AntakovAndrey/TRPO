@@ -25,13 +25,13 @@
             <td>@flight.FlightId</td>
             <td>@flight.FlightRoute.StartPoint</td>
             <td>@flight.FinishTime</td>
-            <td>В полете</td>
+            <td>@flight.Status</td>
           </tr>
         }
     }
 </table>
 
-@*<table class = "departure_table">
+<table class = "departure_table">
   <tr>
     <th>Рейс</th>
     <th>Направляется в</th>
@@ -43,12 +43,12 @@
         {
            <tr>
             <td>@flight.FlightId</td>
-            <td>@flight.FinishPoint</td>
-            <td>@flight.FinishTime</td>
-            <td>В полете</td>
+            <td>@flight.FlightRoute.FinishPoint</td>
+            <td>@flight.StartTime</td>
+            <td>@flight.Status</td>
           </tr>
         }
     }
-</table>*@
+</table>
  
 
