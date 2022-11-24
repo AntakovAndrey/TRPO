@@ -1,4 +1,4 @@
-﻿@model AddingFlight
+﻿@model TRPO.Models.Flight
 @{
     ViewData["Title"] = "Добавление рейса";
 }
@@ -9,22 +9,27 @@
 }
 
 <form method="post" asp-controller="AddingFlight" asp-action="Check" class="adding_flight_container">
-   @* <p>Дата</p>
-    <input class="long_input" > </input>
+    <p>Дата</p>
+    <input class="long_input" asp-for="Date" type ="Date"> </input>
+    <span asp-validation-for="Date"></span>
     <p>Время вылета</p>
-    <input class = "long_input"> </input>
+    <input class="long_input" asp-for="StartTime" type ="time"> </input>
+    <span asp-validation-for="StartTime"></span>
     <p>Время прилета</p>
-    <input class = "long_input"> </input>*@
-    <p>Место вылета</p>
-    <input class="long_input" asp-for="DeparturePoint"> </input>
-    @*<span asp-validation-for="DeparturePoint"></span>*@
-    <p>Место прилета</p>
-    <input class="long_input" asp-for="PlaceOfArrival"> </input>
-    <p>Номер первого пилота</p>
-    <input class="long_input" asp-for="FirstPilot"> </input>
-    <p>Номер второго пилота</p>
-    <input class="long_input" asp-for="SecondPilot"> </input>
-    <p>Номер самолета</p>
-    <input class="long_input" asp-for="NumberPlane"> </input>
-    <p></p>
+    <input class="long_input" asp-for="FinishTime" type ="time"> </input>
+    <span asp-validation-for="FinishTime"></span>
+    <p>Время прилета</p>
+    <input class="long_input" asp-for="FinishTime" type ="time"> </input>
+    <span asp-validation-for="FinishTime"></span>
+    
+        <select asp-for="FlightRoute">
+            @{
+                foreach(var route in TRPO.Models.Route.getAllRoutes())
+                {
+                    <option value="@route">@route.StartPoint - @route.FinishPoint</option>
+                }
+            }
+        </select>
+    </input>
+    <button></button>
 </form>

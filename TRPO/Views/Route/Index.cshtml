@@ -1,0 +1,16 @@
+﻿@model TRPO.Models.Route
+@{
+	<form method = "post" asp-controller="Route" asp-action="Check">
+		<p>Начало маршрута</p>
+		<input class = "short_input"asp-for="StartPoint"> 
+		<span asp-validation-for="StartPoint"></span>
+		<p>Конец маршрута</p>
+		<input class = "short_input"asp-for="FinishPoint"> 
+		<span asp-validation-for="FinishPoint"></span>
+		<p>Длина маршрута</p>
+		<input class = "short_input"asp-for="Distance">
+		<span asp-validation-for="Distance"></span>
+		<button>Добавить</button>
+		<span>@ViewBag.Message</span>
+	</form>
+}

@@ -30,7 +30,7 @@ namespace TRPO.Models
             Status=status;
         }
 
-        public void saveFlightsToDB()
+        public void saveFlightToDB()
         {
             string commandExpression = "INSERT Flight (Date, Start_time, Finish_time, Status, Plane_id, Crew_id, Route_id)" +
                     " VALUES (@flightDate, @startTime, @finishTime, @status, @planeId, @crewId, @routeId)";
@@ -118,7 +118,7 @@ namespace TRPO.Models
                 }
             }
             DataBase.getInstance().closeConnection();
-            return new List<Flight>(tmpFlights);
+            return tmpFlights;
         }
 
     }

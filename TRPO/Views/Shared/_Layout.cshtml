@@ -29,7 +29,16 @@
 
                         if (Context.User.FindFirst(ClaimTypes.Role)!=null && Context.User.FindFirst(ClaimTypes.Role).Value == AdminRole.Name)
                         {
-                            <a href="../AddingFlight" class = "nav_link">Добавление рейса</a>
+                            <a href="../AddingFlight" class = "nav_link">Изменение полета</a>
+                            <div class = "dropdown">
+                                <a href="" class = "nav_link">Добавление</a>      
+                                <div class="dropdown-content">
+                                    <a href="../AddingFlight">Добавление рейса</a>
+                                    <a href="../Route" >Добавление маршрута</a>
+                                    <a href="../Route" >Добавление самолета</a>
+                                    <a href="../Route" >Добавление пилота</a>
+                                </div>                                    
+                            </div>
                         }
                             else if (Context.User.FindFirst(ClaimTypes.Role) != null && Context.User.FindFirst(ClaimTypes.Role).Value == UserRole.Name)
                         {
