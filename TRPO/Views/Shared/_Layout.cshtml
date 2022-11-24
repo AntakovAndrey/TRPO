@@ -1,4 +1,5 @@
-﻿<!DOCTYPE html>
+﻿@using System.Security.Claims
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -9,6 +10,7 @@
     <link rel="stylesheet" href="~/css/LayoutStyles.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/css/FlightsStyles.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/css/FlightItemStyles.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/HomeStyles.css" asp-append-version="true" />
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@500&display=swap" rel="stylesheet">
@@ -19,24 +21,26 @@
             <div class="header_inner">
                 <div class="header_title">@ViewData["Title"]</div>
                 <nav class = "nav">
-                @{
                     <a href="https://localhost:7297/Home" class = "nav_link">Главная</a>
-                    <a href="../Filters" class = "nav_link">Поиск</a>
+                @{
                     if (Context.User.FindFirst("id") != null)
                     {
-                        User passanger = TRPO.Models.User.GetFromDBById(Convert.ToInt32(Context.User.FindFirst("id").Value));   
-                        <a href="../Tickets" class = "nav_link">Билеты</a>
-                        //if(passanger.GetRole()==AdminRole.role)
-                        //{
-                            <a href="../Pilots" class = "nav_link">Пилоты</a>
+                        User passanger = TRPO.Models.User.GetFromDBById(Convert.ToInt32(Context.User.FindFirst("id").Value));
+
+                        if (Context.User.FindFirst(ClaimTypes.Role)!=null && Context.User.FindFirst(ClaimTypes.Role).Value == AdminRole.Name)
+                        {
                             <a href="../AddingFlight" class = "nav_link">Добавление рейса</a>
-                        //}                        
+                        }
+                            else if (Context.User.FindFirst(ClaimTypes.Role) != null && Context.User.FindFirst(ClaimTypes.Role).Value == UserRole.Name)
+                        {
+                            <a href="../Filters" class = "nav_link">Бронирование билетов</a>
+                            <a href="../Tickets" class = "nav_link">Мои билеты</a>
+                        }
                         <div class = "dropdown">
                             <a href="" class = "nav_link">Аккаунт</a>      
                             <div class="dropdown-content">
                                 <p class = "dropdown_content_name">@Convert.ToString(passanger.Name+" "+passanger.Surname)</p>
                                 <p class = "dropdown_content_email">@Convert.ToString(passanger.Email)</p>
-                                <a href="#">Параметры аккаунта</a>
                                 <a href="../logout">Выход</a>
                                 <a href="../SignUp">Регистрация</a>
                             </div>                                    
@@ -44,13 +48,13 @@
                     }
                     else
                     {
-                            <div class = "dropdown">
-                                <a href="" class = "nav_link">Аккаунт</a>      
-                                <div class="dropdown-content">
-                                    <a href="../SignIn">Вход</a>
-                                    <a href="../SignUp">Регистрация</a>
-                                </div>                                    
-                            </div>
+                        <div class = "dropdown">
+                            <a href="" class = "nav_link">Аккаунт</a>      
+                            <div class="dropdown-content">
+                                <a href="../SignIn">Вход</a>
+                                <a href="../SignUp">Регистрация</a>
+                            </div>                                    
+                        </div>
                     }
                 }
                 </nav>

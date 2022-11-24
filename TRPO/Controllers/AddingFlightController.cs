@@ -8,6 +8,10 @@ namespace TRPO.Controllers
     {
         public IActionResult Index()
         {
+            return View("Index");
+        }
+        public IActionResult Check()
+        {
             if (ModelState.IsValid)
             {
                 DateTime Date = DateTime.Now;

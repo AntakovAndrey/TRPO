@@ -8,8 +8,6 @@ namespace TRPO.Interfaces
 {
     public interface IRole
     {
-
-        public static string? Name { get; }
-        
+        public static string? Name { get; }   
     }
 }

@@ -3,7 +3,6 @@ using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
 using TRPO.Models;
-using TRPO.Interfaces;
 
 namespace TRPO.Controllers
 {
@@ -14,21 +13,20 @@ namespace TRPO.Controllers
             if(ModelState.IsValid)
             {
                 User user = Models.User.GetFromDBByEmailAndPassword(Request.Form["Email"], Request.Form["Password"]);
-                
-                if (user!=null)
+                try
                 {
-                    var claims = new List<Claim> { 
+                    var claims = new List<Claim> {
                         new Claim("id", Convert.ToString(user.PassangerId)),
-                        new Claim("Name", user.Name),
-                        new Claim("Role", user.Role)
+                        new Claim(ClaimTypes.Name, user.Name),
+                        new Claim(ClaimTypes.Role, user.Role)
                     };
                     ClaimsIdentity claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
                     await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(claimsIdentity));
                     return Redirect("../Home");
                 }
-                else
+                catch(Exception ex)
                 {
-                    ViewBag.Message = "Неверный логин и пароль";
+                    ViewBag.Message = ex.Message;
                     return View("Index");
                 }
             }

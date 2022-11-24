@@ -1,9 +1,7 @@
 ﻿using Microsoft.Data.SqlClient;
 using System.Data;
 using TRPO.Services;
-using TRPO.Interfaces;
 using System.ComponentModel.DataAnnotations;
-using System.Text.RegularExpressions;
 using System.Security.Cryptography;
 
 namespace TRPO.Models
@@ -49,7 +47,6 @@ namespace TRPO.Models
         public string Email { set; get; }
 
         public string Role { private set; get; }
-
 
         public User()
         {
@@ -131,7 +128,6 @@ namespace TRPO.Models
             {
                 throw new ArgumentException("Неверное имя пользователя или пароль.");
             }
-            
         }
 
         private static User GetFromDBByCommand(SqlCommand command)
@@ -191,7 +187,6 @@ namespace TRPO.Models
                 throw new ArgumentNullException("password");
             }
             byte[] src = Convert.FromBase64String(hashedPassword);
-            //byte[] src = Convert.FromHexString(hashedPassword);
             if ((src.Length != 0x31) || (src[0] != 0))
             {
                 return false;
