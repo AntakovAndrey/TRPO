@@ -1,5 +1,6 @@
 ﻿using Microsoft.Data.SqlClient;
 using System;
+using System.ComponentModel.DataAnnotations;
 using System.Data;
 using System.Data.SqlTypes;
 using System.Numerics;
@@ -10,12 +11,19 @@ namespace TRPO.Models
 {
     public class Flight
     {
+        [Required]
         public int FlightId { get; set; }
+        [Required]
         public DateOnly Date { get; set; }
+        [Required]
         public TimeOnly StartTime { get; set; }
+        [Required]
         public TimeOnly FinishTime { get; set; }
+        [Required]
         public Route FlightRoute { get; set; }
+        [Required]
         public Plane Plane { get; set; }
+        [Required]
         public Pilot Pilot { get; set; }
         public string? Status { get; set; }
 
@@ -75,18 +83,18 @@ namespace TRPO.Models
         {
             SqlCommand command = new SqlCommand("SELECT * FROM Flight, [Route], Plane, Pilot" +
                 " WHERE Flight.Route_id = [Route].Id AND Flight.Plane_id = Plane.Plane_id AND Flight.Pilot_id=Pilot.Pilot_id " +
-                "AND Route.Start_point = @startPoint AND Flight.Date >= @dateNow ", DataBase.getInstance().getConnection());
+                "AND Route.Start_point = @startPoint AND Flight.Date >= @dateToday ", DataBase.getInstance().getConnection());
             command.Parameters.Add("@startPoint", System.Data.SqlDbType.NChar, 20).Value = "Минск";
-            command.Parameters.Add("@dateNow", System.Data.SqlDbType.Date).Value = DateTime.Now;
+            command.Parameters.Add("@dateToday", System.Data.SqlDbType.Date).Value = DateTime.Now;
             return getFlightsByCommand(command);
         }
         public static List<Flight> getArrivlToady()
         {
             SqlCommand command = new SqlCommand("SELECT * FROM Flight, [Route], Plane, Pilot" +
                 " WHERE Flight.Route_id = [Route].Id AND Flight.Plane_id = Plane.Plane_id AND Flight.Pilot_id=Pilot.Pilot_id " +
-                 "AND Route.Finish_point = @finishPoint AND Flight.Date >= @dateNow ", DataBase.getInstance().getConnection());
+                 "AND Route.Finish_point = @finishPoint AND Flight.Date >= @dateToday ", DataBase.getInstance().getConnection());
             command.Parameters.Add("@finishPoint", System.Data.SqlDbType.NChar, 20).Value = "Минск";
-            command.Parameters.Add("@dateNow", System.Data.SqlDbType.Date).Value = DateTime.Now;
+            command.Parameters.Add("@dateToday", System.Data.SqlDbType.Date).Value = DateTime.Now;
             return getFlightsByCommand(command);
         }
 

@@ -1,5 +1,6 @@
 ﻿using Microsoft.Data.SqlClient;
 using System.Data;
+using System.Data.SqlTypes;
 using TRPO.Services;
 
 namespace TRPO.Models
@@ -49,5 +50,34 @@ namespace TRPO.Models
             }
             else throw new Exception("Самолет с таким номером не найден.") ;
         }
+
+        public static List<Plane> getAllPlanes()
+        {
+            SqlCommand command = new SqlCommand("SELECT * FROM Plane", DataBase.getInstance().getConnection());
+            
+            return getFlightsByCommand(command);
+        }
+        private static List<Plane> getFlightsByCommand(SqlCommand command)
+        {
+            List<Plane> tmpFlights = new List<Plane>();
+            DataBase.getInstance().openConnection();
+            SqlDataReader reader = command.ExecuteReader();
+            if (reader.HasRows)
+            {
+                while (reader.Read())
+                {
+                    int planeId = reader.GetInt32(0);
+                    string planeType = reader.GetString(1);
+                    int maxFlightRange = reader.GetInt32(2);
+                    int numberOfSeats = reader.GetInt32(3);
+                    double fuelConsumption = reader.GetDouble(4);
+                    tmpFlights.Add(new Plane(planeId,planeType,maxFlightRange,numberOfSeats,fuelConsumption));
+                }
+                DataBase.getInstance().closeConnection();
+            }
+
+            return tmpFlights;
+        }
+
     }
 }
