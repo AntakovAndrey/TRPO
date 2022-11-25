@@ -1,6 +1,7 @@
 ﻿.home_page {
     position: relative;
     font-family: 'Roboto';
+    min-width:1600px;
 }
 
 .home_page footer{

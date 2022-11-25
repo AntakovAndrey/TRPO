@@ -2,6 +2,7 @@
 using System;
 using System.Data;
 using System.Data.SqlTypes;
+using System.Numerics;
 using TRPO.Interfaces;
 using TRPO.Services;
 
@@ -14,37 +15,38 @@ namespace TRPO.Models
         public TimeOnly StartTime { get; set; }
         public TimeOnly FinishTime { get; set; }
         public Route FlightRoute { get; set; }
-        public int PlaneId { get; set; }
-        public int CrewId { get; set; }
+        public Plane Plane { get; set; }
+        public Pilot Pilot { get; set; }
         public string? Status { get; set; }
 
-        public Flight(int flightId, DateOnly date, TimeOnly startTime, TimeOnly finishTime, string status, Route route, int planeId, int crewId)
+        public Flight(int flightId, DateOnly date, TimeOnly startTime, TimeOnly finishTime, string status, Route route, Plane plane, Pilot pilot)
         {
             FlightId = flightId;
             Date = date;
             StartTime = startTime;
             FinishTime = finishTime;
-            PlaneId = planeId;
-            CrewId = crewId;
+            Plane = plane;
             FlightRoute = route;
             Status=status;
+            Pilot=pilot;
         }
+        public Flight() { }
 
         public void saveFlightToDB()
         {
-            string commandExpression = "INSERT Flight (Date, Start_time, Finish_time, Status, Plane_id, Crew_id, Route_id)" +
-                    " VALUES (@flightDate, @startTime, @finishTime, @status, @planeId, @crewId, @routeId)";
-            SqlCommand command = new SqlCommand(commandExpression, DataBase.getInstance().getConnection());
-            command.Parameters.Add("@flightDate", System.Data.SqlDbType.Date).Value = Date;
-            command.Parameters.Add("@startTime", System.Data.SqlDbType.Time, 20).Value = StartTime;
-            command.Parameters.Add("@finishTime", System.Data.SqlDbType.Time, 50).Value = FinishTime;
-            command.Parameters.Add("@status", System.Data.SqlDbType.NVarChar, 50).Value = Status;
-            command.Parameters.Add("@planeId", System.Data.SqlDbType.Int, 20).Value = PlaneId;
-            command.Parameters.Add("@crewId", System.Data.SqlDbType.Int).Value = CrewId;
-            command.Parameters.Add("@routeId", System.Data.SqlDbType.Int, 20).Value = FlightRoute.Id;
-            DataBase.getInstance().openConnection();
-            command.ExecuteNonQuery();
-            DataBase.getInstance().closeConnection();
+            //string commandExpression = "INSERT Flight (Date, Start_time, Finish_time, Status, Plane_id, Crew_id, Route_id)" +
+            //        " VALUES (@flightDate, @startTime, @finishTime, @status, @planeId, @crewId, @routeId)";
+            //SqlCommand command = new SqlCommand(commandExpression, DataBase.getInstance().getConnection());
+            //command.Parameters.Add("@flightDate", System.Data.SqlDbType.Date).Value = Date;
+            //command.Parameters.Add("@startTime", System.Data.SqlDbType.Time, 20).Value = StartTime;
+            //command.Parameters.Add("@finishTime", System.Data.SqlDbType.Time, 50).Value = FinishTime;
+            //command.Parameters.Add("@status", System.Data.SqlDbType.NVarChar, 50).Value = Status;
+            //command.Parameters.Add("@planeId", System.Data.SqlDbType.Int, 20).Value = Plane.PlaneId;
+            //command.Parameters.Add("@crewId", System.Data.SqlDbType.Int).Value = CrewId;
+            //command.Parameters.Add("@routeId", System.Data.SqlDbType.Int, 20).Value = FlightRoute.Id;
+            //DataBase.getInstance().openConnection();
+            //command.ExecuteNonQuery();
+            //DataBase.getInstance().closeConnection();
         }
 
         //public static Flight GetByID(int id)
@@ -71,16 +73,18 @@ namespace TRPO.Models
 
         public static List<Flight> getDepartureToday()
         {
-            SqlCommand command = new SqlCommand("SELECT * FROM Flight, Route " +
-                "WHERE Flight.Route_id = Route.Id AND Route.Start_point = @startPoint AND Flight.Date >= @dateNow ", DataBase.getInstance().getConnection());
+            SqlCommand command = new SqlCommand("SELECT * FROM Flight, [Route], Plane, Pilot" +
+                " WHERE Flight.Route_id = [Route].Id AND Flight.Plane_id = Plane.Plane_id AND Flight.Pilot_id=Pilot.Pilot_id " +
+                "AND Route.Start_point = @startPoint AND Flight.Date >= @dateNow ", DataBase.getInstance().getConnection());
             command.Parameters.Add("@startPoint", System.Data.SqlDbType.NChar, 20).Value = "Минск";
             command.Parameters.Add("@dateNow", System.Data.SqlDbType.Date).Value = DateTime.Now;
             return getFlightsByCommand(command);
         }
         public static List<Flight> getArrivlToady()
         {
-            SqlCommand command = new SqlCommand("SELECT * FROM Flight, Route " +
-                "WHERE Flight.Route_id = Route.Id AND Route.Finish_point = @finishPoint AND Flight.Date >= @dateNow ", DataBase.getInstance().getConnection());
+            SqlCommand command = new SqlCommand("SELECT * FROM Flight, [Route], Plane, Pilot" +
+                " WHERE Flight.Route_id = [Route].Id AND Flight.Plane_id = Plane.Plane_id AND Flight.Pilot_id=Pilot.Pilot_id " +
+                 "AND Route.Finish_point = @finishPoint AND Flight.Date >= @dateNow ", DataBase.getInstance().getConnection());
             command.Parameters.Add("@finishPoint", System.Data.SqlDbType.NChar, 20).Value = "Минск";
             command.Parameters.Add("@dateNow", System.Data.SqlDbType.Date).Value = DateTime.Now;
             return getFlightsByCommand(command);
@@ -95,7 +99,7 @@ namespace TRPO.Models
             {
                 while (reader.Read())
                 {
-                    int id = reader.GetInt32(0);
+                    int flightId = reader.GetInt32(0);
                     DateOnly date = DateOnly.FromDateTime(reader.GetDateTime(1));
                     TimeOnly startTime = TimeOnly.FromTimeSpan(reader.GetTimeSpan(2));
                     TimeOnly finishTime = TimeOnly.FromTimeSpan(reader.GetTimeSpan(3));
@@ -108,16 +112,28 @@ namespace TRPO.Models
                     {
                         status = " ";
                     }
-                    int planeId = reader.GetInt32(5);
-                    int crewId = reader.GetInt32(6);
+                    int pilotId = reader.GetInt32(5);
+                    int planeId = reader.GetInt32(6);
                     int routeId = reader.GetInt32(7);
                     string startPoint = reader.GetString(9);
                     string finishPoint = reader.GetString(10);
                     int distance = reader.GetInt32(11);
-                    tmpFlights.Add(new Flight(id, date, startTime, finishTime, status ,new Route(id,startPoint,finishPoint,distance), planeId, crewId));
+                    string planeType = reader.GetString(13);
+                    int maxFlightRange = reader.GetInt32(14);
+                    int numberOfSeats = reader.GetInt32(15);
+                    double fuelConsumption = reader.GetDouble(16);
+                    string pilotName =reader.GetString(18);
+                    string pilotSurname =reader.GetString(19);
+                    tmpFlights.Add(new Flight(flightId, date, startTime, finishTime, status,
+                        new Route(routeId, startPoint, finishPoint, distance), 
+                        new Plane(planeId, planeType, maxFlightRange, numberOfSeats, fuelConsumption),
+                        new Pilot(pilotId,pilotName,pilotSurname))
+                        );
+                    
                 }
+                DataBase.getInstance().closeConnection();
             }
-            DataBase.getInstance().closeConnection();
+            
             return tmpFlights;
         }
 
