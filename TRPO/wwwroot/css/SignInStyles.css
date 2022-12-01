@@ -1,4 +1,5 @@
 ﻿.sign_in_container {
+    position:relative;
     color: #fff;
     font-style: normal;
     font-family: 'Roboto';
