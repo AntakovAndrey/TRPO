@@ -1,6 +1,6 @@
 ﻿using Microsoft.Data.SqlClient;
 
-namespace TRPO.Services
+namespace TRPO.Database
 {
     public class DataBase
     {

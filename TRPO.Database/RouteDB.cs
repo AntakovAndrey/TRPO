@@ -9,10 +9,7 @@ namespace TRPO.Database
 {
     internal class RouteDB
     {
-        public int Id { get; set; }
-        public string StartPoint { get; set; }
-        public string FinishPoint { get; set; }
-        public int Distance { get; set; }
+       
         public static List<Route> getAllRoutes()
         {
             SqlCommand command = new SqlCommand("SELECT * FROM Route", DataBase.getInstance().getConnection());

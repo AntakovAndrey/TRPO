@@ -9,9 +9,7 @@ namespace TRPO.Database
 {
     internal class PilotDB
     {
-        public int PilotId { get; set; }
-        public string Name { get; set; }
-        public string Surname { get; set; }
+        
         public static List<Pilot> getAllPilots()
         {
             SqlCommand command = new SqlCommand("SELECT * FROM Pilot", DataBase.getInstance().getConnection());

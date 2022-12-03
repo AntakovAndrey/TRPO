@@ -10,11 +10,7 @@ namespace TRPO.Database
 {
     internal class PlaneDB
     {
-        ublic int PlaneId { get; set; }
-        public string Type { get; set; }
-        public int MaxFlightRange { get; set; }
-        public int NumberOfSeats { get; set; }
-        public double FuelConsumtion { get; set; }
+        
         public static Plane GetFromDBById(int id)
         {
             SqlCommand command = new SqlCommand("SELECT * FROM Plane WHERE Plane_id = @id", DataBase.getInstance().getConnection());

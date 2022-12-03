@@ -157,7 +157,7 @@ namespace TRPO.Models
             else return null;
         }
 
-        private static string HashPassword(string password)
+        public static string HashPassword(string password)
         {
             byte[] salt;
             byte[] buffer;
@@ -175,7 +175,7 @@ namespace TRPO.Models
             Buffer.BlockCopy(buffer, 0, dst, 0x11, 0x20);
             return Convert.ToBase64String(dst);
         }
-        private static bool VerifyHashedPassword(string hashedPassword, string password)
+        public static bool VerifyHashedPassword(string hashedPassword, string password)
         {
             byte[] buffer4;
             if (hashedPassword == null)
