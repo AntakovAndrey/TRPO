@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace TRPO.Database
 {
-    internal class CrewBD
+    internal class CrewDB
     {
     }
 }
