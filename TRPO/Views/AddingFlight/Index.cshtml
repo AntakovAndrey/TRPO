@@ -42,12 +42,12 @@
         <select asp-for="Plane" asp-items="ViewBag.Planes" class="short_input">
             @{
                 
-                //foreach (var plane in TRPO.Models.Plane.getAllPlanes())
-                //{
-                //            <option value="@{new Plane(plane.PlaneId,plane.Type,plane.MaxFlightRange,plane.NumberOfSeats,plane.FuelConsumtion);}">
-                //                @plane.PlaneId - @plane.Type
-                //            </option>
-                //}
+                foreach (var plane in TRPO.Models.Plane.getAllPlanes())
+                {
+                            <option value="@{new Plane(plane.PlaneId,plane.Type,plane.MaxFlightRange,plane.NumberOfSeats,plane.FuelConsumtion);}">
+                                @plane.PlaneId - @plane.Type
+                            </option>
+                }
             }
         </select>
         <span asp-validation-for="Plane"></span>

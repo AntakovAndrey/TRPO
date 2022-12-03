@@ -1,42 +1,42 @@
-html {
+/*html {
   font-size: 14px;
-}
+}*/
 
-@media (min-width: 768px) {
+/*@media (min-width: 768px) {
   html {
     font-size: 16px;
   }
-}
+}*/
 
-html {
+/*html {
   position: relative;
   min-height: 100%;
-}
+}*/
 
-body {
+/*body {
   height:100%;
   width:100%;
-}
+}*/
 
 
 
 
 
 /**/
-
+/*
 main
 {
-    position:fixed;
+    
     margin-left: 0;
     margin-top: 0;
     padding-left: 0;
     width: 100%;
     left:0px;
     top:60px;
-}
+}*/
 
 /*tickets*/
-.ticket_item
+/*.ticket_item
 {
     height: 200px;
     margin-left:10%;
@@ -54,56 +54,15 @@ main
     height: 50px;
     background: #35C7BE;
     border-radius: 10px;
-}
+}*/
 
 
 
-/*pilot*/
-.pilot {
-    margin-top: 10px;
-    width: 80%;
-    margin-left: 10%;
-    height: 300px;
-    background: #FFFFFF;
-    border: 2px solid #35C7BE;
-    border-radius: 10px;
-    font-size:24px;
-    font-family: 'Roboto';
-    text-align: center;
-    display:flex;
-    justify-content:space-between;
-}
-.pilot_photo p{
-    margin-top: 100px;
-}
-.pilot_photo {
-    margin-top: 5px;
-    margin-left: 5px;
-    margin-right: 20%;
-    text-align: center;
-    width: 250px;
-    height: 290px;
-    background: #D9D9D9;
-    display:flex;
-    justify-content:center;
-}
-.pilot_data {
-    margin-top:50px;
-    display:flex;
-    justify-content:space-between;
-    align-items: center;
-}
-.pilot_data p {
-    font-family: 'Roboto';
-    font-style: normal;
-    font-weight: 500;
-    font-size: 32px;
-    line-height: 38px;
-}
+
 
 /*filters*/
 
-.filters_line {
+/*.filters_line {
     height: 50px;
     margin-left: 10%;
     margin-right: 10%;
@@ -140,7 +99,7 @@ main
     font-weight: 500;
     font-size: 32px;
     line-height: 38px;
-}
+}*/
 
 
 .adding_flight_container {
