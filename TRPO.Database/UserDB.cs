@@ -7,51 +7,15 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Linq;
 using TRPO.Services;
+using TRPO.Models;
+using Microsoft.Data.SqlClient;
 
 namespace TRPO.Database
 {
     internal class UserDB
     {
-        public int PassangerId { get; }
-
-        [Required(ErrorMessage = "Имя не введено")]
-        [StringLength(50, ErrorMessage = "Имя слишком длинное.")]
-        [MinLength(1, ErrorMessage = "Имя слишком короткое.")]
-        [RegularExpression(@"([А-Я]{1}[а-яё]{1,23})|([A-Z]{1}[a-z]{1-23})", ErrorMessage = "Имя введено неправильно.")]
-        public string Name { set; get; }
-
-        [Required(ErrorMessage = "Фамилия не введена")]
-        [StringLength(50, ErrorMessage = "Фамилия слишком длинная.")]
-        [MinLength(1, ErrorMessage = "Фамилия слишком короткое.")]
-        [RegularExpression(@"([А-Я]{1}[а-яё]{1,23})|([A-Z]{1}[a-z]{1-23})", ErrorMessage = "Фамилия введена неправильно.")]
-        public string Surname { set; get; }
-
-        [Required(ErrorMessage = "Серия паспорта не введена.")]
-        [RegularExpression(@"(MC)|(MP)", ErrorMessage = "Некорректная серия паспорта.")]
-        public string PassportSeries { set; get; }
-
-        [Required(ErrorMessage = "Номер паспорта не введен.")]
-        public int PassportNumber { set; get; }
-
-        [Required(ErrorMessage = "Дата рождения не введена.")]
-        public DateTime DateOfBirth { set; get; }
-
-        [Required(ErrorMessage = "Номер телефона не введен.")]
-        [Phone(ErrorMessage = "Некорректный номер.")]
-        public string Telephone { set; get; }
-
-        [Required(ErrorMessage = "Гражданство не введено.")]
-        public string Nationality { set; get; }
-
-        [Required(ErrorMessage = "Пароль не введен.")]
-        public string Password { set; get; }
-
-        [Required(ErrorMessage = "Адрес не введен.")]
-        [EmailAddress(ErrorMessage = "Некорректный адрес.")]
-        public string Email { set; get; }
-
-        public string Role { private set; get; }
-        public static UserDB GetFromDBById(int id)
+        
+        public static User GetFromDBById(int id)
         {
             SqlCommand command = new SqlCommand("SELECT * FROM [User] WHERE Passanger_id = @id", DataBase.getInstance().getConnection());
             command.Parameters.Add("@id", System.Data.SqlDbType.Int).Value = id;
@@ -71,7 +35,7 @@ namespace TRPO.Database
             try
             {
                 var tmpUser = GetFromDBByCommand(command);
-                if (VerifyHashedPassword(tmpUser.Password, password))
+                if (User.VerifyHashedPassword(tmpUser.Password, password))
                 {
                     return tmpUser;
                 }
@@ -85,14 +49,14 @@ namespace TRPO.Database
                 throw new ArgumentException("Неверное имя пользователя или пароль.");
             }
         }
-        public void SaveUserToDB(UserDB user)
+        public void SaveUserToDB(User user)
         {
             string commandExpression = "INSERT [User] (Name, Surname, Pasport_ser, Pasport_num, Nationality, Date_of_birth, Telephone, Password, Role, Email)" +
                 " VALUES (@Name, @Surname, @PassportSeries, @PassportNumber, @Nationality, @DateOfBirth, @Telephone, @Password, @Role, @Email)";
             SqlCommand command = new SqlCommand(commandExpression, DataBase.getInstance().getConnection());
             command.Parameters.Add("@Name", System.Data.SqlDbType.NChar, 20).Value = user.Name;
             command.Parameters.Add("@Surname", System.Data.SqlDbType.NChar, 20).Value = user.Surname;
-            command.Parameters.Add("@Password", System.Data.SqlDbType.NVarChar, 100).Value = user.HashPassword(Password);
+            command.Parameters.Add("@Password", System.Data.SqlDbType.NVarChar, 100).Value = User.HashPassword(user.Password);
             command.Parameters.Add("@PassportSeries", System.Data.SqlDbType.NChar, 2).Value = user.PassportSeries;
             command.Parameters.Add("@Nationality", System.Data.SqlDbType.NChar, 20).Value = user.Nationality;
             command.Parameters.Add("@DateOfBirth", System.Data.SqlDbType.Date).Value = user.DateOfBirth;
@@ -103,6 +67,34 @@ namespace TRPO.Database
             DataBase.getInstance().openConnection();
             command.ExecuteNonQuery();
             DataBase.getInstance().closeConnection();
+        }
+       
+
+        private static User GetFromDBByCommand(SqlCommand command)
+        {
+            DataRow[] userInfo;
+            DataTable table = new DataTable();
+            SqlDataAdapter adapter = new SqlDataAdapter();
+            adapter.SelectCommand = command;
+            adapter.Fill(table);
+            userInfo = table.Select();
+            if (userInfo.Length > 0)
+            {
+                return new User(
+                    passangerId: Convert.ToInt32(userInfo[0][0]),
+                    name: Convert.ToString(userInfo[0][1]),
+                    surname: Convert.ToString(userInfo[0][2]),
+                    passportSeries: Convert.ToString(userInfo[0][3]),
+                    passportNumber: Convert.ToInt32(userInfo[0][4]),
+                    dateOfBirth: Convert.ToDateTime(userInfo[0][6]),
+                    telephone: Convert.ToString(userInfo[0][7]),
+                    nationality: Convert.ToString(userInfo[0][5]),
+                    password: Convert.ToString(userInfo[0][8]),
+                    role: Convert.ToString(userInfo[0][9]),
+                    email: Convert.ToString(userInfo[0][10])
+                );
+            }
+            else return null;
         }
     }
 }

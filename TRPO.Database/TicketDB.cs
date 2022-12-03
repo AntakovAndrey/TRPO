@@ -9,11 +9,7 @@ namespace TRPO.Database
 {
     internal class TicketDB
     {
-        public int TicketId { get; set; }
-        public string PassangerId { get; set; }
-        public string FlightId { get; set; }
-        public int Price { get; set; }
-        public string Class { get; set; }
+       
        
         public void SaveUserToDB(TicketDB ticket)
         {

@@ -11,21 +11,7 @@ namespace TRPO.Database
 {
     internal class FlightDB
     {
-        [Required]
-        public int FlightId { get; set; }
-        [Required]
-        public DateOnly Date { get; set; }
-        [Required]
-        public TimeOnly StartTime { get; set; }
-        [Required]
-        public TimeOnly FinishTime { get; set; }
-        [Required]
-        public RouteDB FlightRoute { get; set; }
-        [Required]
-        public PlaneDB Plane { get; set; }
-        [Required]
-        public PilotDB Pilot { get; set; }
-        public string? Status { get; set; }
+        
         public static List<Flight> getDepartureToday()
         {
             SqlCommand command = new SqlCommand("SELECT * FROM Flight, [Route], Plane, Pilot" +
