@@ -6,7 +6,7 @@
     <div class="home_page_header">
         <div class="control_buttons">
             <p>Главная страница</p>
-            <button calss="Departure_button" id ="Departure_button">Вылет</button>
+            <button class="Departure_button" >Вылет</button>
             <button class = "Arrival_button" >Прилет</button>
         </div>
     </div>
@@ -58,52 +58,15 @@
 </div>
 
 
+
+<script src="~/js/home.js" asp-append-version="true"></script>
+
 <script>
-
-    window.onload = function()
-    {
-       document.getElementsById('Departure_button').classList.add('control_button_active') 
-    }
-    
-    
-//HTMLButtonElement depButton = document.getElementsByClassName('Departure_button')
-//let
-//let arrButton = document.getElementsByClassName('Arrival_button')
-
-//depButton.onclick=changeButtonState(depButton)
-//arrButton.onclick=changeButtonState(arrButton)
+        
+        
+</script>
 
 
 
 
-//function changeButtonState(button) {
-///    if(button.classList.contains('control_button_active'))
-//    {
-//        button.classList.remove('control_button_active')
-//        button.classList.add('.control_button_unactive')
-//    }
-//    else if(button.classList.contains('control_button_unactive'))
-//    {
-//        button.classList.remove('control_button_unactive')
-//        button.classList.add('control_button_active')
-//    }
-//}
-    
-    //
-    // Здесь не важно, как мы скрываем текст.
-    // Также можно использовать style.display:
 
-    //document.getElementById('arrTable').onclick = function() 
-    //{
-    //  if(document.getElementById('depTable').hidden === false;)
-    //  {
-    //      document.getElementById('arrTable').hidden = true;
-    //  }
-    //}
-
-    //document.getElementById('depTable').onclick = function() {
-    //  document.getElementById('arrTable').hidden = true;
-    //  document.getElementById('depTable').hidden = false;
-
-    //}
-  </script>

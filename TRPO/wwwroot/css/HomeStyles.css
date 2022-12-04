@@ -44,17 +44,9 @@
 
 .control_button_active
 {
-    display: none;
-    background-color: brown;
+    background-color:aquamarine;
+    color: white;
 }
-
-.control_button_unactive
-{
-    
-    background-color: white;
-}
-
-
 
 .home_background
 {
