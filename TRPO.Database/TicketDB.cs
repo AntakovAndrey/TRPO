@@ -64,9 +64,11 @@ namespace TRPO.Database
     }
     public void SaveUserToDB(Ticket ticket)
         {
-            string commandExpression = "INSERT [Ticket] (Price, Class)" +
-                " VALUES (@Price, @Class";
+            string commandExpression = "INSERT [Ticket] (UserId,FlightId,Price, Class)" +
+                " VALUES (@UserId,@FlightID,@Price, @Class)";
             SqlCommand command = new SqlCommand(commandExpression, DataBase.getInstance().getConnection());
+            command.Parameters.Add("@UserId", System.Data.SqlDbType.Int).Value = ticket.UserId;
+            command.Parameters.Add("@FlightId", System.Data.SqlDbType.Int).Value = ticket.FlightId;
             command.Parameters.Add("@Price", System.Data.SqlDbType.Float).Value = ticket.Price;
             command.Parameters.Add("@Class", System.Data.SqlDbType.NChar, 10).Value = ticket.Clas;
             command.ExecuteNonQuery();

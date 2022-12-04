@@ -8,14 +8,14 @@ namespace TRPO.Models
 {
     public class Ticket
     {
-        public int Id { get; }
+        public int UserId { get; }
         public int TicketId { get; }
         public int FlightId { get; }
         public double Price { set; get; }
         public string Clas { set; get; }
         public Ticket(int id, int ticketId, int flightId, double price, string clas)
         {
-            Id = id;
+            UserId = id;
             TicketId = ticketId;
             FlightId = flightId;
             Price = price;

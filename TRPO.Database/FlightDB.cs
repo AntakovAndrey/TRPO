@@ -32,18 +32,18 @@ namespace TRPO.Database
             command.Parameters.Add("@dateToday", System.Data.SqlDbType.Date).Value = DateTime.Now;
             return getFlightsByCommand(command);
         }
-        public void SaveUserToDB(Flight flight)
+        public void SaveFlightToDB(Flight flight)
         {
             string commandExpression = "INSERT [Flight] (Date, StartTime, FinisshTime, FlightRoute, Plane, Pilot, Status)" +
                 " VALUES (@Date, @StartTime, @FinisshTime, @FlightRoute, @Plane, @Pilot, @Status)";
             SqlCommand command = new SqlCommand(commandExpression, DataBase.getInstance().getConnection());
-            command.Parameters.Add("@Name", System.Data.SqlDbType.Date).Value = flight.Date;
-            command.Parameters.Add("@Surname", System.Data.SqlDbType.Time).Value = flight.StartTime;
-            command.Parameters.Add("@PassportSeries", System.Data.SqlDbType.Time).Value = flight.FinishTime;
-            command.Parameters.Add("@Nationality", System.Data.SqlDbType.NVarChar, 50).Value = flight.FlightRoute;
-            command.Parameters.Add("@DateOfBirth", System.Data.SqlDbType.Int).Value = flight.Plane;
-            command.Parameters.Add("@Telephone", System.Data.SqlDbType.Int).Value = flight.Pilot;
-            command.Parameters.Add("@PassportNumber", System.Data.SqlDbType.Int).Value = flight.Status;
+            command.Parameters.Add("@Date", System.Data.SqlDbType.Date).Value = flight.Date;
+            command.Parameters.Add("@StartTime", System.Data.SqlDbType.Time).Value = flight.StartTime;
+            command.Parameters.Add("@FinishTime", System.Data.SqlDbType.Time).Value = flight.FinishTime;
+            command.Parameters.Add("@FlightRoute", System.Data.SqlDbType.NVarChar, 50).Value = flight.FlightRoute;
+            command.Parameters.Add("@Plane", System.Data.SqlDbType.Int).Value = flight.Plane;
+            command.Parameters.Add("@Pilot", System.Data.SqlDbType.Int).Value = flight.Pilot;
+            command.Parameters.Add("@Status", System.Data.SqlDbType.Int).Value = flight.Status;
             DataBase.getInstance().openConnection();
             command.ExecuteNonQuery();
             DataBase.getInstance().closeConnection();
