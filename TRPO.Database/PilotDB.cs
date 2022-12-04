@@ -4,6 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using TRPO.Services;
+using TRPO.Models;
+using Microsoft.Data.SqlClient;
 
 namespace TRPO.Database
 {
@@ -35,7 +37,7 @@ namespace TRPO.Database
 
             return tmpFlights;
         }
-        public void SaveUserToDB(PilotDB pilot)
+        public void SaveUserToDB(Pilot pilot)
         {
             string commandExpression = "INSERT [Pilot] (Name, Surname)" +
                 " VALUES (@Name, @Surname)";
@@ -46,5 +48,6 @@ namespace TRPO.Database
             command.ExecuteNonQuery();
             DataBase.getInstance().closeConnection();
         }
+        
     }
 }
