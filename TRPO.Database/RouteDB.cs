@@ -4,6 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using TRPO.Services;
+using TRPO.Models;
+using Microsoft.Data.SqlClient;
 
 namespace TRPO.Database
 {
@@ -17,10 +19,24 @@ namespace TRPO.Database
         }
 
 
-
-        private static List<RouteDB> getFlightsByCommand(SqlCommand command)
+        public void SaveUserToDB(Route route)
         {
-            List<RouteDB> tmpRoutes = new List<RouteDB>();
+            string commandExpression = "INSERT [Route] (StartPoint, FinishPoint, Distance)" +
+                " VALUES (@StartPoint, @FinishPoint, @Distance)"; 
+            SqlCommand command = new SqlCommand(commandExpression, DataBase.getInstance().getConnection());
+            command.Parameters.Add("@StartPoint", System.Data.SqlDbType.NVarChar, 50).Value = route.StartPoint;
+            command.Parameters.Add("@FinishPoint", System.Data.SqlDbType.NVarChar, 50).Value = route.FinishPoint;
+            command.Parameters.Add("@Distance", System.Data.SqlDbType.Int).Value = route.Distance;
+            command.ExecuteNonQuery();
+            DataBase.getInstance().closeConnection();
+        }
+        
+
+
+
+        private static List<Route> getFlightsByCommand(SqlCommand command)
+        {
+            List<Route> tmpRoutes = new List<Route>();
             DataBase.getInstance().openConnection();
             SqlDataReader reader = command.ExecuteReader();
             if (reader.HasRows)
@@ -32,22 +48,11 @@ namespace TRPO.Database
                     string finishPoint = reader.GetString(2);
                     int distance = reader.GetInt32(3);
 
-                    tmpRoutes.Add(new RouteDB(id, startPoint, finishPoint, distance));
+                    tmpRoutes.Add(new Route(id, startPoint, finishPoint, distance));
                 }
             }
             DataBase.getInstance().closeConnection();
             return tmpRoutes;
-        }
-        public void SaveUserToDB(RouteDB route)
-        {
-            string commandExpression = "INSERT [Route] (StartPoint, FinishPoint, Distance)" +
-                " VALUES (@StartPoint, @FinishPoint, @Distance)"; 
-            SqlCommand command = new SqlCommand(commandExpression, DataBase.getInstance().getConnection());
-            command.Parameters.Add("@StartPoint", System.Data.SqlDbType.NVarChar, 50).Value = route.StartPoint;
-            command.Parameters.Add("@FinishPoint", System.Data.SqlDbType.NVarChar, 50).Value = route.FinishPoint;
-            command.Parameters.Add("@Distance", System.Data.SqlDbType.Int).Value = route.Distance;
-            command.ExecuteNonQuery();
-            DataBase.getInstance().closeConnection();
         }
     }
 }

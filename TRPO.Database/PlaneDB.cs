@@ -1,10 +1,12 @@
-﻿using System;
+﻿using Microsoft.Data.SqlClient;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using TRPO.Services;
+using TRPO.Models;
 
 namespace TRPO.Database
 {
@@ -67,7 +69,7 @@ namespace TRPO.Database
 
             return tmpFlights;
         }
-        public void SaveUserToDB(PlaneDB plane)
+        public void SaveUserToDB(Plane plane)
         {
             string commandExpression = "INSERT [Plane] (Type, MaxFlightRange, NumberOfSeats, FuelConsumtion)" +
                 " VALUES (@Type, @MaxFlightRange, @NumberOfSeats, @FuelConsumtion)";
@@ -80,5 +82,6 @@ namespace TRPO.Database
             command.ExecuteNonQuery();
             DataBase.getInstance().closeConnection();
         }
+       
     }
 }
