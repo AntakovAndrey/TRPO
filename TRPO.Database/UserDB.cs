@@ -1,0 +1,100 @@
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.Data;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Xml.Linq;
+using TRPO.Services;
+using TRPO.Models;
+using Microsoft.Data.SqlClient;
+
+namespace TRPO.Database
+{
+    internal class UserDB
+    {
+        
+        public static User GetFromDBById(int id)
+        {
+            SqlCommand command = new SqlCommand("SELECT * FROM [User] WHERE Passanger_id = @id", DataBase.getInstance().getConnection());
+            command.Parameters.Add("@id", System.Data.SqlDbType.Int).Value = id;
+            return GetFromDBByCommand(command);
+        }
+        public static User GetFromDBByEmail(string email)
+        {
+            SqlCommand command = new SqlCommand("SELECT * FROM [User] WHERE Email = @userEmail", DataBase.getInstance().getConnection());
+            command.Parameters.Add("@userEmail", System.Data.SqlDbType.NVarChar, 50).Value = email;
+            return GetFromDBByCommand(command);
+        }
+        public static User GetFromDBByEmailAndPassword(string email, string password)
+        {
+            SqlCommand command = new SqlCommand("SELECT * FROM [User] WHERE Email = @userEmail", DataBase.getInstance().getConnection());
+            command.Parameters.Add("@userEmail", System.Data.SqlDbType.NVarChar, 50).Value = email;
+            command.Parameters.Add("@userPassword", System.Data.SqlDbType.NVarChar, 50).Value = password;
+            try
+            {
+                var tmpUser = GetFromDBByCommand(command);
+                if (User.VerifyHashedPassword(tmpUser.Password, password))
+                {
+                    return tmpUser;
+                }
+                else
+                {
+                    throw new ArgumentException("Неверное имя пользователя или пароль.");
+                }
+            }
+            catch (NullReferenceException)
+            {
+                throw new ArgumentException("Неверное имя пользователя или пароль.");
+            }
+        }
+        public void SaveUserToDB(User user)
+        {
+            string commandExpression = "INSERT [User] (Name, Surname, Pasport_ser, Pasport_num, Nationality, Date_of_birth, Telephone, Password, Role, Email)" +
+                " VALUES (@Name, @Surname, @PassportSeries, @PassportNumber, @Nationality, @DateOfBirth, @Telephone, @Password, @Role, @Email)";
+            SqlCommand command = new SqlCommand(commandExpression, DataBase.getInstance().getConnection());
+            command.Parameters.Add("@Name", System.Data.SqlDbType.NChar, 20).Value = user.Name;
+            command.Parameters.Add("@Surname", System.Data.SqlDbType.NChar, 20).Value = user.Surname;
+            command.Parameters.Add("@Password", System.Data.SqlDbType.NVarChar, 100).Value = User.HashPassword(user.Password);
+            command.Parameters.Add("@PassportSeries", System.Data.SqlDbType.NChar, 2).Value = user.PassportSeries;
+            command.Parameters.Add("@Nationality", System.Data.SqlDbType.NChar, 20).Value = user.Nationality;
+            command.Parameters.Add("@DateOfBirth", System.Data.SqlDbType.Date).Value = user.DateOfBirth;
+            command.Parameters.Add("@Telephone", System.Data.SqlDbType.NChar, 20).Value = user.Telephone;
+            command.Parameters.Add("@PassportNumber", System.Data.SqlDbType.Int).Value = user.PassportNumber;
+            command.Parameters.Add("@Role", System.Data.SqlDbType.NChar, 5).Value = user.Role;
+            command.Parameters.Add("@Email", System.Data.SqlDbType.NVarChar, 50).Value = user.Email;
+            DataBase.getInstance().openConnection();
+            command.ExecuteNonQuery();
+            DataBase.getInstance().closeConnection();
+        }
+       
+
+        private static User GetFromDBByCommand(SqlCommand command)
+        {
+            DataRow[] userInfo;
+            DataTable table = new DataTable();
+            SqlDataAdapter adapter = new SqlDataAdapter();
+            adapter.SelectCommand = command;
+            adapter.Fill(table);
+            userInfo = table.Select();
+            if (userInfo.Length > 0)
+            {
+                return new User(
+                    passangerId: Convert.ToInt32(userInfo[0][0]),
+                    name: Convert.ToString(userInfo[0][1]),
+                    surname: Convert.ToString(userInfo[0][2]),
+                    passportSeries: Convert.ToString(userInfo[0][3]),
+                    passportNumber: Convert.ToInt32(userInfo[0][4]),
+                    dateOfBirth: Convert.ToDateTime(userInfo[0][6]),
+                    telephone: Convert.ToString(userInfo[0][7]),
+                    nationality: Convert.ToString(userInfo[0][5]),
+                    password: Convert.ToString(userInfo[0][8]),
+                    role: Convert.ToString(userInfo[0][9]),
+                    email: Convert.ToString(userInfo[0][10])
+                );
+            }
+            else return null;
+        }
+    }
+}

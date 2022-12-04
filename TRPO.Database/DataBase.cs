@@ -1,6 +1,6 @@
 ﻿using Microsoft.Data.SqlClient;
 
-namespace TRPO.Services
+namespace TRPO.Database
 {
     public class DataBase
     {
@@ -9,10 +9,10 @@ namespace TRPO.Services
         private static SqlConnection _sqlConnection = new SqlConnection(@"Data Source = DESKTOP-30507DA;Initial catalog = trpo;Integrated Security = true;TrustServerCertificate = true");
 
         private DataBase() { }
-        
+
         public static DataBase getInstance()
         {
-            if(_instance == null)
+            if (_instance == null)
                 _instance = new DataBase();
             return _instance;
         }
@@ -24,7 +24,7 @@ namespace TRPO.Services
 
         public void openConnection()
         {
-            if(_sqlConnection.State==System.Data.ConnectionState.Closed)
+            if (_sqlConnection.State == System.Data.ConnectionState.Closed)
             {
                 _sqlConnection.Open();
             }
