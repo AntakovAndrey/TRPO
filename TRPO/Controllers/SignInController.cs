@@ -10,11 +10,11 @@ namespace TRPO.Controllers
     {
         public async Task<IActionResult> Check()
         {
-            if(ModelState.IsValid)
+            if (ModelState.IsValid)
             {
-                User user = Models.User.GetFromDBByEmailAndPassword(Request.Form["Email"], Request.Form["Password"]);
                 try
                 {
+                    User user = TRPO.Database.UserDB.VerifyUser(Request.Form["Email"], Request.Form["Password"]);
                     var claims = new List<Claim> {
                         new Claim("id", Convert.ToString(user.PassangerId)),
                         new Claim(ClaimTypes.Name, user.Name),
@@ -24,7 +24,7 @@ namespace TRPO.Controllers
                     await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(claimsIdentity));
                     return Redirect("../Home");
                 }
-                catch(Exception ex)
+                catch (Exception ex)
                 {
                     ViewBag.Message = ex.Message;
                     return View("Index");

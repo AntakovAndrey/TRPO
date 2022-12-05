@@ -14,7 +14,7 @@ namespace TRPO.mocks
         }
         public MockFlights()
         {
-            command = new SqlCommand("SELECT * FROM Flight", DataBase.getInstance().getConnection());
+            //command = new SqlCommand("SELECT * FROM Flight", DataBase.getInstance().getConnection());
         }
         //List<Flight> tmpFlights = new List<Flight>();
         //public IEnumerable<Flight> Flights

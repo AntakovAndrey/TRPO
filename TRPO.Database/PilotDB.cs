@@ -9,7 +9,7 @@ using Microsoft.Data.SqlClient;
 
 namespace TRPO.Database
 {
-    internal class PilotDB
+    public class PilotDB
     {
         
         public static List<Pilot> getAllPilots()

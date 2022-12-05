@@ -10,7 +10,7 @@ using TRPO.Models;
 
 namespace TRPO.Database
 {
-    internal class PlaneDB
+    public class PlaneDB
     {
         
         public static Plane GetFromDBById(int id)

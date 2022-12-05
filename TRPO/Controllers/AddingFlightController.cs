@@ -8,7 +8,7 @@ namespace TRPO.Controllers
         public IActionResult Index()
         {
             return View("Index");
-            ViewBag.Planes = new SelectList(TRPO.Models.Plane.getAllPlanes(), "PlaneId","Type");
+            //ViewBag.Planes = new SelectList(TRPO.Models.Plane.getAllPlanes(), "PlaneId","Type");
         }
         public IActionResult Check(TRPO.Models.Flight flight)
         {

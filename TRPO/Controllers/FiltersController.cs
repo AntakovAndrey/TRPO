@@ -11,12 +11,12 @@ namespace TRPO.Controllers
         }
         public IActionResult Resault()
         {
-            FiltersBuilder filtersBuilder = new FiltersBuilder(DataBase.getInstance().getConnection());
-            filtersBuilder.SetFinishPoint(Request.Form["FinishPoint"]);
-            filtersBuilder.SetFinishDate(Request.Form["FinishDate"]);
-            filtersBuilder.SetStartDate(Request.Form["StartDate"]);
-            var command = filtersBuilder.GetResault();
-            ViewBag.command = command;
+            //FiltersBuilder filtersBuilder = new FiltersBuilder(DataBase.getInstance().getConnection());
+            //filtersBuilder.SetFinishPoint(Request.Form["FinishPoint"]);
+            //filtersBuilder.SetFinishDate(Request.Form["FinishDate"]);
+            //filtersBuilder.SetStartDate(Request.Form["StartDate"]);
+            //var command = filtersBuilder.GetResault();
+            //ViewBag.command = command;
             return View();
         }
     }
