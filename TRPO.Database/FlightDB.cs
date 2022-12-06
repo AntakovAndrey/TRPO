@@ -11,7 +11,7 @@ using Microsoft.Data.SqlClient;
 
 namespace TRPO.Database
 {
-    internal class FlightDB
+    public class FlightDB
     {
         
         public static List<Flight> getDepartureToday()

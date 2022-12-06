@@ -22,10 +22,10 @@
                 <div class="header_title">@ViewData["Title"]</div>
                 <nav class = "nav">
                     <a href="https://localhost:7297/Home" class = "nav_link">Главная</a>
-                @*@{
+                @{
                     if (Context.User.FindFirst("id") != null)
                     {
-                        User passanger = TRPO.Models.User.GetFromDBById(Convert.ToInt32(Context.User.FindFirst("id").Value));
+                        User passanger = TRPO.Database.UserDB.GetFromDBById(Convert.ToInt32(Context.User.FindFirst("id").Value));
 
                         if (Context.User.FindFirst(ClaimTypes.Role)!=null && Context.User.FindFirst(ClaimTypes.Role).Value == AdminRole.Name)
                         {
@@ -65,7 +65,7 @@
                             </div>                                    
                         </div>
                     }
-                }*@
+                }
                 </nav>
             </div>
         </div>
@@ -76,7 +76,7 @@
     
 
 
-
+    <script src="~/js/home.js" asp-append-version="true"></script>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>

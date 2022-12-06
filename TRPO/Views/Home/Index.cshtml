@@ -20,11 +20,19 @@
             <th>Время прилета</th>
             <th>Статус</th>
           </tr>
-            
+            @{
+                foreach(var flight in TRPO.Database.FlightDB.getArrivlToady())
+                {
+                    <tr>
+                        <td>@flight.FlightId</td>
+                        <td>@flight.FlightRoute.FinishPoint</td>
+                        <td>@flight.FinishTime</td>
+                        <td>@flight.Status</td>
+                    </tr>
+                }
+            }
         </table>
 
-        
-        
         <table class = "departure_table">
           <tr>
             <th>Рейс</th>
@@ -32,21 +40,17 @@
             <th>Время вылета</th>
             <th>Статус</th>
           </tr>
-            
+            @{
+                foreach (var flight in TRPO.Database.FlightDB.getDepartureToday())
+                {
+                    <tr>
+                        <td>@flight.FlightId</td>
+                        <td>@flight.FlightRoute.FinishPoint</td>
+                        <td>@flight.StartTime</td>
+                        <td>@flight.Status</td>
+                    </tr>
+                }
+            }
         </table>
     </section>
 </div>
-
-
-
-<script src="~/js/home.js" asp-append-version="true"></script>
-
-<script>
-        
-        
-</script>
-
-
-
-
-
