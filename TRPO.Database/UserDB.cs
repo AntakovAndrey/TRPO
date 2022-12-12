@@ -1,12 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Xml.Linq;
-using TRPO.Services;
+﻿using System.Data;
 using TRPO.Models;
 using Microsoft.Data.SqlClient;
 using System.Security.Cryptography;
@@ -29,10 +21,14 @@ namespace TRPO.Database
                 }
                 else
                 {
-                    throw new ArgumentException("Неверное имя пользователя или пароль.");
+                    throw new ArgumentException();
                 }
             }
             catch (NullReferenceException)
+            {
+                throw new ArgumentException("Неверное имя пользователя или пароль.");
+            }
+            catch (ArgumentException)
             {
                 throw new ArgumentException("Неверное имя пользователя или пароль.");
             }
@@ -52,7 +48,7 @@ namespace TRPO.Database
             return GetFromDBByCommand(command);
         }
         
-        public void SaveUserToDB(User user)
+        public static void SaveUserToDB(User user)
         {
             string commandExpression = "INSERT [User] (Name, Surname, Pasport_ser, Pasport_num, Nationality, Date_of_birth, Telephone, Password, Role, Email)" +
                 " VALUES (@Name, @Surname, @PassportSeries, @PassportNumber, @Nationality, @DateOfBirth, @Telephone, @Password, @Role, @Email)";

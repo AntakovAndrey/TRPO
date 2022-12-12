@@ -42,27 +42,43 @@ namespace TRPO.Database
             command.Parameters.Add("@class", System.Data.SqlDbType.NChar).Value = clas;
             return GetFromDBByCommand(command);
         }
-    private static Ticket GetFromDBByCommand(SqlCommand command)
-    {
-        DataRow[] ticketInfo;
-        DataTable table = new DataTable();
-        SqlDataAdapter adapter = new SqlDataAdapter();
-        adapter.SelectCommand = command;
-        adapter.Fill(table);
-        ticketInfo = table.Select();
-        if (ticketInfo.Length > 0)
+
+        private static List<Ticket> GetTicketsByCommand(SqlCommand command)
         {
-            return new Ticket(
-                id: Convert.ToInt32(ticketInfo[0][0]),
-                ticketId: Convert.ToInt32(ticketInfo[0][1]),
-                flightId: Convert.ToInt32(ticketInfo[0][2]),
-                price: Convert.ToDouble(ticketInfo[0][3]),
-                clas: Convert.ToString(ticketInfo[0][4])
-            );
+            List<Ticket> list = new List<Ticket>();
+            DataBase.getInstance().openConnection();
+            SqlDataReader reader = command.ExecuteReader();
+            if (reader.HasRows)
+            {
+                while (reader.Read())
+                {
+                
+                }
+            }
+                return list;
         }
-        else return null;
-    }
-    public void SaveUserToDB(Ticket ticket)
+
+        private static Ticket GetFromDBByCommand(SqlCommand command)
+        {
+            DataRow[] ticketInfo;
+            DataTable table = new DataTable();
+            SqlDataAdapter adapter = new SqlDataAdapter();
+            adapter.SelectCommand = command;
+            adapter.Fill(table);
+            ticketInfo = table.Select();
+            if (ticketInfo.Length > 0)
+            {
+                return new Ticket(
+                    id: Convert.ToInt32(ticketInfo[0][0]),
+                    ticketId: Convert.ToInt32(ticketInfo[0][1]),
+                    flightId: Convert.ToInt32(ticketInfo[0][2]),
+                    price: Convert.ToDouble(ticketInfo[0][3]),
+                    ticketClass: Convert.ToString(ticketInfo[0][4])
+                );
+            }
+            else return null;
+        }
+        public void SaveUserToDB(Ticket ticket)
         {
             string commandExpression = "INSERT [Ticket] (UserId,FlightId,Price, Class)" +
                 " VALUES (@UserId,@FlightID,@Price, @Class)";
@@ -70,7 +86,7 @@ namespace TRPO.Database
             command.Parameters.Add("@UserId", System.Data.SqlDbType.Int).Value = ticket.UserId;
             command.Parameters.Add("@FlightId", System.Data.SqlDbType.Int).Value = ticket.FlightId;
             command.Parameters.Add("@Price", System.Data.SqlDbType.Float).Value = ticket.Price;
-            command.Parameters.Add("@Class", System.Data.SqlDbType.NChar, 10).Value = ticket.Clas;
+            command.Parameters.Add("@Class", System.Data.SqlDbType.NChar, 10).Value = ticket.Class;
             command.ExecuteNonQuery();
             DataBase.getInstance().closeConnection();
         }

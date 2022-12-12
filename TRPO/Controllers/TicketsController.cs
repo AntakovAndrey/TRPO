@@ -8,7 +8,7 @@ namespace TRPO.Controllers
 {
     public class TicketsController : Controller
     {
-        [Authorize(Policy = "")]
+        [Authorize(Roles ="User")]
         public IActionResult Index()
         {
             int userId = Convert.ToInt32(HttpContext.User.FindFirstValue("id"));
