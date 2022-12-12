@@ -39,6 +39,12 @@ namespace TRPO.Database
             command.Parameters.Add("@dateToday", System.Data.SqlDbType.Date).Value = DateTime.Now;
             return getFlightsByCommand(command);
         }
+
+        public void UpdateFlight(ModifyFlightViewModel modifiedFlight)
+        {
+            Console.WriteLine("Заебумба");
+        }
+
         public void SaveFlightToDB(Flight flight)
         {
             string commandExpression = "INSERT [Flight] (Date, StartTime, FinisshTime, FlightRoute, Plane, Pilot, Status)" +
