@@ -11,6 +11,7 @@
     <link rel="stylesheet" href="~/css/FlightsStyles.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/css/FlightItemStyles.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/css/HomeStyles.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/ModifyFlights/ModifyFlightsList.css" asp-append-version="true" />
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@500&display=swap" rel="stylesheet">
@@ -29,7 +30,7 @@
 
                         if (Context.User.FindFirst(ClaimTypes.Role)!=null && Context.User.FindFirst(ClaimTypes.Role).Value == AdminRole.Name)
                         {
-                            <a href="../AddingFlight" class = "nav_link">Изменение полета</a>
+                            <a href="../ModifyFlight/Index" ; class = "nav_link">Изменение полета</a>
                             <div class = "dropdown">
                                 <a href="" class = "nav_link">Добавление</a>      
                                 <div class="dropdown-content">
@@ -82,5 +83,6 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
     @await RenderSectionAsync("Scripts", required: false)
+    
 </body>
 </html>

@@ -1,0 +1,41 @@
+﻿@{
+    ViewData["Title"] = "Изменение полета";
+}
+
+
+<div class="ModifyFlightsContainer">
+    
+    <table class="flightsTable" cells->
+        <caption>Список рейсов: </caption>
+        
+        <thead>
+            <th>Номер</th>
+            <th>Дата</th>
+            <th>Время вылета</th>
+            <th>Время время полета</th>
+            <th>Место вылета</th>
+            <th>Место прилета</th>
+            <th>Статус</th>
+            <th>Изменить</th>
+        </thead>
+        
+        <tbody>
+            @{foreach(var flight in TRPO.Database.FlightDB.getAllFlights() )
+            {
+                <tr>
+                    <td>@flight.FlightId</td>
+                    <td>@flight.Date</td>
+                    <td>@flight.StartTime</td>
+                    <td>@flight.FinishTime</td>
+                    <td>@flight.FlightRoute.StartPoint</td>
+                    <td>@flight.FlightRoute.FinishPoint</td>
+                    <td>@flight.Status</td>
+                    <td> 
+                        <a class="selectButton" href="~/ModifyFlight/ModifyItem/@flight.FlightId">Изменить</a>
+                    </td>
+                </tr>
+            }}
+        </tbody>    
+    </table>
+    
+</div>

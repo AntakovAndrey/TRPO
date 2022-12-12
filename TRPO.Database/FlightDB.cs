@@ -13,7 +13,14 @@ namespace TRPO.Database
 {
     public class FlightDB
     {
-        
+        public static List<Flight> getAllFlights()
+        {
+            SqlCommand command = new SqlCommand("SELECT * FROM Flight, [Route], Plane, Pilot" +
+                " WHERE Flight.Route_id = [Route].Id AND Flight.Plane_id = Plane.Plane_id AND Flight.Pilot_id=Pilot.Pilot_id"
+                , DataBase.getInstance().getConnection());
+            
+            return getFlightsByCommand(command);
+        }
         public static List<Flight> getDepartureToday()
         {
             SqlCommand command = new SqlCommand("SELECT * FROM Flight, [Route], Plane, Pilot" +

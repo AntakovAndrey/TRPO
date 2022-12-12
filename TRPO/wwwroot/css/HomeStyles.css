@@ -14,10 +14,8 @@
 .home_page_header{
     min-height: 200px;
     height: 35vh;
-    /*position:relative;*/
     background-image: url('../img/home_background.jpg');
     background-repeat: no-repeat;
-    /*background-attachment:fixed;*/
     background-size: cover; 
     background-position: center ;
 }

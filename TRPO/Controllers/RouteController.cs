@@ -6,12 +6,12 @@ namespace TRPO.Controllers
 {
     public class RouteController : Controller
     {
-        [Authorize(Roles = "User")]
+        [Authorize(Roles = "Admin")]
         public IActionResult Index()
         {
             return View();
         }
-        [Authorize(Roles = "User")]
+        [Authorize(Roles = "Admin")]
         public IActionResult Check(TRPO.Models.Route route)
         {
             if(ModelState.IsValid)
