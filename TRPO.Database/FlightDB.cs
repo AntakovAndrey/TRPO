@@ -13,6 +13,14 @@ namespace TRPO.Database
 {
     public class FlightDB
     {
+        public static List<Flight> getByID()
+        {
+            SqlCommand command = new SqlCommand("SELECT * FROM Flight, [Route], Plane, Pilot " +
+                " WHERE  Flight.Route_id = [Route].Id AND Flight.Plane_id = Plane.Plane_id AND Flight.Pilot_id=Pilot.Pilot_id "
+                , DataBase.getInstance().getConnection());
+            return getFlightsByCommand(command);
+        }
+
         public static List<Flight> getAllFlights()
         {
             SqlCommand command = new SqlCommand("SELECT * FROM Flight, [Route], Plane, Pilot" +
@@ -40,7 +48,7 @@ namespace TRPO.Database
             return getFlightsByCommand(command);
         }
 
-        public void UpdateFlight(ModifyFlightViewModel modifiedFlight)
+        public static void UpdateFlight(ModifyFlightViewModel modifiedFlight)
         {
             Console.WriteLine("Заебумба");
         }
@@ -61,6 +69,9 @@ namespace TRPO.Database
             command.ExecuteNonQuery();
             DataBase.getInstance().closeConnection();
         }
+
+
+
         private static List<Flight> getFlightsByCommand(SqlCommand command)
         {
             List<Flight> tmpFlights = new List<Flight>();

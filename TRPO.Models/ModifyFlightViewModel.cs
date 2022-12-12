@@ -4,7 +4,7 @@ namespace TRPO.Models
 {
     public class ModifyFlightViewModel
     {
-        [Required]
+        //[Required]
         public int FlightId { get; set; }
 
         public string Status { get; set; }
