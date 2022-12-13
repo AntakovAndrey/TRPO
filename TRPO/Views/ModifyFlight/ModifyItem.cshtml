@@ -1,27 +1,24 @@
 ﻿@model ModifyFlightViewModel
 
 @{
-    ViewData["Title"] = "Изменение полета";
+    ViewData["Title"] = "Изменение полета"; 
 }
-
-
-
 <form asp-controller="ModifyFlight" asp-action="ModifyItem">
-    
+    <input asp-for="FlightId" type="hidden" value="@ViewBag.id">
     <div>
         <p>Дата</p>
-        <input asp-for="Date" type ="Date"> </input>
+        <input asp-for="Date" type ="Date"> 
         <span asp-validation-for="Date"></span>
     </div>
     <div>
         <p>Время вылета</p>
-        <input asp-for="StartTime" type ="Time"> </input>
-        <span asp-validation-for="Date"></span>
+        <input asp-for="StartTime" type ="Time">
+        <span asp-validation-for="StartTime"></span>
     </div>
     <div>
         <p>Время прилета</p>
-        <input asp-for="FinishTime" type ="Time"> </input>
-        <span asp-validation-for="Date"></span>
+        <input asp-for="FinishTime" type ="Time"> 
+        <span asp-validation-for="FinishTime"></span>
     </div>
     <div>
         <p>Статус</p>
@@ -36,5 +33,5 @@
         <span asp-validation-for="Status"></span>
         
     </div>
-    <button>Изменить</button>
+    <button >Изменить</button>
 </form>

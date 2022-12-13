@@ -50,7 +50,42 @@ namespace TRPO.Database
 
         public static void UpdateFlight(ModifyFlightViewModel modifiedFlight)
         {
-            Console.WriteLine("Заебумба");
+            if(modifiedFlight.Date>=DateTime.Today)
+            {
+                SqlCommand command = new SqlCommand("UPDATE Flight SET Date = @date WHERE Flight_id = @id", DataBase.getInstance().getConnection());
+                command.Parameters.Add("date", System.Data.SqlDbType.Date).Value = modifiedFlight.Date;
+                command.Parameters.Add("@id", System.Data.SqlDbType.Int).Value = modifiedFlight.FlightId;
+                DataBase.getInstance().openConnection();
+                command.ExecuteNonQuery();
+                DataBase.getInstance().closeConnection();
+            }
+            if(modifiedFlight.StartTime!=TimeSpan.MinValue)
+            {
+                SqlCommand command = new SqlCommand("UPDATE Flight SET Start_time = @startTime WHERE Flight_id = @id", DataBase.getInstance().getConnection());
+                command.Parameters.Add("@startTime", System.Data.SqlDbType.Time).Value = modifiedFlight.StartTime;
+                command.Parameters.Add("@id", System.Data.SqlDbType.Int).Value = modifiedFlight.FlightId;
+                DataBase.getInstance().openConnection();
+                command.ExecuteNonQuery();
+                DataBase.getInstance().closeConnection();
+            }
+            if(modifiedFlight.FinishTime!=TimeSpan.MinValue)
+            {
+                SqlCommand command = new SqlCommand("UPDATE Flight SET Finish_time = @finishTime WHERE Flight_id = @id", DataBase.getInstance().getConnection());
+                command.Parameters.Add("@finsihTime", System.Data.SqlDbType.Time).Value = modifiedFlight.FinishTime;
+                command.Parameters.Add("@id", System.Data.SqlDbType.Int).Value = modifiedFlight.FlightId;
+                DataBase.getInstance().openConnection();
+                command.ExecuteNonQuery();
+                DataBase.getInstance().closeConnection();
+            }
+            if(modifiedFlight.Status!=null)
+            {
+                SqlCommand command = new SqlCommand("UPDATE Flight SET Status = @status WHERE Flight_id = @id", DataBase.getInstance().getConnection());
+                command.Parameters.Add("@status",System.Data.SqlDbType.NVarChar,50).Value=modifiedFlight.Status;
+                command.Parameters.Add("@id", System.Data.SqlDbType.Int).Value = modifiedFlight.FlightId;
+                DataBase.getInstance().openConnection();
+                command.ExecuteNonQuery();
+                DataBase.getInstance().closeConnection();
+            }
         }
 
         public void SaveFlightToDB(Flight flight)
@@ -69,8 +104,6 @@ namespace TRPO.Database
             command.ExecuteNonQuery();
             DataBase.getInstance().closeConnection();
         }
-
-
 
         private static List<Flight> getFlightsByCommand(SqlCommand command)
         {

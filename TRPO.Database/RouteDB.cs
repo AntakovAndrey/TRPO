@@ -1,40 +1,31 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using TRPO.Services;
-using TRPO.Models;
+﻿using TRPO.Models;
 using Microsoft.Data.SqlClient;
 
 namespace TRPO.Database
 {
-    internal class RouteDB
+    public class RouteDB
     {
        
         public static List<Route> getAllRoutes()
         {
             SqlCommand command = new SqlCommand("SELECT * FROM Route", DataBase.getInstance().getConnection());
-            return getFlightsByCommand(command);
+            return getRoutesByCommand(command);
         }
 
-
-        public void SaveUserToDB(Route route)
+        public static void SaveRouteToDB(Route route)
         {
-            string commandExpression = "INSERT [Route] (StartPoint, FinishPoint, Distance)" +
+            string commandExpression = "INSERT [Route] (Start_point, Finish_point, Distance)" +
                 " VALUES (@StartPoint, @FinishPoint, @Distance)"; 
             SqlCommand command = new SqlCommand(commandExpression, DataBase.getInstance().getConnection());
             command.Parameters.Add("@StartPoint", System.Data.SqlDbType.NVarChar, 50).Value = route.StartPoint;
             command.Parameters.Add("@FinishPoint", System.Data.SqlDbType.NVarChar, 50).Value = route.FinishPoint;
             command.Parameters.Add("@Distance", System.Data.SqlDbType.Int).Value = route.Distance;
+            DataBase.getInstance().openConnection();
             command.ExecuteNonQuery();
             DataBase.getInstance().closeConnection();
         }
         
-
-
-
-        private static List<Route> getFlightsByCommand(SqlCommand command)
+        private static List<Route> getRoutesByCommand(SqlCommand command)
         {
             List<Route> tmpRoutes = new List<Route>();
             DataBase.getInstance().openConnection();

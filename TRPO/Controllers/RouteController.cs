@@ -1,4 +1,4 @@
-﻿
+﻿using TRPO.Database;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -12,19 +12,21 @@ namespace TRPO.Controllers
             return View();
         }
         [Authorize(Roles = "Admin")]
-        public IActionResult Check(TRPO.Models.Route route)
+        public IActionResult Check(Models.Route route)
         {
             if(ModelState.IsValid)
             {
-                route.saveToDB();
-                ViewBag.Message = "Новый маршрут успешно добавлен.";
-                return View("Index",route);
+                RouteDB.SaveRouteToDB(route);
+                return RedirectToAction("RouteAdded",route);
             }
             else
             {
                 return View("Index", route);
             }
-            
+        }
+        public IActionResult RouteAdded(Models.Route route)
+        {
+            return View(route);
         }
     }
 }

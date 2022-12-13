@@ -1,23 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using TRPO.Services;
-using TRPO.Models;
+﻿using TRPO.Models;
 using Microsoft.Data.SqlClient;
 
 namespace TRPO.Database
 {
     public class PilotDB
     {
-        
         public static List<Pilot> getAllPilots()
         {
             SqlCommand command = new SqlCommand("SELECT * FROM Pilot", DataBase.getInstance().getConnection());
-
             return getPilotsByCommand(command);
         }
+
         private static List<Pilot> getPilotsByCommand(SqlCommand command)
         {
             List<Pilot> tmpFlights = new List<Pilot>();
@@ -34,20 +27,19 @@ namespace TRPO.Database
                 }
                 DataBase.getInstance().closeConnection();
             }
-
             return tmpFlights;
         }
-        public void SaveUserToDB(Pilot pilot)
+
+        public static void SavePilotToDB(Pilot pilot)
         {
             string commandExpression = "INSERT [Pilot] (Name, Surname)" +
                 " VALUES (@Name, @Surname)";
             SqlCommand command = new SqlCommand(commandExpression, DataBase.getInstance().getConnection());
-            command.Parameters.Add("@Role", System.Data.SqlDbType.NChar, 20).Value = pilot.Name;
-            command.Parameters.Add("@Email", System.Data.SqlDbType.NChar, 20).Value = pilot.Surname;
+            command.Parameters.Add("@Name", System.Data.SqlDbType.NChar, 20).Value = pilot.Name;
+            command.Parameters.Add("@Surname", System.Data.SqlDbType.NChar, 20).Value = pilot.Surname;
             DataBase.getInstance().openConnection();
             command.ExecuteNonQuery();
             DataBase.getInstance().closeConnection();
         }
-        
     }
 }

@@ -1,8 +1,19 @@
-﻿@using TRPO.mocks
+﻿@model TRPO.Models.Pilot
+
 @{
     ViewData["Title"] = "Пилоты";
 }
 
-@{
-    
-}
+<form method = "post" asp-controller="Pilot" asp-action="Check">
+	<div>
+		<p>Название самолета</p>
+		<input class = "short_input"asp-for="Name"> 
+		<span asp-validation-for="Name"></span>
+	</div>
+	<div>
+		<p>Количество мест</p>
+		<input class = "short_input"asp-for="Surname"> 
+		<span asp-validation-for="Surname"></span>
+	</div>
+	<button>Добавить</button>
+</form>

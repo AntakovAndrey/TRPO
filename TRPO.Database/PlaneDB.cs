@@ -69,9 +69,9 @@ namespace TRPO.Database
 
             return tmpFlights;
         }
-        public void SaveUserToDB(Plane plane)
+        public static void SavePlaneToDB(Plane plane)
         {
-            string commandExpression = "INSERT [Plane] (Type, MaxFlightRange, NumberOfSeats, FuelConsumtion)" +
+            string commandExpression = "INSERT [Plane] (Type, Max_flight_range, Number_of_seats, Fuel_consumtion)" +
                 " VALUES (@Type, @MaxFlightRange, @NumberOfSeats, @FuelConsumtion)";
             SqlCommand command = new SqlCommand(commandExpression, DataBase.getInstance().getConnection());
             command.Parameters.Add("@Type", System.Data.SqlDbType.NChar, 20).Value = plane.Type;

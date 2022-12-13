@@ -4,7 +4,7 @@ using TRPO.Database;
 
 namespace TRPO.Controllers
 {
-    public class PilotsController : Controller
+    public class PlaneController : Controller
     {
         [Authorize(Roles = "Admin")]
         public IActionResult Index()
@@ -12,21 +12,21 @@ namespace TRPO.Controllers
             return View();
         }
         [Authorize(Roles = "Admin")]
-        public IActionResult Check(Models.Pilot pilot)
+        public IActionResult Check(Models.Plane plane)
         {
             if (ModelState.IsValid)
             {
-                PilotDB.SavePilotToDB(pilot);
-                return RedirectToAction("PilotAdded", pilot);
+                PlaneDB.SavePlaneToDB(plane);
+                return RedirectToAction("PlaneAdded", plane);
             }
             else
             {
-                return View("Index", pilot);
+                return View("Index", plane);
             }
         }
-        public IActionResult PilotAdded(Models.Pilot pilot)
+        public IActionResult PilotAdded(Models.Plane plane)
         {
-            return View(pilot);
+            return View(plane);
         }
     }
 }

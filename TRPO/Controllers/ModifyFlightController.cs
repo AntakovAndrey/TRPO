@@ -15,26 +15,19 @@ namespace TRPO.Controllers
         public IActionResult ModifyItem(int id)
         {
             ViewBag.id = id;
-            ModifyFlightViewModel modifiedFlight = new ModifyFlightViewModel();
-            modifiedFlight.FlightId = id;
-            return View(modifiedFlight);
+            return View();
         }
 
         [HttpPost]
         public IActionResult ModifyItem(ModifyFlightViewModel modifiedFlight)
         {
             
-            if(ModelState.IsValid)
-            {
+            
                 FlightDB.UpdateFlight(modifiedFlight);
-                var fff = FlightDB.getAllFlights();
-                int i = 
-                Flight f = fff.Where(f => f.FlightId == modifiedFlight.FlightId).First();
-
-                //Flight flight = FlightDB.getAllFlights().Where(f=>f.FlightId==modifiedFlight.FlightId).First();
-                return RedirectToAction("ItemModified", f);
-            }
-            return View();
+                Flight flight = FlightDB.getAllFlights().Where(f=>f.FlightId==modifiedFlight.FlightId).First();
+                return RedirectToAction("ItemModified", flight);
+            
+            //return View();
         }
 
         public IActionResult ItemModified(Flight flight)
