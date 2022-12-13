@@ -16,6 +16,14 @@ namespace TRPO.Models
         public string FinishPoint { get; set; }
         public int Distance { get; set; }
 
+        public Route(Route route)
+        {
+            Id = route.Id;
+            StartPoint = route.StartPoint;
+            FinishPoint = route.FinishPoint;
+            Distance = route.Distance;
+        }
+
         public Route(int id, string startPoint, string finishPoint, int distance)
         {
             Id = id;

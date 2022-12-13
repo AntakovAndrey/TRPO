@@ -1,25 +1,18 @@
 ﻿@{
     ViewData["Title"] = "Фильтры";
 }
-@*
-@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@{
-}
-
 
 <form method="post" asp-controller="Filters" asp-action="Resault">
     
 
     <div class="filters_line">
         <p>Дата</p>
-        <p>От:<input class="short_input" name="StartDate" type="Date"> </input></p>
-        <p>До:<input class="short_input" name="FinishDate" type="Date"> </input></p>
+        <p>От:<input class="short_input" name="StartDate" type="Date"></p>
+        <p>До:<input class="short_input" name="FinishDate" type="Date"></p>
     </div>
     <div class="filters_line">
         <p>Метсо</p>
-        <p>Куда:<input class="long_input" name="FinishPoint"> </input></p>
+        <p>Куда:<input class="long_input" name="FinishPoint"></p>
     </div>
     <button class="search_button">
         Найти

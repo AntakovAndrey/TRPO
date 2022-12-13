@@ -2,76 +2,59 @@
 @{
     ViewData["Title"] = "Добавление рейса";
 }
-@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@{
-}
 
 <form method="post" asp-controller="AddingFlight" asp-action="Check" class="adding_flight_container">
     <div>
         <p>Дата</p>
-        <input class="long_input" asp-for="Date" type ="Date"> </input>
+        <input class="long_input" asp-for="Date" type ="Date">
         <span asp-validation-for="Date"></span>
     </div>
     <div>
         <p>Время вылета</p>
-        <input class="long_input" asp-for="StartTime" type ="time"> </input>
+        <input class="long_input" asp-for="StartTime" type ="time">
         <span asp-validation-for="StartTime"></span>
     </div>
     <div>
         <p>Время прилета</p>
-        <input class="long_input" asp-for="FinishTime" type ="time"> </input>
+        <input class="long_input" asp-for="FinishTime" type ="time">
         <span asp-validation-for="FinishTime"></span>
     </div>
     <div>
         <p>Маршрут</p>
-        <select asp-for="FlightRoute" class="short_input">
-           @* @{
-                foreach (var route in TRPO.Models.Route.getAllRoutes())
+        <select asp-for="RouteId" class="short_input">
+            @{
+                foreach (var route in TRPO.Database.RouteDB.getAllRoutes())
                 {
-                            <option value="@route">@route.StartPoint - @route.FinishPoint</option>
+                    <option value="@route.Id">@route.StartPoint - @route.FinishPoint</option>
                 }
-            }*@
+            }
         </select>
-        <span asp-validation-for="FlightRoute"></span>
+        <span asp-validation-for="RouteId"></span>
     </div>
     
     <div>
         <p>Самолет</p>
-        <select asp-for="Plane" asp-items="ViewBag.Planes" class="short_input">
-           @* @{
-                
-                foreach (var plane in TRPO.Models.Plane.getAllPlanes())
+        <select asp-for="PlaneId" class="short_input">
+            @{
+                foreach (var plane in TRPO.Database.PlaneDB.getAllPlanes())
                 {
-                            <option value="@{new Plane(plane.PlaneId,plane.Type,plane.MaxFlightRange,plane.NumberOfSeats,plane.FuelConsumtion);}">
-                                @plane.PlaneId - @plane.Type
-                            </option>
+                    <option value="@plane.PlaneId">@plane.PlaneId - @plane.Type</option>
                 }
-            }*@
+            }
         </select>
-        <span asp-validation-for="Plane"></span>
+        <span asp-validation-for="PlaneId"></span>
     </div>
     <div>
         <p>Пилот</p>
-        <select asp-for="Pilot" class="short_input">
-            @*@{
-                foreach(var pilot in TRPO.Database.PlaneDB.getAllPlanes())
+        <select asp-for="PilotId" class="short_input">
+            @{
+                foreach(var pilot in TRPO.Database.PilotDB.getAllPilots())
                 {
-                            <option value="@pilot">@pilot. @pilot.Surname</option>
+                    <option value="@pilot.PilotId">@pilot.Name @pilot.Surname</option>
                 }
-            }*@
-            @*@{
-                foreach (var pilot in TRPO.Models.Pilot.getAllPilots())
-                {
-                            
-                }
-            }*@
+            }
         </select>
         <span asp-validation-for="Pilot"></span>
     </div>
-    
-    
     <button>Добавить</button>
-    <span>@ViewBag.Message</span>
 </form>

@@ -24,7 +24,7 @@ namespace TRPO.Controllers
                 return View("Index", plane);
             }
         }
-        public IActionResult PilotAdded(Models.Plane plane)
+        public IActionResult PlaneAdded(Models.Plane plane)
         {
             return View(plane);
         }

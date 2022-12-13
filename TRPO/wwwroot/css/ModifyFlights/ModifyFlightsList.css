@@ -49,10 +49,12 @@
 
 .selectButton
 {
-    height: 30px;
-    border-radius: 3px;
-    border: none;   
+    height: 40px;
+    border-radius: 3px;  
     font-size: 1.5rem;
     background-color: #35C7BE;
+    border: 3px solid #35C7BE;
+    align-content: center;
     color: white;
+    text-decoration: none;
 }
