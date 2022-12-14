@@ -82,11 +82,11 @@
 .home_page_container table tr {
        
     border-top: 1px solid #f5f5f5;
-    vertical-align: baseline;
     font-size:25px;
 }
 .home_page_container table td {
     border-top: 1px solid #f5f5f5;
+    text-align: center;
     vertical-align: baseline;
 }
 

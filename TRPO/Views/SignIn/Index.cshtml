@@ -1,12 +1,12 @@
-﻿@model TRPO.Models.User
+﻿@model TRPO.Models.SignInVewModel
 @{
     ViewData["Title"] = "Вход";
 }
 <form method="post" asp-controller="SignIn" asp-action="Check" class="sign_in_container">
     <p>E-mail</p>
-    <input class="short_input" asp-for="Email">
+    <input asp-for="Email">
     <p>Пароль</p>
-    <input class="short_input" asp-for="Password" type="password">
+    <input asp-for="Password" type="password">
     <p>@ViewBag.message</p>
     <button class="sign_in_button">Вход</button>
 </form>

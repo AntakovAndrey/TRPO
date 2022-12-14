@@ -8,13 +8,13 @@ namespace TRPO.Controllers
 {
     public class SignInController : Controller
     {
-        public async Task<IActionResult> Check()
+        public async Task<IActionResult> Check(SignInVewModel signInUser)
         {
             if (ModelState.IsValid)
             {
                 try
-                {
-                    User user = TRPO.Database.UserDB.VerifyUser(Request.Form["Email"], Request.Form["Password"]);
+                {   
+                    User user = TRPO.Database.UserDB.VerifyUser(signInUser);
                     var claims = new List<Claim> {
                         new Claim("id", Convert.ToString(user.PassangerId)),
                         new Claim(ClaimTypes.Name, user.Name),

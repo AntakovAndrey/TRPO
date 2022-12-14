@@ -25,7 +25,7 @@
                     <tr>
                         <td>@flight.FlightId</td>
                         <td>@flight.FlightRoute.StartPoint</td>
-                        <td>@flight.FinishTime</td>
+                        <td>@TimeOnly.FromTimeSpan(flight.FinishTime)</td>
                         <td>@flight.Status</td>
                     </tr>
                 }
@@ -45,7 +45,7 @@
                     <tr>
                         <td>@flight.FlightId</td>
                         <td>@flight.FlightRoute.FinishPoint</td>
-                        <td>@flight.StartTime</td>
+                        <td>@TimeOnly.FromTimeSpan(flight.StartTime)</td>
                         <td>@flight.Status</td>
                     </tr>
                 }

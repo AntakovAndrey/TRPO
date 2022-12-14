@@ -28,7 +28,7 @@ namespace TRPO.Controllers
 
         public IActionResult ItemModified(Flight flight)
         {
-            return View();
+            return View(flight);
         }
     }
 }

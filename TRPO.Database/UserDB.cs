@@ -7,15 +7,15 @@ namespace TRPO.Database
 {
     public class UserDB
     {
-        public static User VerifyUser(string email, string password)
+        public static User VerifyUser(SignInVewModel user)
         {
             SqlCommand command = new SqlCommand("SELECT * FROM [User] WHERE Email = @userEmail", DataBase.getInstance().getConnection());
-            command.Parameters.Add("@userEmail", System.Data.SqlDbType.NVarChar, 50).Value = email;
-            command.Parameters.Add("@userPassword", System.Data.SqlDbType.NVarChar, 50).Value = password;
+            command.Parameters.Add("@userEmail", System.Data.SqlDbType.NVarChar, 50).Value = user.Email;
+            command.Parameters.Add("@userPassword", System.Data.SqlDbType.NVarChar, 50).Value = user.Password;
             try
             {
                 var tmpUser = GetFromDBByCommand(command);
-                if (VerifyHashedPassword(tmpUser.Password, password))
+                if (VerifyHashedPassword(tmpUser.Password, user.Password))
                 {
                     return tmpUser;
                 }
@@ -70,29 +70,36 @@ namespace TRPO.Database
        
         private static User GetFromDBByCommand(SqlCommand command)
         {
-            DataRow[] userInfo;
-            DataTable table = new DataTable();
-            SqlDataAdapter adapter = new SqlDataAdapter();
-            adapter.SelectCommand = command;
-            adapter.Fill(table);
-            userInfo = table.Select();
-            if (userInfo.Length > 0)
+            try
             {
-                return new User(
-                    passangerId: Convert.ToInt32(userInfo[0][0]),
-                    name: Convert.ToString(userInfo[0][1]),
-                    surname: Convert.ToString(userInfo[0][2]),
-                    passportSeries: Convert.ToString(userInfo[0][3]),
-                    passportNumber: Convert.ToInt32(userInfo[0][4]),
-                    dateOfBirth: Convert.ToDateTime(userInfo[0][6]),
-                    telephone: Convert.ToString(userInfo[0][7]),
-                    nationality: Convert.ToString(userInfo[0][5]),
-                    password: Convert.ToString(userInfo[0][8]),
-                    role: Convert.ToString(userInfo[0][9]),
-                    email: Convert.ToString(userInfo[0][10])
-                );
+                DataRow[] userInfo;
+                DataTable table = new DataTable();
+                SqlDataAdapter adapter = new SqlDataAdapter();
+                adapter.SelectCommand = command;
+                adapter.Fill(table);
+                userInfo = table.Select();
+                if (userInfo.Length > 0)
+                {
+                    return new User(
+                        passangerId: Convert.ToInt32(userInfo[0][0]),
+                        name: Convert.ToString(userInfo[0][1]),
+                        surname: Convert.ToString(userInfo[0][2]),
+                        passportSeries: Convert.ToString(userInfo[0][3]),
+                        passportNumber: Convert.ToInt32(userInfo[0][4]),
+                        dateOfBirth: Convert.ToDateTime(userInfo[0][6]),
+                        telephone: Convert.ToString(userInfo[0][7]),
+                        nationality: Convert.ToString(userInfo[0][5]),
+                        password: Convert.ToString(userInfo[0][8]),
+                        role: Convert.ToString(userInfo[0][9]),
+                        email: Convert.ToString(userInfo[0][10])
+                    );
+                }
+                else return null;
             }
-            else return null;
+            catch(Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
         }
 
         private static string HashPassword(string password)
@@ -116,29 +123,36 @@ namespace TRPO.Database
 
         private static bool VerifyHashedPassword(string hashedPassword, string password)
         {
-            byte[] buffer4;
-            if (hashedPassword == null)
+            try
             {
-                return false;
+                byte[] buffer4;
+                if (hashedPassword == null)
+                {
+                    return false;
+                }
+                if (password == null)
+                {
+                    throw new ArgumentNullException("password");
+                }
+                byte[] src = Convert.FromBase64String(hashedPassword);
+                if ((src.Length != 0x31) || (src[0] != 0))
+                {
+                    return false;
+                }
+                byte[] dst = new byte[0x10];
+                Buffer.BlockCopy(src, 1, dst, 0, 0x10);
+                byte[] buffer3 = new byte[0x20];
+                Buffer.BlockCopy(src, 0x11, buffer3, 0, 0x20);
+                using (Rfc2898DeriveBytes bytes = new Rfc2898DeriveBytes(password, dst, 0x3e8))
+                {
+                    buffer4 = bytes.GetBytes(0x20);
+                }
+                return buffer3.SequenceEqual(buffer4);
             }
-            if (password == null)
+            catch(Exception ex)
             {
-                throw new ArgumentNullException("password");
+                throw new Exception(ex.Message);
             }
-            byte[] src = Convert.FromBase64String(hashedPassword);
-            if ((src.Length != 0x31) || (src[0] != 0))
-            {
-                return false;
-            }
-            byte[] dst = new byte[0x10];
-            Buffer.BlockCopy(src, 1, dst, 0, 0x10);
-            byte[] buffer3 = new byte[0x20];
-            Buffer.BlockCopy(src, 0x11, buffer3, 0, 0x20);
-            using (Rfc2898DeriveBytes bytes = new Rfc2898DeriveBytes(password, dst, 0x3e8))
-            {
-                buffer4 = bytes.GetBytes(0x20);
-            }
-            return buffer3.SequenceEqual(buffer4);
         }
 
     }

@@ -5,7 +5,7 @@
 
 <div class="ModifyFlightsContainer">
     
-    <table class="flightsTable" cells->
+    <table class="flightsTable">
         <caption>Список рейсов: </caption>
         
         <thead>
@@ -24,9 +24,9 @@
             {
                 <tr>
                     <td>@flight.FlightId</td>
-                    <td>@flight.Date</td>
-                    <td>@flight.StartTime</td>
-                    <td>@flight.FinishTime</td>
+                    <td>@DateOnly.FromDateTime(flight.Date)</td>
+                    <td>@TimeOnly.FromTimeSpan(flight.StartTime)</td>
+                    <td>@TimeOnly.FromTimeSpan(flight.FinishTime)</td>
                     <td>@flight.FlightRoute.StartPoint</td>
                     <td>@flight.FlightRoute.FinishPoint</td>
                     <td>@flight.Status</td>
