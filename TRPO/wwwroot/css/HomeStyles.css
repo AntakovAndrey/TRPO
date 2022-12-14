@@ -1,18 +1,28 @@
 ﻿.home_page {
-    position: relative;
+    
     font-family: 'Roboto';
-    min-width:1600px;
+    
 }
 
 .home_page footer{
     display:block;
     padding: 2.5rem 2rem;
 }
+
+
+
 .home_page_header{
-    position:relative;
+    min-height: 200px;
+    height: 35vh;
+    background-image: url('../img/home_background.jpg');
+    background-repeat: no-repeat;
+    background-size: cover; 
+    background-position: center ;
 }
+
+
 .home_page_header p{
-    font-size:72px;
+    font-size: 3rem;
     font-weight:700;
     color:white;
 }
@@ -29,6 +39,13 @@
     border: none;
 
 }
+
+.control_button_active
+{
+    background-color:aquamarine;
+    color: white;
+}
+
 .home_background
 {
     position:absolute;
@@ -65,10 +82,18 @@
 .home_page_container table tr {
        
     border-top: 1px solid #f5f5f5;
-    vertical-align: baseline;
     font-size:25px;
 }
 .home_page_container table td {
     border-top: 1px solid #f5f5f5;
+    text-align: center;
     vertical-align: baseline;
+}
+
+
+@media all and (max-width: 480px)
+{
+    .home_page_header{
+        height: 70vh;
+    }
 }

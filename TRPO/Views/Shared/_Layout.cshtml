@@ -6,52 +6,55 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"]</title>
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
-    <link rel="stylesheet" href="~/css/SignInStyles.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/SignInUpStyles.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/css/LayoutStyles.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/css/FlightsStyles.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/css/FlightItemStyles.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/css/HomeStyles.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/ModifyFlights/ModifyFlightsList.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/ModifyFlights/ModifyItem.css" asp-append-version="true" />
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@500&display=swap" rel="stylesheet">
 </head>
+    
 <body>
     <header>
         <div class="container">
             <div class="header_inner">
                 <div class="header_title">@ViewData["Title"]</div>
                 <nav class = "nav">
-                    <a href="https://localhost:7297/Home" class = "nav_link">Главная</a>
+                    <a href="~/Home" class = "nav_link">Главная</a>
                 @{
                     if (Context.User.FindFirst("id") != null)
                     {
-                        User passanger = TRPO.Models.User.GetFromDBById(Convert.ToInt32(Context.User.FindFirst("id").Value));
+                        User passanger = TRPO.Database.UserDB.GetFromDBById(Convert.ToInt32(Context.User.FindFirst("id").Value));
 
                         if (Context.User.FindFirst(ClaimTypes.Role)!=null && Context.User.FindFirst(ClaimTypes.Role).Value == AdminRole.Name)
                         {
-                            <a href="../AddingFlight" class = "nav_link">Изменение полета</a>
+                            <a href="~/ModifyFlight/Index" ; class = "nav_link">Изменение полета</a>
                             <div class = "dropdown">
                                 <a href="" class = "nav_link">Добавление</a>      
                                 <div class="dropdown-content">
-                                    <a href="../AddingFlight">Добавление рейса</a>
-                                    <a href="../Route" >Добавление маршрута</a>
-                                    <a href="../Route" >Добавление самолета</a>
-                                    <a href="../Route" >Добавление пилота</a>
+                                    <a href="~/AddingFlight">Добавление рейса</a>
+                                    <a href="~/Route" >Добавление маршрута</a>
+                                    <a href="~/Plane" >Добавление самолета</a>
+                                    <a href="~/Pilots" >Добавление пилота</a>
                                 </div>                                    
                             </div>
                         }
                             else if (Context.User.FindFirst(ClaimTypes.Role) != null && Context.User.FindFirst(ClaimTypes.Role).Value == UserRole.Name)
                         {
-                            <a href="../Filters" class = "nav_link">Бронирование билетов</a>
-                            <a href="../Tickets" class = "nav_link">Мои билеты</a>
+                            <a href="~/Filters" class = "nav_link">Бронирование билетов</a>
+                            <a href="~/Tickets" class = "nav_link">Мои билеты</a>
                         }
                         <div class = "dropdown">
                             <a href="" class = "nav_link">Аккаунт</a>      
                             <div class="dropdown-content">
                                 <p class = "dropdown_content_name">@Convert.ToString(passanger.Name+" "+passanger.Surname)</p>
                                 <p class = "dropdown_content_email">@Convert.ToString(passanger.Email)</p>
-                                <a href="../logout">Выход</a>
-                                <a href="../SignUp">Регистрация</a>
+                                <a href="~/logout">Выход</a>
+                                <a href="~/SignUp">Регистрация</a>
                             </div>                                    
                         </div>
                     }
@@ -60,8 +63,8 @@
                         <div class = "dropdown">
                             <a href="" class = "nav_link">Аккаунт</a>      
                             <div class="dropdown-content">
-                                <a href="../SignIn">Вход</a>
-                                <a href="../SignUp">Регистрация</a>
+                                <a href="~/SignIn">Вход</a>
+                                <a href="~/SignUp">Регистрация</a>
                             </div>                                    
                         </div>
                     }
@@ -70,18 +73,17 @@
             </div>
         </div>
     </header>
-    <div class="container">
-        <main role="main" class="pb-3">
-            @RenderBody()
-        </main>
-    </div>
-
+    
+    <main role="main" class="pb-3">
+        @RenderBody()
+    </main>
+    
+    <script src="~/js/home.js" asp-append-version="true"></script>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="~/js/site.js" asp-append-version="true"></script>
-    
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
     @await RenderSectionAsync("Scripts", required: false)
+    
 </body>
 </html>

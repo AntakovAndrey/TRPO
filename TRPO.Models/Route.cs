@@ -16,6 +16,14 @@ namespace TRPO.Models
         public string FinishPoint { get; set; }
         public int Distance { get; set; }
 
+        public Route(Route route)
+        {
+            Id = route.Id;
+            StartPoint = route.StartPoint;
+            FinishPoint = route.FinishPoint;
+            Distance = route.Distance;
+        }
+
         public Route(int id, string startPoint, string finishPoint, int distance)
         {
             Id = id;
@@ -32,33 +40,6 @@ namespace TRPO.Models
 
          
 
-        public static List<Route> getAllRoutes()
-        {
-            SqlCommand command = new SqlCommand("SELECT * FROM Route", DataBase.getInstance().getConnection());
-            return getFlightsByCommand(command);
-        }
-
-
-
-        private static List<Route> getFlightsByCommand(SqlCommand command)
-        {
-            List<Route> tmpRoutes = new List<Route>();
-            DataBase.getInstance().openConnection();
-            SqlDataReader reader = command.ExecuteReader();
-            if (reader.HasRows)
-            {
-                while (reader.Read())
-                {
-                    int id = reader.GetInt32(0);
-                    string startPoint = reader.GetString(1);
-                    string finishPoint = reader.GetString(2);
-                    int distance = reader.GetInt32(3);
-
-                    tmpRoutes.Add(new Route(id, startPoint, finishPoint, distance));
-                }
-            }
-            DataBase.getInstance().closeConnection();
-            return tmpRoutes;
-        }
+        
     }
 }

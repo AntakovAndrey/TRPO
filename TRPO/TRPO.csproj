@@ -11,6 +11,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\TRPO.Database\TRPO.Database.csproj" />
     <ProjectReference Include="..\TRPO.Models\TRPO.Models.csproj" />
   </ItemGroup>
 

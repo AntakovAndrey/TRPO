@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.Data.SqlClient;
 using System;
+using TRPO.Database;
 using TRPO.Models;
 
 namespace TRPO.Controllers
@@ -17,9 +18,10 @@ namespace TRPO.Controllers
         {
             if (ModelState.IsValid)
             {
-                if ((TRPO.Models.User.GetFromDBByEmail(Request.Form["Email"]) == null) && (Request.Form["Password"] == Request.Form["Password_repeat"]))
+                
+                if ((UserDB.GetFromDBByEmail(Request.Form["Email"]) == null) && (Request.Form["Password"] == Request.Form["Password_repeat"]))
                 {
-                    user.SaveUserToDB();
+                    UserDB.SaveUserToDB(user);
                     return Redirect("../Home");
                 }
                 else

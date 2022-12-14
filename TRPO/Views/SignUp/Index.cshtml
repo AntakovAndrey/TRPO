@@ -16,7 +16,7 @@
     </div>
     <div class="input_item_container">
         <p>Email</p>
-        <input class = "short_input" asp-for="Email"></input>
+        <input class = "short_input" asp-for="Email">
         <span asp-validation-for="Email"></span>
     </div>
     <div class="input_item_container">
@@ -34,16 +34,24 @@
         <input class = "short_input"asp-for="Telephone" type="tel" placeholder="+375xxxxxxx" /> 
         <span asp-validation-for="Telephone"></span>
     </div>
-    <div class="input_item_container">
-        <p>Серия паспорта</p>
-        <input class = "short_input" asp-for="PassportSeries">
-        <span asp-validation-for="PassportSeries"></span>
+    
+    
+    
+    <div class="pasport_container">
+        <div class="input_item_container, passport_series">
+            <p>Серия п  аспорта</p>
+            <input class = "short_input" asp-for="PassportSeries">
+            <span asp-validation-for="PassportSeries"></span>
+        </div>
+        <div class="input_item_container, passport_number">
+            <p>Номер паспорта</p>
+            <input class = "short_input"asp-for="PassportNumber"> 
+            <span asp-validation-for="PassportNumber"></span>
+        </div>
     </div>
-    <div class="input_item_container">
-        <p>Номер паспорта</p>
-        <input class = "short_input"asp-for="PassportNumber"> 
-        <span asp-validation-for="PassportNumber"></span>
-    </div>
+    
+    
+    
     <div class="input_item_container">
         <p>Гражданство</p>
         <input class = "short_input"asp-for="Nationality"> 

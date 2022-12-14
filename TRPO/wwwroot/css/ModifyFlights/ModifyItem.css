@@ -1,0 +1,42 @@
+.modifyFlightContainer
+{
+    width: 80%;
+    margin-left: 10%;
+    margin-top: 80px;
+    font-family: "Roboto";
+}
+
+.modifyFlightContainer button{
+    font-size: 2rem;
+    color: #fff;
+    width: 300px;
+    background: #35C7BE;
+    border-radius: 10px;
+}
+
+.inputs_container
+{
+    display: flex;
+    justify-content: space-between
+}
+
+.inputs_container p
+{
+    font-size: 2rem;
+}
+
+.inputs_container div
+{
+    margin-bottom: 30px;
+}
+
+.inputs_container div input
+{
+    color: #5f5f5f;
+    height: 20px;
+}
+
+.inputs_container div select
+{
+    height: 30px;
+}

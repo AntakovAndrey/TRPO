@@ -1,21 +1,16 @@
-﻿@using TRPO.mocks
-@using TRPO.Models
-@{
+﻿@{
     ViewData["Title"] = "Главная";
 }
 
 <div class="home_page">
     <div class="home_page_header">
-        <div class="home_background">
-            <img src="~/img/home_background.jpg">
-        </div>
         <div class="control_buttons">
             <p>Главная страница</p>
-            <button calss="Departure_button">Вылет</button>
-            <button class = "Departure_button">Прилет</button>
+            <button class="Departure_button" >Вылет</button>
+            <button class = "Arrival_button" >Прилет</button>
         </div>
     </div>
-    <footer></footer>
+
     <section class="home_page_container">
         <table class = "arrival_table">
           <tr>
@@ -25,12 +20,12 @@
             <th>Статус</th>
           </tr>
             @{
-                foreach (var flight in Flight.getArrivlToady())
+                foreach(var flight in TRPO.Database.FlightDB.getArrivlToady())
                 {
                     <tr>
                         <td>@flight.FlightId</td>
                         <td>@flight.FlightRoute.StartPoint</td>
-                        <td>@flight.FinishTime</td>
+                        <td>@TimeOnly.FromTimeSpan(flight.FinishTime)</td>
                         <td>@flight.Status</td>
                     </tr>
                 }
@@ -45,12 +40,12 @@
             <th>Статус</th>
           </tr>
             @{
-                foreach (var flight in Flight.getDepartureToday())
+                foreach (var flight in TRPO.Database.FlightDB.getDepartureToday())
                 {
                     <tr>
                         <td>@flight.FlightId</td>
                         <td>@flight.FlightRoute.FinishPoint</td>
-                        <td>@flight.StartTime</td>
+                        <td>@TimeOnly.FromTimeSpan(flight.StartTime)</td>
                         <td>@flight.Status</td>
                     </tr>
                 }
