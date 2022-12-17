@@ -30,5 +30,4 @@ departureButton.onclick=function()
         arrivalButton.classList.remove("control_button_active")
         departureButton.classList.add("control_button_active")
     }
-    
 }

@@ -1,15 +1,11 @@
 ﻿.home_page {
-    
     font-family: 'Roboto';
-    
 }
 
 .home_page footer{
     display:block;
     padding: 2.5rem 2rem;
 }
-
-
 
 .home_page_header{
     min-height: 200px;
@@ -20,14 +16,14 @@
     background-position: center ;
 }
 
-
 .home_page_header p{
     font-size: 3rem;
     font-weight:700;
     color:white;
 }
 .control_buttons {
-    padding: 0.5rem 3rem;
+    margin-left: 10%;
+    padding-top: 3rem;
     position: relative;
     z-index: 2;
 }
@@ -35,14 +31,13 @@
     font-size: 30px;
     border-radius: 4px;
     padding:1rem 1.5rem;
-    margin-left:30px;
+    margin-right:30px;
     border: none;
-
 }
 
 .control_button_active
 {
-    background-color:aquamarine;
+    background-color:#35C7BE;
     color: white;
 }
 
