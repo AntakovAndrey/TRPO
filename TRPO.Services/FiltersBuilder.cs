@@ -12,7 +12,8 @@ namespace TRPO.Services
 
         private SqlCommand _command;
 
-        public FiltersBuilder(SqlConnection connection)
+
+        public FiltersBuilder(Models.FlightsFiltersViewModel filtersModel, SqlConnection connection)
         {
             _connection = connection;
             _commandExpression = "SELECT * FROM Flight ";
@@ -50,6 +51,16 @@ namespace TRPO.Services
         }
         public void SetFinishPoint(string finishPoint)
         {
+            if (finishPoint != null && !Regex.IsMatch(finishPoint, @"(\s)+", RegexOptions.IgnoreCase) && finishPoint != "")
+            {
+                addCondition();
+                _filters += $"Finish_point = @finishPoint ";
+                _command.Parameters.Add("@finishPoint", System.Data.SqlDbType.NChar, 20).Value = finishPoint;
+            }
+        }
+        public void SetStartPoint(string finishPoint)
+        {
+            
             if (finishPoint != null && !Regex.IsMatch(finishPoint, @"(\s)+", RegexOptions.IgnoreCase) && finishPoint != "")
             {
                 addCondition();

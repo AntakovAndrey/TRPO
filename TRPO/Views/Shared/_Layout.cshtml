@@ -5,17 +5,9 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"]</title>
-    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
-    <link rel="stylesheet" href="~/css/SignInUpStyles.css" asp-append-version="true" />
-    <link rel="stylesheet" href="~/css/LayoutStyles.css" asp-append-version="true" />
-    <link rel="stylesheet" href="~/css/FlightsStyles.css" asp-append-version="true" />
-    <link rel="stylesheet" href="~/css/FlightItemStyles.css" asp-append-version="true" />
-    <link rel="stylesheet" href="~/css/HomeStyles.css" asp-append-version="true" />
-    <link rel="stylesheet" href="~/css/ModifyFlights/ModifyFlightsList.css" asp-append-version="true" />
-    <link rel="stylesheet" href="~/css/ModifyFlights/ModifyItem.css" asp-append-version="true" />
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@500&display=swap" rel="stylesheet">
+    @{
+        await Html.RenderPartialAsync("StyleLinks");
+    }
 </head>
     
 <body>

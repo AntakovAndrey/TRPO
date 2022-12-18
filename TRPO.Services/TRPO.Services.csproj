@@ -12,6 +12,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\TRPO.Interfaces\TRPO.Interfaces.csproj" />
+    <ProjectReference Include="..\TRPO.Models\TRPO.Models.csproj" />
   </ItemGroup>
 
 </Project>

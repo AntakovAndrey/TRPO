@@ -1,11 +1,5 @@
 ﻿using Microsoft.Data.SqlClient;
-using System;
-using System.Collections.Generic;
 using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using TRPO.Services;
 using TRPO.Models;
 
 namespace TRPO.Database

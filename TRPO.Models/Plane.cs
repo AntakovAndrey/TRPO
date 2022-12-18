@@ -1,9 +1,4 @@
-﻿using Microsoft.Data.SqlClient;
-using System.Data;
-using System.Data.SqlTypes;
-using TRPO.Services;
-
-namespace TRPO.Models
+﻿namespace TRPO.Models
 {
     public class Plane
     {
@@ -21,6 +16,5 @@ namespace TRPO.Models
             FuelConsumtion = fuelConsumtion;
         }
         public Plane() { }
-
     }
 }

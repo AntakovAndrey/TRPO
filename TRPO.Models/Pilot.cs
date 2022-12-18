@@ -1,7 +1,4 @@
-﻿using Microsoft.Data.SqlClient;
-using TRPO.Services;
-
-namespace TRPO.Models
+﻿namespace TRPO.Models
 {
     public class Pilot
     {
