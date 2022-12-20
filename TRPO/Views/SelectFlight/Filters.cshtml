@@ -1,0 +1,20 @@
+@model TRPO.Models.FlightsFiltersViewModel
+<div class="filters_container">
+    <form method="post" asp-controller="SelectFlight" asp-action="Resault">
+        <div class="filters_line">
+            <p>Дата</p>
+            <p>От:<input type="Date" asp-for="startDate"></p>
+            <p>До:<input type="Date" asp-for="finishDate"></p>
+        </div>
+        
+        <div class="filters_line">
+            <p>Метсо</p>
+            <p>Откуда:<input asp-for="startWayPoint"></p>
+            <p>Куда:<input asp-for="finishWayPoint"></p>
+        </div>
+        
+        <button class="search_button">
+            Найти
+        </button >
+    </form>
+</div>
